@@ -1,0 +1,104 @@
+<div>
+    <h2>Create new course</h2>
+    <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !code.valid }">
+            <label for="code">Course code</label>
+            <input type="text" class="form-control" name="code" [(ngModel)]="model.code" #code="ngModel" required />
+            <div *ngIf="f.submitted && !code.valid" class="help-block">Cousre code is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !fullName.valid }">
+            <label for="fullName">Course title</label>
+            <input type="text" class="form-control" name="fullName" [(ngModel)]="model.fullName" #fullName="ngModel" required />
+            <div *ngIf="f.submitted && !fullName.valid" class="help-block">Cousre name is required</div>
+        </div>
+
+        <form name="form2" (ngSubmit)="f.form2.valid && register()" #f="ngForm" novalidate>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <font style="font-size: 14px">Topic</font>
+                        </th>
+                        <th>
+                            <font style="font-size: 14px">Parent</font>
+                        </th>
+                        <th>
+                            <font style="font-size: 14px">Description</font>
+                        </th>
+                        <th>
+                            <font style="font-size: 14px">Options</font>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" name="Tpoic" required value="Object oriented programming" />
+                        </td>
+                        <td>
+                            <select name="Parent" class="form-control">
+                                <option>No partent</option>
+                                <option>Data structurures</option>
+                                <option>Linear algebra</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="Description" required />
+                        </td>
+                        <td>
+                            <button type="button" class="form-control" class="btn btn-danger">Remove</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" name="Tpoic" required value="Data structurures" />
+                        </td>
+                        <td>
+                            <select name="Parent" class="form-control">
+                                <option>No partent</option>
+                                <option>Data structurures</option>
+                                <option>Linear algebra</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="Description" required />
+                        </td>
+                        <td>
+                            <button type="button" class="form-control" class="btn btn-danger">Remove</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" class="form-control" name="Tpoic" required value="Linear algebra" />
+                        </td>
+                        <td>
+                            <select name="Parent" class="form-control">
+                                <option>No partent</option>
+                                <option>Data structurures</option>
+                                <option>Linear algebra</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" name="Description" required />
+                        </td>
+
+                        <td>
+                            <button type="button" class="form-control" class="btn btn-danger">Remove</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="margin-20">
+                <a style="cursor: default">
+                    Add another topic +
+                </a>
+            </div>
+        </form>
+        <div class="form-group pull-right">
+            <button [disabled]="loading" class="btn btn-primary">Create</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+            />
+            <a [routerLink]="['/course']" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,79 @@
+<div>
+    <h2>Create new exam</h2>
+    <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !code.valid }">
+            <label for="code">Exam date</label>
+            <input type="datetime-local" class="form-control" name="code" [(ngModel)]="model.code" #code="ngModel" required />
+            <div *ngIf="f.submitted && !code.valid" class="help-block">Exam date is required</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !code.valid }">
+            <label for="code">Course code</label>
+            <select name="Parent" class="form-control">
+                <option>INF220</option>
+                <option>INF3410</option>
+                <option>IN3070</option>
+            </select>
+            <div *ngIf="f.submitted && !code.valid" class="help-block">Cousre code is required</div>
+        </div>
+
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !language.valid }">
+            <label for="language">Langugage</label>
+            <input type="text" class="form-control" name="language" [(ngModel)]="model.language" #fullName="ngModel" />
+
+        </div>
+
+        <h3>Dimensions</h3>
+
+        <form name="form2" (ngSubmit)="f.form2.valid && register()" #f="ngForm" novalidate>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <font style="font-size: 14px">Dimension</font>
+                        </th>
+                        <th>
+                            <font style="font-size: 14px">Options</font>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Use of correct method
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="form-control" class="btn btn-primary">Eidt</button>
+                                <button type="button" class="form-control" class="btn btn-danger">Remove</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Time spent on task
+                        </td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="form-control" class="btn btn-primary">Eidt</button>
+                                <button type="button" class="form-control" class="btn btn-danger">Remove</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="margin-20">
+                <a style="cursor: default">
+                    Add another dimension +
+                </a>
+            </div>
+        </form>
+        <div class="form-group pull-right">
+            <button [disabled]="loading" class="btn btn-primary">Next</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+            />
+            <a [routerLink]="['/exam']" class="btn btn-link">Cancel</a>
+        </div>
+    </form>
+</div>

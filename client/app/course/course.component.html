@@ -2,20 +2,15 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>
-                    <font style="font-size: 14px">Course</font>
-                </th>
-                <th>
-                    <font style="font-size: 14px">Options</font>
-                </th>
+                <th>Course</th>
+                <th>Lecturer</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>INF2220 - Algorithms and Data Structures</td>
-                <td>01.09.2017</td>
-                <td>4</td>
-                <td><button type="button" class="btn btn-primary">Edit</button></td>
+            <tr *ngFor="let course of courseList ">
+                <td>{{course.code}} - {{course.name}}</td>
+                <td>{{course.lecturerID}}</td>
+                <td><a [routerLink]="['/course/edit/', course.id]"><button type="button" class="btn btn-primary">Edit</button></a></td>
             </tr>
         </tbody>
     </table>

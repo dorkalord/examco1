@@ -4,7 +4,7 @@ import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import { AuthGuard } from './_guards/index';
-import { CourseComponent, CourseCreateComponent } from "./course/index";
+import { CourseComponent, CourseCreateComponent, CourseEditComponent } from "./course/index";
 import { ExamComponent } from './exam/exam.component';
 import { ExamCreateComponent } from './exam/create/exam-create.component';
 
@@ -14,6 +14,7 @@ const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent },
     { path: 'course', component: CourseComponent, canActivate: [AuthGuard]  },
     { path: 'course/create', component: CourseCreateComponent, canActivate: [AuthGuard]  },
+    { path: 'course/edit/:id', component: CourseEditComponent, canActivate: [AuthGuard]  },
     { path: 'exam', component: ExamComponent, canActivate: [AuthGuard]  },
     { path: 'exam/create', component: ExamCreateComponent, canActivate: [AuthGuard]  },
 

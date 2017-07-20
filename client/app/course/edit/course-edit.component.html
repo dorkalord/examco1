@@ -1,5 +1,5 @@
 <div>
-    <h2>Create new course</h2>
+    <h2>Editing course {{id}}</h2>
     <form [formGroup]="myForm" novalidate (ngSubmit)="save(myForm)">
 
         <div class="form-group">
@@ -58,15 +58,19 @@
             </div>
         </div>
 
-        <div class="margin-40">
-            <br/>
+        <div class="clearfix"></div>
+        <div class="margin-20">
             <button type="button" class="btn btn-success" (click)="addTopic()">
                 Add another topic +
             </button>
         </div>
 
+        <div class="clearfix"></div>
+
         <div class="margin-20">
-            <button type="submit" class="btn btn-primary pull-right" [disabled]="!myForm.valid">Submit</button>
+            <a [routerLink]="['/course']" class="btn btn-link pull-right">Cancel</a>
+            <button type="submit" class="btn btn-primary pull-right" [disabled]="!myForm.valid">Save</button>
+            
         </div>
         <div class="clearfix"></div>
 

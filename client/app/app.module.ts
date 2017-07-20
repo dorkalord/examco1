@@ -13,16 +13,20 @@ import { AlertService, AuthenticationService, UserService } from './_services/in
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
-import { CourseComponent, CourseCreateComponent } from './course/index';
+import { CourseComponent, CourseCreateComponent, CourseEditComponent } from './course/index';
 import { HeaderComponent } from "./header/header.component";
 import { ExamComponent } from './exam/exam.component';
 import { ExamCreateComponent } from './exam/create/exam-create.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TopicComponent } from './course/create/topic.component';
+import { CourseService } from './_services/course.service';
 
 
 @NgModule({
     imports: [
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpModule,
         routing
     ],
@@ -34,8 +38,10 @@ import { ExamCreateComponent } from './exam/create/exam-create.component';
         RegisterComponent,
         CourseComponent,
         CourseCreateComponent,
+        CourseEditComponent,
         ExamComponent,
         ExamCreateComponent,
+        TopicComponent,
         HeaderComponent
     ],
     providers: [
@@ -43,7 +49,8 @@ import { ExamCreateComponent } from './exam/create/exam-create.component';
         AuthGuard,
         AlertService,
         AuthenticationService,
-        UserService
+        UserService,
+        CourseService
     ],
     bootstrap: [AppComponent]
 })

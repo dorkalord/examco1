@@ -4,12 +4,12 @@ import { FormGroup } from '@angular/forms';
 
 @Component({
     moduleId: module.id,
-    selector: 'advice',
+    selector: 'generalCriterea',
     templateUrl: 'generalCriterea.component.html',
 })
 export class GeneralCritereaComponent {
     @Input('group')
-    public advice: FormGroup;
+    public generalCriterea: FormGroup;
 
     ngOnInit()
     {

@@ -43,36 +43,31 @@ export class ExamCreateComponent implements OnInit {
             advices: this._fb.array([])
         });
         let mam = <FormArray>a.controls['advices']
-        mam.push(this.initAdvice());
+        mam.push(this.initAdvice("A"));
+        mam.push(this.initAdvice("B"));
+        mam.push(this.initAdvice("C"));
+        mam.push(this.initAdvice("D"));
+        mam.push(this.initAdvice("E"));
+        mam.push(this.initAdvice("F"));
         return a;
     }
 
-    initAdvice() {
+    initAdvice(g: string) {
         return this._fb.group({
             id: [this.critereaCounter],
-            grade: ['', Validators.required],
+            grade: g,
             advice: ['', Validators.required],
-            min: ['', Validators.required],
-            max: ['', Validators.required]
         });
     }
 
     addGeneralCriterea() {
         this.critereaCounter = this.critereaCounter + 1;
         const control = <FormArray>this.examForm.controls['generalCritereas'];
-        const criteraCtrl = this.initGeneralCriterea();
-
-        control.push(criteraCtrl);
+        control.push(this.initGeneralCriterea());
     }
 
-    addAdvice(i: number)
-    {
-        this.critereaCounter = this.critereaCounter + 1;
-        const control = <FormArray>this.examForm.controls['generalCritereas'].controls[i].controls.advices.controls;
-        control.push(this.initAdvice());
-    }
 
-    removeTopic(i: number) {
+    removeCriterea(i: number) {
         const control = <FormArray>this.examForm.controls['generalCritereas'];
         control.removeAt(i);
     }

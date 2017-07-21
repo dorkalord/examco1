@@ -1,15 +1,19 @@
-<div [formGroup]="advice">
-    
-    <div class="col-md-2">
-        <input type="text" class="form-control" formControlName="grade">
+<div [formGroup]="generalCriterea">
+    <div class="form-group">
+        <label>General criterea</label>
+        <input type="text" class="form-control" formControlName="name">
     </div>
-    <div class="col-md-4">
-        <textarea type="text" class="form-control" formControlName="advice"></textarea>
-    </div>
-    <div class="col-md-2">
-        <input type="number" class="form-control" formControlName="min">
-    </div>
-    <div class="col-md-2">
-        <input type="number" class="form-control" formControlName="max">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-1"> Grade </div>
+            <div class="col-md-9"> Advice </div>
+        </div>
+        <div formArrayName="advices">
+            <div *ngFor="let advice of generalCriterea.controls.advices.controls; let j=index" class="row" style="margin-bottom: 10px">
+                <div [formGroupName]="j">
+                    <advice [group]="advice"></advice>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

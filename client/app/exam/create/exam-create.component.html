@@ -19,51 +19,29 @@
             <input type="text" class="form-control" formControlName="language">
         </div>
 
-        <div formArrayName="generalCritereas" class="border">
-            <div *ngFor="let criterea of examForm.controls.generalCritereas.controls; let i=index">
+        <div formArrayName="generalCritereas">
+            <div *ngFor="let criterea of examForm.controls.generalCritereas.controls; let i=index" class="jumbotron"
+            style="background-color: antiquewhite; border: 10px; padding: 10px;">
                 <div [formGroupName]="i">
-                    <div class="form-group">
-                        <label>General criterea</label>
-                        <input type="text" class="form-control" formControlName="name">
-                    </div>
-
-
-                    <div class="container">
-                        <div class="col-md-1"> Id </div>
-                        <div class="col-md-2"> Grade </div>
-                        <div class="col-md-4"> Advice </div>
-                        <div class="col-md-2"> Minimum </div>
-                        <div class="col-md-2"> Maximum </div>
-                    </div>
-
-                    <div *ngFor="let advice of examForm.controls['generalCritereas'].controls[i].controls.advices.controls; let j=index" class="row"
-                        style="margin-bottom: 10px">
-                        <div [formGroupName]="j">
-                            <div class="col-md-1"> {{ advice.value.id }} </div>
-                            <advice [group]="advice"></advice>
-
-                            <div class="col-md-1">
-                                <button type="button" class="form-control" class="btn btn-danger" *ngIf="examForm.controls.generalCritereas.controls.length > 1"
-                                    (click)="removeTopic(i)">
-                                    Remove 
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="margin-20">
-                        <button type="button" class="btn btn-success" (click)="addAdvice(i)">
-                            Add advice
-                        </button>
-                    </div>
+                    <generalCriterea [group]="criterea"></generalCriterea>
                 </div>
+
+                <div class="margin-20 pull-right">
+                    <button type="button" class="form-control" class="btn btn-danger " *ngIf="examForm.controls.generalCritereas.controls.length > 1"
+                        (click)="removeCriterea(i)">
+                        Remove 
+                    </button>
+                </div>
+                <div class="clearfix"></div>
             </div>
         </div>
+
+
 
         <div class="clearfix"></div>
         <div class="margin-20">
             <button type="button" class="btn btn-success" (click)="addGeneralCriterea()">
-                    Add add criterea
+                    Add criterea
                 </button>
         </div>
 

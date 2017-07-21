@@ -21,6 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TopicComponent } from './course/create/topic.component';
 import { CourseService } from './_services/course.service';
 import { GeneralCritereaComponent } from './exam/create/generealCriterea.component';
+import { AdviceCritereaComponent } from './exam/create/adviceCriterea.component';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import { GeneralCritereaComponent } from './exam/create/generealCriterea.compone
         ExamComponent,
         ExamCreateComponent,
         GeneralCritereaComponent,
+        AdviceCritereaComponent,
         TopicComponent,
         HeaderComponent
     ],

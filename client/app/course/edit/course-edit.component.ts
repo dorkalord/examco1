@@ -91,10 +91,4 @@ export class CourseEditComponent implements OnInit {
         console.log(model);
     }
 
-    loadCourse(id: number) {
-        // call API to load
-
-        
-    }
-
 }

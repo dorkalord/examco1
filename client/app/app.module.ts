@@ -22,6 +22,10 @@ import { TopicComponent } from './course/create/topic.component';
 import { CourseService } from './_services/course.service';
 import { GeneralCritereaComponent } from './exam/create/generealCriterea.component';
 import { AdviceCritereaComponent } from './exam/create/adviceCriterea.component';
+import { ExamService } from './_services/exam.service';
+import { QuestionService } from './_services/question.service';
+import { ExamQuestionsComponent } from './exam/create/questions/exam-questions.component';
+import { QestionArgumentComponent } from './exam/create/questions/question-argument.component';
 
 
 @NgModule({
@@ -45,6 +49,8 @@ import { AdviceCritereaComponent } from './exam/create/adviceCriterea.component'
         ExamCreateComponent,
         GeneralCritereaComponent,
         AdviceCritereaComponent,
+        ExamQuestionsComponent,
+        QestionArgumentComponent,
         TopicComponent,
         HeaderComponent
     ],
@@ -54,7 +60,9 @@ import { AdviceCritereaComponent } from './exam/create/adviceCriterea.component'
         AlertService,
         AuthenticationService,
         UserService,
-        CourseService
+        CourseService,
+        ExamService,
+        QuestionService
     ],
     bootstrap: [AppComponent]
 })

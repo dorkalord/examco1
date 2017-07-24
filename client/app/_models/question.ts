@@ -1,10 +1,11 @@
 export class Question{
     id: number;
     examID: number;
-    
+    parentQestionID: number;
+
     seqenceNumber: number;
     text: string;
-    parentQestion: string;
+    
     arguments: Argument[];
     topicIDs: number[];
 }
@@ -16,6 +17,7 @@ export class Argument{
     qestionID: number;
 
     text: string;
+    advice: string;
     weight: number;
     variable: boolean;
     minText: string;

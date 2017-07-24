@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { User, Topic, Course } from '../../_models/index';
 import { UserService, CourseService } from '../../_services/index';
 import { FormGroup, FormControl, FormBuilder, FormArray, Validators } from '@angular/forms';
+import { Question } from '../../_models/question';
 
 @Component({
     moduleId: module.id,
@@ -29,9 +30,12 @@ export class ExamCreateComponent implements OnInit {
         this.critereaCounter = 0;
         this.examForm = this._fb.group({
             date: ['', Validators.required],
-            courseID: ['', Validators.required],
+            courseID: [null, Validators.required],
+            authorID: this.currentUser.id,
             language: ['', Validators.required],
-            generalCritereas: this._fb.array([])
+            generalCritereas: this._fb.array([]),
+            qestions:  this._fb.array([]),
+            censorIDs:  this._fb.array([])
         });
         this.addGeneralCriterea();
     }

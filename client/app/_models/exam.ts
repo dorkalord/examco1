@@ -5,16 +5,16 @@ export class Exam {
     courseID: number;
     authorID: number;
 
-    date: Date;
+    date: string;
     language: string;
 
     generalCritereas: GeneralCriterea[];
-    qetions: Question[];
+    questions: Question[];
     censorIDs: number[];
 
     constructor(){
         this.generalCritereas = [];
-        this.qetions = [];
+        this.questions = [];
         this.censorIDs = [];
     }
 }
@@ -29,7 +29,7 @@ export class GeneralCriterea {
 
 export class Advice {
     id: number;
-    gradeID: string;
+    grade: string;
 
     advice: string;
     min: number;

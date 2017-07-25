@@ -17,10 +17,10 @@ namespace WebApi.Entities
         public string Advice { get; set; }
         public string Text { get; set; }
         public bool Variable { get; set; }
-        public string MinText { get; set; }
-        public string MaxText { get; set; }
-        public Nullable<float> MinWeight { get; set; }
-        public Nullable<float> MaxWeight { get; set; }
+        public string MinMistakeText { get; set; }
+        public string MaxMistakeText { get; set; }
+        public Nullable<float> MinMistakeWeight { get; set; }
+        public Nullable<float> MaxMistakeWeight { get; set; }
         public Nullable<float> DefaultWeight { get; set; }
         public Nullable<int> ParentArgumentIID { get; set; }
         public int QestionID { get; set; }
@@ -30,6 +30,7 @@ namespace WebApi.Entities
         public virtual ICollection<Argument> ChildrenArguments { get; set; }
         public virtual Argument ParentArgument { get; set; }
         public virtual Qestion Qestion { get; set; }
+        public virtual User Author { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArgumentCriterea> ArgumentCritereas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

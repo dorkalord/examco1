@@ -9,11 +9,11 @@ namespace WebApi.Entities
         public int AttemptID { get; set; }
         public Nullable<int> AnwserID { get; set; }
         public Nullable<int> MistakeID { get; set; }
-        public int GeneralCritereaID { get; set; }
+        public int ExamCritereaID { get; set; }
         public float Weight { get; set; }
     
         public virtual Anwser Anwser { get; set; }
-        public virtual GeneralCriterea GeneralCriterea { get; set; }
+        public virtual ExamCriterea ExamCriterea { get; set; }
         public virtual ExamAttempt ExamAttempt { get; set; }
         public virtual Mistake Mistake { get; set; }
     }

@@ -9,7 +9,7 @@ namespace WebApi.Entities
         public Exam()
         {
             this.Censors = new HashSet<Censor>();
-            this.GeneralCriterea = new HashSet<GeneralCriterea>();
+            this.ExamCriterea = new HashSet<ExamCriterea>();
             this.ExamAttempts = new HashSet<ExamAttempt>();
             this.Qestions = new HashSet<Qestion>();
         }
@@ -20,6 +20,7 @@ namespace WebApi.Entities
         public string Status { get; set; }
         public int AuthorID { get; set; }
         public int CourseID { get; set; }
+        public int StateID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Censor> Censors { get; set; }
@@ -27,10 +28,10 @@ namespace WebApi.Entities
         public virtual Course Course { get; set; }
         
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GeneralCriterea> GeneralCriterea { get; set; }
+        public virtual ICollection<ExamCriterea> ExamCriterea { get; set; }
         
         public virtual User Author { get; set; }
-        
+        public virtual State State { get; set; }
         
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamAttempt> ExamAttempts { get; set; }

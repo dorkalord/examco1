@@ -44,3 +44,4 @@ client/app/**/*.js.map
 # .NET compiled files
 server/bin
 server/obj
+server/.vs/WebApi/v15/.suo

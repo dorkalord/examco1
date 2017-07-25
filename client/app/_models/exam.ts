@@ -12,7 +12,7 @@ export class Exam {
     questions: Question[];
     censorIDs: number[];
 
-    constructor(){
+    constructor() {
         this.generalCritereas = [];
         this.questions = [];
         this.censorIDs = [];
@@ -21,17 +21,19 @@ export class Exam {
 
 export class GeneralCriterea {
     id: number;
-
     name: string;
-
     advices: Advice[];
 }
 
 export class Advice {
     id: number;
-    grade: string;
-
+    grade: Grade;
     advice: string;
+}
+
+export class Grade {
+    id: number;
+    grade: string
     min: number;
     max: number;
 }

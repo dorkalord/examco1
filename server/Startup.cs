@@ -37,7 +37,7 @@ namespace WebApi
             services.AddCors();
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<DataContext>(x => x.UseSqlServer(
-                @"Data Source=DESKTOP-BP7LGIN;Initial Catalog=examco5;
+                @"Data Source=DESKTOP-BP7LGIN;Initial Catalog=examco6;
                 Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" ));
             services.AddMvc();
             services.AddAutoMapper();

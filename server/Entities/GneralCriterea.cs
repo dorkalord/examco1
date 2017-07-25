@@ -1,28 +1,29 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace WebApi.Entities
 {
-    public class GeneralCriterea
+    public class GneralCriterea
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public GeneralCriterea()
+        public GneralCriterea()
         {
             this.Advices = new HashSet<Advice>();
-            this.GeneralCritereaImpacts = new HashSet<GeneralCritereaImpact>();
-            this.ArgumentCritereas = new HashSet<ArgumentCriterea>();
         }
-    
+
         public int ID { get; set; }
         public string Name { get; set; }
-        public int ExamID { get; set; }
-    
+        
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Advice> Advices { get; set; }
-        public virtual Exam Exam { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<GeneralCritereaImpact> GeneralCritereaImpacts { get; set; }
+        public virtual ICollection<ExamCriterea> ExamCritereas { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ArgumentCriterea> ArgumentCritereas { get; set; }
+        public virtual ICollection<CourseCriterea> CourseCritereas { get; set; }
+
     }
 }

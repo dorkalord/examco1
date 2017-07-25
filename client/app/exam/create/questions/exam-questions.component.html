@@ -1,9 +1,9 @@
-<div>
-    <h2>Defining exam questions {{currentExam.id}}</h2>
+<div class="container panel">
+    <h2>Defining exam question {{questionForm.value.id}} {{questionForm.value.text}} </h2>
     <form [formGroup]="questionForm" novalidate>
 
         <div class="form-group">
-            <label>Seqence </label>
+            <label>Seqence number</label>
             <input type="number" min="1" class="form-control" formControlName="seqenceNumber">
         </div>
 
@@ -19,13 +19,19 @@
             </select>
         </div>
 
-        <div formArrayName="arguments" class="container panel">
+        <div formArrayName="arguments" class="container panel" style="background-color: lavender ">
             <question-argument [group]="questionForm.controls.arguments" [exam]="currentExam" [qestionid]="questionForm.value.id"></question-argument>
         </div>
 
+        <div class="form-group">
+            <label>Topics</label>
+            <select multiple name="topics" class="form-control " [(ngModel)]="questionForm.value.topicIDs" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let qtopic of currentCourse.topics" [value]="qtopic.id">  {{qtopic.name }} </option>
+            </select>
+        </div>
+        <!--<question-topics [group]="questionForm.controls.topicIDs" [course]="currentCourse"></question-topics>-->
 
-
-        <div class="btn-group pull-right" role="group">
+        <div class="btn-group pull-right margin-20" role="group">
             <button type="button" class="form-control" class="btn btn-success" (click)="save(questionForm.value.id)">
                 Save
             </button>
@@ -36,45 +42,45 @@
         </div>
 
     </form>
+</div>
 
-    <div class="container">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Seqence</th>
-                    <th>Questions</th>
-                    <th class="pull-right">Options</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let question of questions; let i=index">
-                    <td>{{question.seqenceNumber}} </td>
-                    <td>{{question.text}} </td>
-                    <td>
-                        <div class="btn-group pull-right" role="group">
-                            <button type="button" class="form-control" class="btn btn-primary " (click)="edit(i)">
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Seqence</th>
+                <th>Questions</th>
+                <th class="pull-right">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let question of questions; let i=index">
+                <td>{{question.seqenceNumber}} </td>
+                <td>{{question.text}} </td>
+                <td>
+                    <div class="btn-group pull-right" role="group">
+                        <button type="button" class="form-control" class="btn btn-primary " (click)="edit(i)">
                                     Edit
                                 </button>
-                            <button type="button" class="form-control" class="btn btn-danger " *ngIf="questions.length > 1" (click)="removeQuestion(i)">
+                        <button type="button" class="form-control" class="btn btn-danger " *ngIf="questions.length > 1" (click)="removeQuestion(i)">
                                     Remove 
                                 </button>
 
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
-    <div class="margin-20">
-        <button type="button" class="btn btn-success" (click)="addQuestion()">
+<div class="margin-20">
+    <button type="button" class="btn btn-success" (click)="addQuestion()">
                 Add another question +
             </button>
-    </div>
-    <div class="margin-20">
-        <div>Form</div>
-        <pre>Qestion form value: <br>{{questionForm.value | json}}</pre>
-        <pre>Questions value: <br>{{questions | json}}</pre>
-        <pre>User value: <br>{{currentUser | json}}</pre>
-    </div>
+</div>
+<div class="margin-20">
+    <div>Form</div>
+    <pre>Qestion form value: <br>{{questionForm.value | json}}</pre>
+    <pre>Questions value: <br>{{questions | json}}</pre>
+    <pre>Course value: <br>{{currentCourse | json}}</pre>
 </div>

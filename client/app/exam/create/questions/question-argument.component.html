@@ -1,5 +1,5 @@
 <div class="panel-heading">
-    <h3>Defining a argument</h3>
+    <h3>Arguments</h3>
 </div>
 
 <div class="panel-body">
@@ -27,40 +27,31 @@
             <input type="number" value="1" min="1" max="100" class="form-control" formControlName="weight">
         </div>
 
-        <div class="form-group container" style="background-color:beige">
-            <label><input type="checkbox" formControlName="variable">Censor defined severity</label>
+        <div class="form-group panel-body" style="background-color:beige">
+            <label><input type="checkbox" formControlName="variable" > Censor defined severity </label>
 
             <div *ngIf="argumentForm.value.variable">
                 <div class="row">
-
-                    <div class="col-md-2">
+                    <div class="col-md-5">
                         <label>Most wrong text</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" formControlName="minText">
-                    </div>
-                    <div class="col-md-2">
-                        <label>Almost correct text</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="text" class="form-control" formControlName="maxText">
-                    </div>
 
+                        <input type="text" class="form-control" formControlName="maxMistakeText">
+                    </div>
+                    <div class="col-md-5">
+                        <label>Almost correct text</label>
+
+                        <input type="text" class="form-control" formControlName="minMistakeText">
+                    </div>
                 </div>
 
                 <div class="row">
-
-                    <div class="col-md-2">
-                        <label>Maximum deduction</label>
+                    <div class="col-md-5">
+                        <label>Maximum deduction in worst case</label>
+                        <input type="number" class="form-control" formControlName="maxMistakeWeight">
                     </div>
-                    <div class="col-md-3">
-                        <input type="number" class="form-control" formControlName="minWeight">
-                    </div>
-                    <div class="col-md-2">
-                        <label>Minimum deduction</label>
-                    </div>
-                    <div class="col-md-3">
-                        <input type="number" class="form-control" formControlName="maxWeight">
+                    <div class="col-md-5">
+                        <label>Minimum deduction in best case</label>
+                        <input type="number" class="form-control" formControlName="minMistakeWeight">
                     </div>
 
                 </div>
@@ -71,14 +62,12 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Genereal criterea</th>
                         <th>Impact</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let criterea of currentExam.generalCritereas; let i=index">
-                        <td>{{criterea.id}} </td>
                         <td>{{criterea.name}} </td>
                         <td>
                             <div class="form-group">
@@ -132,9 +121,9 @@
         </table>
     </div>
 
-    <div class="margin-20">
+    <!--<div class="margin-20">
         <pre>form value: <br>{{argumentForm.value | json}}</pre>
         <pre>data value: <br>{{arguments.value | json}}</pre>
-    </div>
+    </div>-->
 
 </div>

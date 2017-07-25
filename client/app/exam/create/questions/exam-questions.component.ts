@@ -8,6 +8,7 @@ import { Course, Topic } from '../../../_models/course';
 import { ExamService } from '../../../_services/exam.service';
 import { Exam, GeneralCriterea } from '../../../_models/exam';
 import { Question } from '../../../_models/question';
+import { CourseService } from '../../../_services/course.service';
 
 @Component({
     moduleId: module.id,
@@ -19,6 +20,7 @@ import { Question } from '../../../_models/question';
 export class ExamQuestionsComponent implements OnInit {
     currentUser: User;
     currentExam: Exam;
+    currentCourse: Course
     public questions: Question[];
     public questionForm: FormGroup;
     public counter: number;
@@ -26,7 +28,8 @@ export class ExamQuestionsComponent implements OnInit {
     sub: any;
 
     constructor(private userService: UserService,
-        private ExamService: ExamService,
+        private examService: ExamService,
+        private courseService: CourseService,
         private _fb: FormBuilder,
         private route: ActivatedRoute) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -36,8 +39,8 @@ export class ExamQuestionsComponent implements OnInit {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
-            this.currentExam = this.ExamService.getById(this.id);
-
+            this.currentExam = this.examService.getById(this.id);
+            this.currentCourse = this.courseService.getById(this.currentExam.courseID);
             this.counter = 1;
             this.questions = [];
             this.questionForm = this.initQestion();
@@ -87,7 +90,7 @@ export class ExamQuestionsComponent implements OnInit {
             text: [this.questionForm.value.text, Validators.required],
             parentQestionID: this.questionForm.value.parentQestionID,
             arguments: this.questionForm.controls.arguments,
-            topicIDs: this.questionForm.controls.topicIDs,
+            topicIDs: this._fb.array(this.questionForm.value.topicIDs),
         });
     }
 
@@ -116,7 +119,7 @@ export class ExamQuestionsComponent implements OnInit {
             text: [q.text, Validators.required],
             parentQestionID: q.parentQestionID,
             arguments: this._fb.array(q.arguments),
-            topicIDs: q.topicIDs,
+            topicIDs: this._fb.array(q.topicIDs),
         });
     }    
 

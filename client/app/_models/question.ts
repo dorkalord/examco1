@@ -20,10 +20,10 @@ export class Argument{
     advice: string;
     weight: number;
     variable: boolean;
-    minText: string;
-    maxText: string;
-    minWeight: number;
-    maxWeight: number;
+    minMistakeText: string;
+    maxMistakeText: string;
+    minMistakeWeight: number;
+    maxMistakeWeight: number;
 
     argumentCritereas: ArgumentCriterea[];
 }

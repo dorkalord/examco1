@@ -27,7 +27,6 @@ export class QestionArgumentComponent implements OnInit {
     public qestionID: number;
 
     currentUser: User;
-    public questions: Question[];
     public argumentForm: FormGroup;
     public counter: number;
     id: number;
@@ -45,11 +44,8 @@ export class QestionArgumentComponent implements OnInit {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
 
-
             this.counter = 1;
-            this.questions = [];
             this.argumentForm = this.initArgument();
-
         });
     }
 
@@ -64,21 +60,21 @@ export class QestionArgumentComponent implements OnInit {
             advice: [''],
             weight: [''],
             variable: [false, Validators.required],
-            minText: [''],
-            maxText: [''],
-            minWeight: [0],
-            maxWeight: [0],
+            minMistakeText: [''],
+            maxMistakeText: [''],
+            minMistakeWeight: [0],
+            maxMistakeWeight: [1000],
 
             argumentCritereas: this._fb.array(this.initArgumentCriterea(this.counter))
         });
     }
 
-    initArgumentCriterea(argumentid: number){
+    initArgumentCriterea(argumentid: number) {
         let ac: ArgumentCriterea[] = new Array();
         let c = 0;
         this.currentExam.generalCritereas.forEach(element => {
             ac.push({
-                id: this.counter *  this.currentExam.generalCritereas.length + c,
+                id: this.counter * this.currentExam.generalCritereas.length + c,
                 argumentID: argumentid,
                 generalCritereaID: element.id,
                 severity: 0
@@ -94,34 +90,31 @@ export class QestionArgumentComponent implements OnInit {
         this.argumentForm = this.initArgument();
     }
 
-    removeArgument(i: number) {
-        /*let deletingQestion = this.questions[i];
+    removeArgument(index: number) {
+        let field: Argument[] = this.arguments.value;
+        let deletingArgument = this.arguments.value[index];
 
-        this.questions.forEach(element => {
-            if(element.seqenceNumber > deletingQestion.seqenceNumber)
-                element.seqenceNumber -= 1;
-        });
+        this.arguments.value.splice(index, 1);
+        this.arguments.controls.splice(index, 1);
 
-        this.questions.splice(i,1);
-        
-        if(this.questionForm.value.parentQestionID == deletingQestion.id)
-            this.questionForm.value.parentQestionID = null;
+        let a = 0;
+        field.forEach((element, a) => {
+            if (element.parentArgumentID == deletingArgument.id) {
+                element.parentArgumentID = null;
+                this.arguments.controls[a].value.parentArgumentID = null;
+            }
+        });/**/
 
-        this.questionForm = this._fb.group({
-            id: this.counter,
-            examID: this.currentExam.id,
-    
-            seqenceNumber: [this.questions.length+1, Validators.required],
-            text: [this.questionForm.value.text, Validators.required],
-            parentQestionID: this.questionForm.value.parentQestionID,
-            arguments: this.questionForm.controls.arguments,
-            topicIDs: this.questionForm.controls.topicIDs,
-        });*/
+        if (this.argumentForm.value.parentArgumentID == deletingArgument.id)
+            this.argumentForm.value.parentQestionID = null;
+
+        this.copyArgument(this.argumentForm.value);
     }
 
-    save(i: number) {
+    save(id: number) {
         let field: Argument[] = this.arguments.value;
-        let index: number = field.findIndex(x => x.id == i);
+        let index: number = field.findIndex(x => x.id == id);
+
 
         if (index === -1) {
             this.counter = this.counter + 1;
@@ -133,6 +126,7 @@ export class QestionArgumentComponent implements OnInit {
         }
 
         this.argumentForm = this.initArgument();
+
     }
 
     cancel() {
@@ -140,8 +134,12 @@ export class QestionArgumentComponent implements OnInit {
     }
 
     edit(i: number) {
-        let a : Argument = this.arguments.value[i];
+        let a: Argument = this.arguments.value[i];
 
+        this.copyArgument(a);
+    }
+
+    private copyArgument(a: Argument) {
         this.argumentForm = this._fb.group({
             id: a.id,
             authorID: this.currentUser.id,
@@ -151,22 +149,22 @@ export class QestionArgumentComponent implements OnInit {
             text: [a.text, Validators.required],
             advice: [a.advice],
             weight: [a.weight],
-            variable: [false, Validators.required],
-            minText: [a.minText],
-            maxText: [a.maxText],
-            minWeight: [a.minWeight],
-            maxWeight: [a.maxWeight],
+            variable: [a.variable, Validators.required],
+            minMistakeText: [a.minMistakeText],
+            maxMistakeText: [a.maxMistakeText],
+            minMistakeWeight: [a.minMistakeWeight],
+            maxMistakeWeight: [a.maxMistakeWeight],
 
             argumentCritereas: this._fb.array(this.initArgumentCriterea(a.id))
         });
-        
+
         let c = 0;
         (<ArgumentCriterea[]>this.argumentForm.value.argumentCritereas).forEach(element => {
             element.severity = a.argumentCritereas[c].severity; c++;
         });
     }
 
-    updateCriterea(weight:number, critereaid:number){
+    updateCriterea(weight: number, critereaid: number) {
         let ac: ArgumentCriterea[] = this.argumentForm.value.argumentCritereas;
         let index: number = ac.findIndex(a => a.generalCritereaID == critereaid);
 

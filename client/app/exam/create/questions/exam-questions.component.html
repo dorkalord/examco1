@@ -75,10 +75,19 @@
 
 <div class="margin-20">
     <button type="button" class="btn btn-success" (click)="addQuestion()">
-                Add another question +
-            </button>
+        Add another question +
+    </button>
 </div>
-<div class="margin-20">
+
+<div class="form-group pull-right margin-20">
+    <button class="btn btn-primary" [routerLink]="['/exam/create/1/evaluator']" >Next</button>
+
+    <a [routerLink]="['/exam']" class="btn btn-link">Cancel</a>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="container">
     <div>Form</div>
     <pre>Qestion form value: <br>{{questionForm.value | json}}</pre>
     <pre>Questions value: <br>{{questions | json}}</pre>

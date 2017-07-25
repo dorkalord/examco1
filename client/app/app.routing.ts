@@ -8,6 +8,7 @@ import { CourseComponent, CourseCreateComponent, CourseEditComponent } from "./c
 import { ExamComponent } from './exam/exam.component';
 import { ExamCreateComponent } from './exam/create/exam-create.component';
 import { ExamQuestionsComponent } from './exam/create/questions/exam-questions.component';
+import { ExamEvaluatorComponent } from './exam/create/evaluators/exam-evaluator.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     { path: 'exam', component: ExamComponent, canActivate: [AuthGuard]  },
     { path: 'exam/create', component: ExamCreateComponent, canActivate: [AuthGuard]  },
     { path: 'exam/create/:id/question', component: ExamQuestionsComponent, canActivate: [AuthGuard]  },
+    { path: 'exam/create/:id/evaluator', component: ExamEvaluatorComponent, canActivate: [AuthGuard]  },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

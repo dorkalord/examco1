@@ -1,4 +1,4 @@
-<div>
+<div class="container panel">
     <h2>Create new exam</h2>
     <form [formGroup]="examForm" novalidate>
         <!--(ngSubmit)="save(examForm)"-->
@@ -21,7 +21,7 @@
         </div>
 
         <div formArrayName="generalCritereas">
-            <div *ngFor="let criterea of examForm.controls.generalCritereas.controls; let i=index" class="jumbotron" style="background-color: antiquewhite; border: 10px; padding: 10px;">
+            <div *ngFor="let criterea of examForm.controls.generalCritereas.controls; let i=index" class="container panel" style="background-color: lavender ">
                 <div [formGroupName]="i">
                     <generalCriterea [group]="criterea"></generalCriterea>
                 </div>
@@ -37,7 +37,10 @@
         </div>
 
         <div class="clearfix"></div>
-        <div class="margin-20">
+        <div class="btn-group pull-right" role="group">
+            <button type="button" class="btn btn-primary" >
+                    Add existing
+                </button>
             <button type="button" class="btn btn-success" (click)="addGeneralCriterea()">
                     Add criterea
                 </button>

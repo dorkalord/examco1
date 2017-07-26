@@ -16,11 +16,11 @@ namespace WebApi.Entities
         public Nullable<System.DateTime> CensorshipDate { get; set; }
         public float Total { get; set; }
         public string Note { get; set; }
-        public int AttemptID { get; set; }
-        public int QestionID { get; set; }
+        public int ExamAttemptID { get; set; }
+        public int QuestionID { get; set; }
     
         public virtual ExamAttempt ExamAttempt { get; set; }
-        public virtual Qestion Qestion { get; set; }
+        public virtual Question Question { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GeneralCritereaImpact> GeneralCritereaImpacts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

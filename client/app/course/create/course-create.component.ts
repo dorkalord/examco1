@@ -57,6 +57,7 @@ export class CourseCreateComponent implements OnInit {
     }
 
     save(model: any) {
+        
         // call API to save
         console.log(model);
     }

@@ -68,7 +68,7 @@ namespace WebApi.Services
 
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
-            user.RoleID = 1;
+            user.RoleID = 4; //default user is defined as student
 
             _context.Users.Add(user);
             _context.SaveChanges();

@@ -11,7 +11,7 @@ namespace WebApi.Entities
             this.Censors = new HashSet<Censor>();
             this.ExamCriterea = new HashSet<ExamCriterea>();
             this.ExamAttempts = new HashSet<ExamAttempt>();
-            this.Qestions = new HashSet<Qestion>();
+            this.Questions = new HashSet<Question>();
         }
     
         public int ID { get; set; }
@@ -37,6 +37,6 @@ namespace WebApi.Entities
         public virtual ICollection<ExamAttempt> ExamAttempts { get; set; }
         
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Qestion> Qestions { get; set; }
+        public virtual ICollection<Question> Questions { get; set; }
     }
 }

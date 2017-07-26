@@ -22,14 +22,16 @@ namespace WebApi.Entities
         public Nullable<float> MinMistakeWeight { get; set; }
         public Nullable<float> MaxMistakeWeight { get; set; }
         public Nullable<float> DefaultWeight { get; set; }
-        public Nullable<int> ParentArgumentIID { get; set; }
-        public int QestionID { get; set; }
+        public Nullable<int> ParentArgumentID { get; set; }
+        public int QuestionID { get; set; }
+
+
         public Nullable<int> AuthorID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Argument> ChildrenArguments { get; set; }
         public virtual Argument ParentArgument { get; set; }
-        public virtual Qestion Qestion { get; set; }
+        public virtual Question Question { get; set; }
         public virtual User Author { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArgumentCriterea> ArgumentCritereas { get; set; }

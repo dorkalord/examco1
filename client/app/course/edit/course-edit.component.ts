@@ -27,41 +27,43 @@ export class CourseEditComponent implements OnInit {
         private route: ActivatedRoute) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
+        this.sub = this.route.params.subscribe(params => {
+            this.id = +params['id'];
+            this.courseService.getById(this.id).subscribe(data => {
+                let currentCourse: Course = data;
+                this.counter = 0;
+                this.myForm = this._fb.group({
+                    lecturerID: [currentCourse.lecturerID],
+                    lecturer: [currentCourse.lecturer],
+                    code: [currentCourse.code, [Validators.required, Validators.minLength(3)]],
+                    name: [currentCourse.name, [Validators.required, Validators.minLength(3)]],
+                    topics: this._fb.array([])
+                });
+
+                let max: number = 0;
+                const control = <FormArray>this.myForm.controls['topics'];
+
+                currentCourse.topics.forEach(item => {
+                    if (max < item.id)
+                        max = item.id;
+
+                    control.push(this._fb.group({
+                        id: item.id,
+                        name: item.name,
+                        parentTopic: item.parentTopic,
+                        description: item.description
+                    }));
+
+                });
+
+                this.counter = max;
+            });
+        });
+
     }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            this.id = +params['id'];
-            let currentCourse: Course = this.courseService.getById(this.id);
-
-            this.counter = 0;
-            this.myForm = this._fb.group({
-                lecturerID: [currentCourse.lecturerID],
-                lecturer: [this.currentUser.name],
-                code: [currentCourse.code, [Validators.required, Validators.minLength(3)]],
-                name: [currentCourse.name, [Validators.required, Validators.minLength(3)]],
-                topics: this._fb.array([])
-            });
-
-            let max: number = 0;
-            const control = <FormArray>this.myForm.controls['topics'];
-
-            currentCourse.topics.forEach(item => {
-                if (max < item.id)
-                    max = item.id;
-
-                control.push(this._fb.group({
-                    id: item.id,
-                    name: item.name,
-                    parentTopic: item.parentTopic,
-                    description: item.description
-                }));
-
-            });
-
-            this.counter = max;
-        });
-
+        
     }
 
     initTopic() {

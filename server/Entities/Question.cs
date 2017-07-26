@@ -3,14 +3,14 @@ using System.Collections.Generic;
 
 namespace WebApi.Entities
 {
-    public class Qestion
+    public class Question
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Qestion()
+        public Question()
         {
             this.Anwsers = new HashSet<Anwser>();
             this.Arguments = new HashSet<Argument>();
-            this.ChildQuestions = new HashSet<Qestion>();
+            this.ChildQuestions = new HashSet<Question>();
             this.Tags = new HashSet<Tag>();
         }
     
@@ -28,8 +28,8 @@ namespace WebApi.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Argument> Arguments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Qestion> ChildQuestions { get; set; }
-        public virtual Qestion Qestion2 { get; set; }
+        public virtual ICollection<Question> ChildQuestions { get; set; }
+        public virtual Question ParentQuestion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tag> Tags { get; set; }
     }

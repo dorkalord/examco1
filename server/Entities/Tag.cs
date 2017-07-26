@@ -9,7 +9,7 @@ namespace WebApi.Entities
         public int QuestionID { get; set; }
         public int TopicID { get; set; }
     
-        public virtual Qestion Qestion { get; set; }
+        public virtual Question Question { get; set; }
         public virtual Topic Topic { get; set; }
     }
 }

@@ -6,7 +6,7 @@ namespace WebApi.Entities
     public class GeneralCritereaImpact
     {
         public int ID { get; set; }
-        public int AttemptID { get; set; }
+        public int ExamAttemptID { get; set; }
         public Nullable<int> AnwserID { get; set; }
         public Nullable<int> MistakeID { get; set; }
         public int ExamCritereaID { get; set; }

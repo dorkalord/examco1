@@ -8,60 +8,25 @@ import { Course } from '../_models/course';
 export class CourseService {
     constructor(private http: Http, private config: AppConfig) { }
 
-    getAllCoursesOfUser(userID: number): Course[] {
-        return [{
-            id: 1,
-            "lecturerID": 1,
-            "code": "INF220",
-            "name": "Informatics",
-            "topics": [
-                { "courseID": 1, "id": 1, "name": "topic 1", "parentTopic": 0, "description": "" },
-                { "courseID": 1, "id": 2, "name": "topic 2", "parentTopic": 1, "description": "" },
-                { "courseID": 1, "id": 4, "name": "topic 3", "parentTopic": 0, "description": "asdsadasd" }
-            ]
-        },
-        {
-            id: 2,
-            "lecturerID": 1,
-            "code": "INF223",
-            "name": "Informatics1",
-            "topics": [
-                { "courseID": 1, "id": 11, "name": "topic 11", "parentTopic": 0, "description": "" },
-                { "courseID": 1, "id": 21, "name": "topic 21", "parentTopic": 1, "description": "" },
-                { "courseID": 1, "id": 41, "name": "topic 31", "parentTopic": 0, "description": "asdsadasd" }
-            ]
-        }
-        ]
-
-        //return this.http.get(this.config.apiUrl + '/users', this.jwt()).map((response: Response) => response.json());
+    getAllCoursesOfUser(userID: number) {
+        return this.http.get(this.config.apiUrl + '/course/lecturer/' + userID, this.jwt()).map((response: Response) => response.json());
     }
 
-    getById(id: number): Course {
+    getById(id: number) {
 
-        return {
-            id: 1,
-            "lecturerID": 1,
-            "code": "INF220",
-            "name": "Informatics",
-            "topics": [
-                { "courseID": 1, "id": 1, "name": "topic 1", "parentTopic": 0, "description": "" },
-                { "courseID": 1, "id": 2, "name": "topic 2", "parentTopic": 1, "description": "" },
-                { "courseID": 1, "id": 4, "name": "topic 3", "parentTopic": 0, "description": "asdsadasd" }
-            ]
-        }
-        //return this.http.get(this.config.apiUrl + '/users/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.config.apiUrl + '/course/detail/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     create(course: Course) {
-        return this.http.post(this.config.apiUrl + '/users', course, this.jwt());
+        return this.http.post(this.config.apiUrl + '/course', course, this.jwt());
     }
 
     update(course: Course) {
-        return this.http.put(this.config.apiUrl + '/users/' + course.id, course, this.jwt());
+        return this.http.put(this.config.apiUrl + '/course/' + course.id, course, this.jwt());
     }
 
     delete(id: number) {
-        return this.http.delete(this.config.apiUrl + '/users/' + id, this.jwt());
+        return this.http.delete(this.config.apiUrl + '/course/' + id, this.jwt());
     }
 
     // private helper methods

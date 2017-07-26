@@ -30,9 +30,6 @@
             <div formArrayName="topics">
                 <div class="container panel" style="background-color: lavender ">
                     <div class="row panel-heading" >
-                        <div class="col-md-1">
-                            ID
-                        </div>
                         <div class="col-md-3">
                             Topic
                         </div>
@@ -48,7 +45,6 @@
                     </div>
                     <div *ngFor="let topic of myForm.controls.topics.controls; let i=index" class="row panel-body" style="padding:5px">
                         <div [formGroupName]="i">
-                            <div class="col-md-1"> {{ myForm.controls.topics.controls[i].value.id }} </div>
                             <topic [group]="myForm.controls.topics.controls[i]" [topics]="myForm.controls.topics.value"></topic>
                         </div>
                         <div class="col-md-1">

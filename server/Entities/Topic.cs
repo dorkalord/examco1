@@ -9,7 +9,7 @@ namespace WebApi.Entities
         public Topic()
         {
             this.Tags = new HashSet<Tag>();
-            this.Topic1 = new HashSet<Topic>();
+            this.ChildTopics = new HashSet<Topic>();
         }
     
         public int ID { get; set; }
@@ -22,7 +22,7 @@ namespace WebApi.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tag> Tags { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Topic> Topic1 { get; set; }
-        public virtual Topic Topic2 { get; set; }
+        public virtual ICollection<Topic> ChildTopics { get; set; }
+        public virtual Topic ParrentTopic { get; set; }
     }
 }

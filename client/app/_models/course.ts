@@ -1,6 +1,8 @@
+
 export class Course {
     id: number;
     lecturerID: number;
+    lecturer: string;
 
     name: string;
     code: string;

@@ -10,6 +10,7 @@ namespace WebApi.Entities
         {
             this.GeneralCritereaImpacts = new HashSet<GeneralCritereaImpact>();
             this.ArgumentCritereas = new HashSet<ArgumentCriterea>();
+            this.ExamAdvices = new HashSet<ExamAdvice>();
         }
     
         public int ID { get; set; }
@@ -17,12 +18,14 @@ namespace WebApi.Entities
         public int ExamID { get; set; }
         public int GneralCritereaID { get; set; }
 
-
-        public virtual GneralCriterea GneralCriterea { get; set; }
         public virtual Exam Exam { get; set; }
+        public virtual GneralCriterea GneralCriterea { get; set; }
+        
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GeneralCritereaImpact> GeneralCritereaImpacts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ArgumentCriterea> ArgumentCritereas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExamAdvice> ExamAdvices { get; set; }
     }
 }

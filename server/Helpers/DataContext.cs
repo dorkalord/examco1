@@ -26,11 +26,15 @@ namespace WebApi.Helpers
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Tag>().HasOne(x => x.Topic).WithMany(t => t.Tags).OnDelete(DeleteBehavior.Restrict);
             mb.Entity<ExamAttempt>().HasOne(x => x.Exam).WithMany(z => z.ExamAttempts).OnDelete(DeleteBehavior.Restrict);
             mb.Entity<Mistake>().HasOne(x => x.Argument).WithMany(z => z.Mistakes).OnDelete(DeleteBehavior.Restrict);
             mb.Entity<ArgumentCriterea>().HasOne(x => x.ExamCriterea).WithMany(z => z.ArgumentCritereas).OnDelete(DeleteBehavior.Restrict);
             mb.Entity<Exam>().HasOne(x => x.Course).WithMany(z => z.Exams).OnDelete(DeleteBehavior.Restrict);
             mb.Entity<Censor>().HasOne(x => x.User).WithMany(z => z.Censors).OnDelete(DeleteBehavior.Restrict);
+            mb.Entity<Anwser>().HasOne(a => a.Question).WithMany(q => q.Anwsers).OnDelete(DeleteBehavior.Restrict);
+            mb.Entity<ExamAdvice>().HasOne(x => x.ExamCriterea).WithMany(q => q.ExamAdvices).OnDelete(DeleteBehavior.Restrict);
+            mb.Entity<GeneralCritereaImpact>().HasOne(x => x.ExamCriterea).WithMany(q => q.GeneralCritereaImpacts).OnDelete(DeleteBehavior.Restrict);
 
             mb.Entity<State>().HasOne(s => s.Next).WithOne(n => n.Previous).HasForeignKey<State>(p => p.NextID);
             mb.Entity<State>().HasOne(s => s.Previous).WithOne(n => n.Next).HasForeignKey<State>(p => p.PreviousID);
@@ -52,7 +56,7 @@ namespace WebApi.Helpers
         public virtual DbSet<Argument> Arguments { get; set; }
         public virtual DbSet<ArgumentCriterea> ArgumentCritereas { get; set; }
         public virtual DbSet<Mistake> Mistakes { get; set; }
-        public virtual DbSet<Qestion> Qestions { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Topic> Topics { get; set; }

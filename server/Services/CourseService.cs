@@ -55,10 +55,7 @@ namespace WebApi.Services
 
         public Course GetById(int id)
         {
-            Course c = _context.Courses.Find(id);
-            c.Lecturer = _context.Users.Find(c.LecturerID);
-            c.Topics = _context.Topics.ToList().FindAll(x => x.CourseID == c.ID);
-            return c;
+            return _context.Courses.Find(id);
         }
 
         public Course Update(Course updatedObject)

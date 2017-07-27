@@ -16,8 +16,8 @@ namespace WebApi.Helpers
                 this.Roles.Add(new Role() { Name = "Student", Permission = "" });
                 
                 this.States.Add(new State() {Name = "Defining", Commads="['edit', 'exportExam']"});
-                this.States.Add(new State() {Name = "Censoring", Commads="['censor']"});
-                this.States.Add(new State() {Name = "Evaluating", Commads="['evaluate', 'exportExam', 'exportCensoring']"});
+                this.States.Add(new State() {Name = "Peer censoring", Commads="['censor']"});
+                this.States.Add(new State() {Name = "Grading", Commads="['evaluate', 'exportExam', 'exportCensoring']"});
                 this.States.Add(new State() {Name = "Closed", Commads="['exportExam', 'exportCensoring', 'exportEvaluations' 'generateStudentReports', ]"});
 
                 this.SaveChanges();
@@ -36,6 +36,7 @@ namespace WebApi.Helpers
             mb.Entity<ExamAdvice>().HasOne(x => x.ExamCriterea).WithMany(q => q.ExamAdvices).OnDelete(DeleteBehavior.Restrict);
             mb.Entity<GeneralCritereaImpact>().HasOne(x => x.ExamCriterea).WithMany(q => q.GeneralCritereaImpacts).OnDelete(DeleteBehavior.Restrict);
 
+            mb.Entity<Topic>().HasOne(t => t.ParrentTopic).WithMany(t => t.ChildTopics).OnDelete(DeleteBehavior.Cascade);
             mb.Entity<State>().HasOne(s => s.Next).WithOne(n => n.Previous).HasForeignKey<State>(p => p.NextID);
             mb.Entity<State>().HasOne(s => s.Previous).WithOne(n => n.Next).HasForeignKey<State>(p => p.PreviousID);
         }

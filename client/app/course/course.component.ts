@@ -14,7 +14,7 @@ import { CourseService } from '../_services/course.service';
 
 export class CourseComponent implements OnInit {
     currentUser: User;
-    courseList: Course[];
+    public courseList: Course[];
 
     constructor(private userService: UserService,
         private courseService: CourseService) {
@@ -25,7 +25,16 @@ export class CourseComponent implements OnInit {
     }
 
     ngOnInit() {
-        
+
+    }
+
+    remove(id: number) {
+        this.courseService.delete(id).subscribe(res => {
+            this.courseService.getAllCoursesOfUser(this.currentUser.id).subscribe(data => {
+                this.courseList = data;
+            });
+        });
+
     }
 
 

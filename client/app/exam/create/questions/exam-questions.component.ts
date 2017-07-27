@@ -39,10 +39,14 @@ export class ExamQuestionsComponent implements OnInit {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
             this.currentExam = this.examService.getById(this.id);
-            this.currentCourse = this.courseService.getById(this.currentExam.courseID);
-            this.counter = 1;
-            this.questions = [];
-            this.questionForm = this.initQestion();
+
+            this.courseService.getById(this.currentExam.courseID).subscribe(data => {
+                this.currentCourse = data;
+                this.counter = 1;
+                this.questions = [];
+                this.questionForm = this.initQestion();
+            });
+
 
         });
     }
@@ -51,8 +55,8 @@ export class ExamQuestionsComponent implements OnInit {
         return this._fb.group({
             id: this.counter,
             examID: this.currentExam.id,
-    
-            seqenceNumber: [this.questions.length+1, Validators.required],
+
+            seqenceNumber: [this.questions.length + 1, Validators.required],
             text: ['', Validators.required],
             parentQestionID: "",
             arguments: this._fb.array([]),
@@ -70,22 +74,22 @@ export class ExamQuestionsComponent implements OnInit {
         let deletingQestion = this.questions[i];
 
         this.questions.forEach(element => {
-            if(element.seqenceNumber > deletingQestion.seqenceNumber)
+            if (element.seqenceNumber > deletingQestion.seqenceNumber)
                 element.seqenceNumber -= 1;
-            if(element.parentQestionID == deletingQestion.id)
+            if (element.parentQestionID == deletingQestion.id)
                 element.parentQestionID = null;
         });
 
-        this.questions.splice(i,1);
-        
-        if(this.questionForm.value.parentQestionID == deletingQestion.id)
+        this.questions.splice(i, 1);
+
+        if (this.questionForm.value.parentQestionID == deletingQestion.id)
             this.questionForm.value.parentQestionID = null;
 
         this.questionForm = this._fb.group({
             id: this.counter,
             examID: this.currentExam.id,
-    
-            seqenceNumber: [this.questions.length+1, Validators.required],
+
+            seqenceNumber: [this.questions.length + 1, Validators.required],
             text: [this.questionForm.value.text, Validators.required],
             parentQestionID: this.questionForm.value.parentQestionID,
             arguments: this.questionForm.controls.arguments,
@@ -95,31 +99,31 @@ export class ExamQuestionsComponent implements OnInit {
 
     save(i: number) {
         let index = this.questions.findIndex(x => x.id == i)
-        if(index === -1)
+        if (index === -1)
             this.addQuestion()
-        else{
+        else {
             this.questions[index] = this.questionForm.value;
             this.questionForm = this.initQestion();
         }
     }
 
-    cancel(){
+    cancel() {
         this.questionForm = this.initQestion();
     }
 
-    edit(i: number){
+    edit(i: number) {
         let q = this.questions[i];
 
         this.questionForm = this._fb.group({
             id: q.id,
             examID: q.examID,
-    
+
             seqenceNumber: [q.seqenceNumber, Validators.required],
             text: [q.text, Validators.required],
             parentQestionID: q.parentQestionID,
             arguments: this._fb.array(q.arguments),
             topicIDs: this._fb.array(q.topicIDs),
         });
-    }    
+    }
 
 }

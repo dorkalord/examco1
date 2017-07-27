@@ -14,11 +14,11 @@ export class CourseService {
 
     getById(id: number) {
 
-        return this.http.get(this.config.apiUrl + '/course/detail/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.config.apiUrl + '/course/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     create(course: Course) {
-        return this.http.post(this.config.apiUrl + '/course', course, this.jwt());
+        return this.http.post(this.config.apiUrl + '/course', course, this.jwt()).map((response: Response) => response.json());
     }
 
     update(course: Course) {

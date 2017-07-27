@@ -8,5 +8,9 @@ namespace WebApi.Dtos
         public string Name { get; set; }
         public string Code { get; set; }
         public int LecturerID { get; set; }
+
+        public UserDto Lecturer { get; set; }
+        public IEnumerable<TopicDto> Topics { get; set; }
+        
     }
 }

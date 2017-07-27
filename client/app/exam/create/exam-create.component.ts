@@ -26,18 +26,21 @@ export class ExamCreateComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.courses = this.courseService.getAllCoursesOfUser(this.currentUser.id);
-        this.critereaCounter = 0;
-        this.examForm = this._fb.group({
-            date: ['', Validators.required],
-            courseID: [null, Validators.required],
-            authorID: this.currentUser.id,
-            language: ['', Validators.required],
-            generalCritereas: this._fb.array([]),
-            qestions:  this._fb.array([]),
-            censorIDs:  this._fb.array([])
+        this.courseService.getAllCoursesOfUser(this.currentUser.id).subscribe(data => {
+            this.courses = data;
+            this.critereaCounter = 0;
+            this.examForm = this._fb.group({
+                date: ['', Validators.required],
+                courseID: [null, Validators.required],
+                authorID: this.currentUser.id,
+                language: ['', Validators.required],
+                generalCritereas: this._fb.array([]),
+                qestions: this._fb.array([]),
+                censorIDs: this._fb.array([])
+            });
+            this.addGeneralCriterea();
         });
-        this.addGeneralCriterea();
+        
     }
 
     initGeneralCriterea() {

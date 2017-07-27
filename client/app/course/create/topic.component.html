@@ -4,7 +4,7 @@
         <input type="text" class="form-control" formControlName="name">
     </div>
     <div class="col-md-3">
-        <select formControlName="parentTopic" class="form-control">
+        <select formControlName="parrentTopicID" class="form-control">
          <option *ngFor="let item of topics" [value]="item.id" >{{ item.name }}</option>
        </select>
     </div>

@@ -27,6 +27,7 @@ import { QuestionService } from './_services/question.service';
 import { ExamQuestionsComponent } from './exam/create/questions/exam-questions.component';
 import { QestionArgumentComponent } from './exam/create/questions/question-argument.component';
 import { ExamEvaluatorComponent } from './exam/create/evaluators/exam-evaluator.component';
+import { TopicService } from './_services/topic.service';
 
 @NgModule({
     imports: [
@@ -62,6 +63,7 @@ import { ExamEvaluatorComponent } from './exam/create/evaluators/exam-evaluator.
         AuthenticationService,
         UserService,
         CourseService,
+        TopicService,
         ExamService,
         QuestionService
     ],

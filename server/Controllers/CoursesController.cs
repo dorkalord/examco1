@@ -11,18 +11,23 @@ using WebApi.Dtos.Controller_Dtos;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("/course")]
-    public class CoursesControler : Controller
+    public class CoursesController : Controller
     {
         private ICourseService _courseService;
-        private IUserService _UserService;
+        private IUserService _userService;
+        private ITopicService _topicService;
         private IMapper _mapper;
 
-        public CoursesControler(
+        public CoursesController(
             ICourseService courseService,
-            IMapper mapper)
+            IUserService userService,
+            ITopicService topicService,
+        IMapper mapper)
         {
+            _topicService = topicService;
+            _userService = userService;
             _courseService = courseService;
             _mapper = mapper;
             
@@ -44,16 +49,44 @@ namespace WebApi.Controllers
             return Ok(coursesDto);
         }
 
-        [AllowAnonymous]
-        [HttpGet("detail/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            Course course = _courseService.GetById(id);
-            CourseCtrlDto res = new 
-                CourseCtrlDto(course, _mapper.Map<IEnumerable<TopicDto>>(course.Topics), _mapper.Map<UserDto>(course.Lecturer));
-            return Ok(res);
+            var course = _courseService.GetById(id);
+            if (course != null && course.Lecturer == null)
+            {
+                course.Lecturer = _userService.GetById(course.LecturerID);
+                course.Topics = _topicService.getByCourse(course.ID).ToList();
+            }
+            var courseDto = _mapper.Map<CourseDto>(course);
+            return Ok(courseDto);
         }
 
+        [HttpPost()]
+        public IActionResult Create([FromBody]CourseDto courseDto)
+        {
+            // map dto to entity and set id
+            Course c = _mapper.Map<Course>(courseDto);
+            c.Lecturer = null;
+            try
+            {
+                // save 
+                c = _courseService.Create(c);
+                return Ok(_mapper.Map<CourseDto>(c) );
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Upadate existing course
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="courseDto"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]CourseDto courseDto)
         {
@@ -64,8 +97,8 @@ namespace WebApi.Controllers
             try
             {
                 // save 
-                _courseService.Update(c);
-                return Ok();
+                c = _courseService.Update(c);
+                return Ok(_mapper.Map<CourseDto>(c));
             }
             catch (AppException ex)
             {

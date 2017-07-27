@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { User } from '../../_models/index';
 import { UserService } from '../../_services/index';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { CourseService } from '../../_services/course.service';
+import { TopicService } from '../../_services/topic.service';
+import { Course, Topic } from '../../_models/course';
 
 @Component({
     moduleId: module.id,
@@ -16,16 +20,23 @@ export class CourseCreateComponent implements OnInit {
     public parentTopics: any[];
     public myForm: FormGroup;
     public counter: number;
+    private loading: boolean;
 
-    constructor(private userService: UserService, private _fb: FormBuilder) {
+    constructor(private userService: UserService,
+        private courseService: CourseService,
+        private topicService: TopicService,
+        private router: Router,
+        private _fb: FormBuilder) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        this.loading = false;
     }
 
     ngOnInit() {
         this.counter = 1;
         this.myForm = this._fb.group({
             lecturerID: [this.currentUser.id],
-            lecturer: [this.currentUser.name],
+            lecturer: [{ value: this.currentUser.name, disabled: true }],
             code: ['', [Validators.required, Validators.minLength(3)]],
             name: ['', [Validators.required, Validators.minLength(3)]],
             topics: this._fb.array([])
@@ -38,7 +49,7 @@ export class CourseCreateComponent implements OnInit {
         return this._fb.group({
             id: [this.counter],
             name: ['', Validators.required],
-            parentTopic: [''],
+            parrentTopicID: [''],
             description: ['']
         });
     }
@@ -57,10 +68,31 @@ export class CourseCreateComponent implements OnInit {
     }
 
     save(model: any) {
-        
-        // call API to save
-        console.log(model);
+        this.loading = true;
+        let newCourse: Course = new Course;
+        newCourse.name = model.value.name;
+        newCourse.code = model.value.code;
+        newCourse.lecturerID = model.value.lecturerID;
+
+
+        this.courseService.create(newCourse).subscribe(data => {
+            let topics: Topic[] = [];
+            let createdCourse: Course = data;
+
+            (<Topic[]>model.value.topics).forEach(item => {
+                item.courseID = createdCourse.id;
+                topics.push(item);
+            });
+            console.log(topics);    
+            this.topicService.createMany(topics).subscribe(res => {
+                this.loading = false;
+                this.router.navigate(["/course"]);
+
+            });
+        });
+
+
     }
 
-    
+
 }

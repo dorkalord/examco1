@@ -22,13 +22,16 @@ namespace WebApi.Services
 
         public Topic Create(Topic newObject)
         {
+            if (newObject.ParrentTopicID != null && _context.Topics.Find(newObject.ParrentTopicID) == null)
+                throw new AppException("Parrent topic " + newObject.ParrentTopicID + " does not exist");
+
             /*if (_context.Topics.Any(x => x.Name == newObject.Name ))
                 throw new AppException("Topic Name " + newObject.Name + " is already taken");*/
 
             _context.Topics.Add(newObject);
             _context.SaveChanges();
 
-            return _context.Topics.First(x => x.Name == newObject.Name);
+            return _context.Topics.Last(x => x.CourseID == x.CourseID );
         }
 
         public void Delete(int id)
@@ -36,6 +39,11 @@ namespace WebApi.Services
             Topic t = _context.Topics.Find(id);
             if (t != null)
             {
+                List<Topic> children = _context.Topics.ToList().FindAll(x => x.ParrentTopicID == id);
+                foreach (Topic item in children)
+                {
+                    this.Delete(item.ID);
+                }
                 _context.Topics.Remove(t);
                 _context.SaveChanges();
             }
@@ -60,7 +68,7 @@ namespace WebApi.Services
         {
             Topic t = _context.Topics.Find(updatedObject.ID);
             if (t == null)
-                throw new AppException("Topic not found");
+                throw new AppException("Topic " + updatedObject.ID + " - " + updatedObject.Name + " not found");
 
             /*copy properties here*/
             t.Name = updatedObject.Name;

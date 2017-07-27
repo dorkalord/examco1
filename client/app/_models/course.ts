@@ -1,8 +1,9 @@
+import { User } from './user';
 
 export class Course {
     id: number;
     lecturerID: number;
-    lecturer: string;
+    lecturer: User;
 
     name: string;
     code: string;
@@ -16,5 +17,5 @@ export class Topic {
 
     name: string;
     description: string;
-    parentTopic: number;
+    parrentTopicID: number;
 }

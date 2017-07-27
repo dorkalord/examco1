@@ -15,8 +15,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebApi.Controllers
 {
-    [Authorize]
-    [Route("[controller]")]
+    //[Authorize]
+    [Route("/users")]
     public class UsersController : Controller
     {
         private IUserService _userService;

@@ -18,6 +18,8 @@ namespace WebApi.Entities
         public System.DateTime CensorshipDate { get; set; }
         public Nullable<System.DateTime> GradingDate { get; set; }
 
+        
+        public Nullable<int> GradeID { get; set; }
         public int ExamID { get; set; }
         public int CensorID { get; set; }
         public int StudentID { get; set; }
@@ -27,6 +29,7 @@ namespace WebApi.Entities
         public virtual Censor Censor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GeneralCritereaImpact> GeneralCritereaImpacts { get; set; }
+        public virtual Grade Grade { get; set; }
         public virtual Exam Exam { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamAdvice> ExamAdvices { get; set; }

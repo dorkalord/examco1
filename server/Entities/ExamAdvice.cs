@@ -9,6 +9,8 @@ namespace WebApi.Entities
         public int ExamAttemptID { get; set; }
         public int AdviceID { get; set; }
         public int ExamCritereaID { get; set; }
+
+        public float Total { get; set; }
     
         public virtual ExamAttempt ExamAttempt { get; set; }
         public virtual ExamCriterea ExamCriterea { get; set; }

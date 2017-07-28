@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace WebApi.Entities
 {
-    public class GneralCriterea
+    public class GeneralCriterea
     {
-        public GneralCriterea()
+        public GeneralCriterea()
         {
             this.Advices = new HashSet<Advice>();
         }
@@ -24,6 +24,7 @@ namespace WebApi.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseCriterea> CourseCritereas { get; set; }
+
 
     }
 }

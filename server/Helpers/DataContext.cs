@@ -20,6 +20,12 @@ namespace WebApi.Helpers
                 this.States.Add(new State() {Name = "Grading", Commads="['evaluate', 'exportExam', 'exportCensoring']"});
                 this.States.Add(new State() {Name = "Closed", Commads="['exportExam', 'exportCensoring', 'exportEvaluations' 'generateStudentReports', ]"});
 
+                this.Grades.Add(new Grade() { Name = "A", Top = 10F });
+                this.Grades.Add(new Grade() { Name = "B", Top = 27.5F });
+                this.Grades.Add(new Grade() { Name = "C", Top = 52.5F });
+                this.Grades.Add(new Grade() { Name = "D", Top = 70F });
+                this.Grades.Add(new Grade() { Name = "E", Top = 80F });
+                this.Grades.Add(new Grade() { Name = "F", Top = 100F });
                 this.SaveChanges();
             }
         }
@@ -36,7 +42,7 @@ namespace WebApi.Helpers
             mb.Entity<ExamAdvice>().HasOne(x => x.ExamCriterea).WithMany(q => q.ExamAdvices).OnDelete(DeleteBehavior.Restrict);
             mb.Entity<GeneralCritereaImpact>().HasOne(x => x.ExamCriterea).WithMany(q => q.GeneralCritereaImpacts).OnDelete(DeleteBehavior.Restrict);
 
-            mb.Entity<Topic>().HasOne(t => t.ParrentTopic).WithMany(t => t.ChildTopics).OnDelete(DeleteBehavior.Cascade);
+            mb.Entity<Topic>().HasOne(t => t.ParrentTopic).WithMany(t => t.ChildTopics).OnDelete(DeleteBehavior.Restrict);
             mb.Entity<State>().HasOne(s => s.Next).WithOne(n => n.Previous).HasForeignKey<State>(p => p.NextID);
             mb.Entity<State>().HasOne(s => s.Previous).WithOne(n => n.Next).HasForeignKey<State>(p => p.PreviousID);
         }
@@ -47,7 +53,7 @@ namespace WebApi.Helpers
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<ExamCriterea> ExamCritereas { get; set; }
         public virtual DbSet<CourseCriterea> CourseCritereas { get; set; }
-        public virtual DbSet<GneralCriterea> GneralCritereas { get; set; }
+        public virtual DbSet<GeneralCriterea> GeneralCritereas { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<State> States { get; set; }
         public virtual DbSet<GeneralCritereaImpact> GeneralCritereaImpacts { get; set; }

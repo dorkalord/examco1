@@ -13,16 +13,21 @@ namespace WebApi.Entities
     
         public int ID { get; set; }
         public string Text { get; set; }
-        public int GradeID { get; set; }
-        
+
+        public string Grade { get; set; }
+
+        public float Min { get; set; }
+        public float Max { get; set; }
+        public float Top { get; set; }
+
         public Nullable<int> ExamCritereaID { get; set; }
 
-        public Nullable<int> GneralCritereaID { get; set; }
+        public Nullable<int> GeneralCritereaID { get; set; }
 
-        public virtual GneralCriterea GneralCriterea { get; set; }
+        public virtual GeneralCriterea GeneralCriterea { get; set; }
 
         public virtual ExamCriterea ExamCriterea { get; set; }
-        public virtual Grade Grade { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamAdvice> ExamAdvices { get; set; }
     }

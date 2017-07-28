@@ -1,4 +1,5 @@
 import { Question } from "./question";
+import { GeneralCriterea, Advice } from './criterea';
 
 export class Exam {
     id: number;
@@ -8,32 +9,29 @@ export class Exam {
     date: string;
     language: string;
 
-    generalCritereas: GeneralCriterea[];
+    examCriterea: ExamCriterea[];
     questions: Question[];
     censorIDs: number[];
 
     constructor() {
-        this.generalCritereas = [];
+        this.examCriterea = [];
         this.questions = [];
         this.censorIDs = [];
     }
 }
 
-export class GeneralCriterea {
-    id: number;
-    name: string;
-    advices: Advice[];
-}
+export class ExamCriterea{
+    id:number;
+    generalCritereaID : number
+    gnerealCriterea: GeneralCriterea;
 
-export class Advice {
-    id: number;
-    grade: Grade;
-    advice: string;
+    advices: Advice[];
 }
 
 export class Grade {
     id: number;
-    grade: string
+    grade: string;
     min: number;
     max: number;
+    top: number;
 }

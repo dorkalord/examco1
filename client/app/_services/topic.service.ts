@@ -38,7 +38,7 @@ export class TopicService {
     }
 
     delete(id: number) {
-        return this.http.delete(this.config.apiUrl + '/topic/' + id, this.jwt()).map((response: Response) => response.json());
+        return this.http.delete(this.config.apiUrl + '/topic/' + id, this.jwt());
     }
 
     // private helper methods

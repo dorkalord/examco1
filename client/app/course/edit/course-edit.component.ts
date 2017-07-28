@@ -123,16 +123,16 @@ export class CourseEditComponent implements OnInit {
             return;
         }
 
-
-        this.topicService.delete(deleting.id).subscribe(data => {
-
+        this.topicService.delete(deleting.id).subscribe(() => {
             this.topicService.updateMany(mylist).subscribe(res => {
-                this.topicService.getAllTopcisOfCourse(this.id).subscribe(topics => {
+                this.topicService.getAllTopcisOfCourse(this.id).subscribe(updatedtopics => {
+                    
                     this.myForm.controls['topics'] = this._fb.array([]);
                     let max: number = 0;
+                    
                     const control1 = <FormArray>this.myForm.controls['topics'];
 
-                    (<Topic[]>topics).forEach(item => {
+                    (<Topic[]>updatedtopics).forEach(item => {
                         if (max < item.id)
                             max = item.id;
 

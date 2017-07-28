@@ -6,7 +6,7 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Course, Topic } from '../../_models/course';
 import { ExamService } from '../../_services/exam.service';
-import { Exam, GeneralCriterea } from '../../_models/exam';
+import { Exam, ExamCriterea } from '../../_models/exam';
 import { Question } from '../../_models/question';
 
 @Component({

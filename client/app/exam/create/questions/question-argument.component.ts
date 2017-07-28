@@ -6,7 +6,7 @@ import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Course, Topic } from '../../../_models/course';
 import { ExamService } from '../../../_services/exam.service';
-import { Exam, GeneralCriterea } from '../../../_models/exam';
+import { Exam, ExamCriterea } from '../../../_models/exam';
 import { Question, Argument, ArgumentCriterea } from '../../../_models/question';
 
 @Component({
@@ -72,9 +72,9 @@ export class QestionArgumentComponent implements OnInit {
     initArgumentCriterea(argumentid: number) {
         let ac: ArgumentCriterea[] = new Array();
         let c = 0;
-        this.currentExam.generalCritereas.forEach(element => {
+        this.currentExam.examCritereas.forEach(element => {
             ac.push({
-                id: this.counter * this.currentExam.generalCritereas.length + c,
+                id: this.counter * this.currentExam.examCritereas.length + c,
                 argumentID: argumentid,
                 generalCritereaID: element.id,
                 severity: 0

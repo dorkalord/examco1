@@ -9,13 +9,8 @@ using WebApi.Services;
 
 namespace WebApi.Services
 {
-    public interface ICourseService//: IService<Course>
+    public interface ICourseService: IService<Course>
     {
-        IEnumerable<Course> GetAll();
-        Course GetById(int id);
-        Course Create(Course user);
-        Course Update(Course user);
-        void Delete(int id);/**/
     }
 
     public class CourseService : ICourseService

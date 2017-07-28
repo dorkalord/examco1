@@ -9,6 +9,7 @@ import { ExamComponent } from './exam/exam.component';
 import { ExamCreateComponent } from './exam/create/exam-create.component';
 import { ExamQuestionsComponent } from './exam/create/questions/exam-questions.component';
 import { ExamEvaluatorComponent } from './exam/create/evaluators/exam-evaluator.component';
+import { CritereaComponent } from './criterea/criterea.component';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -17,6 +18,9 @@ const appRoutes: Routes = [
     { path: 'course', component: CourseComponent, canActivate: [AuthGuard]  },
     { path: 'course/create', component: CourseCreateComponent, canActivate: [AuthGuard]  },
     { path: 'course/edit/:id', component: CourseEditComponent, canActivate: [AuthGuard]  },
+
+    { path: 'criterea', component: CritereaComponent, canActivate: [AuthGuard]  },
+
     { path: 'exam', component: ExamComponent, canActivate: [AuthGuard]  },
     { path: 'exam/create', component: ExamCreateComponent, canActivate: [AuthGuard]  },
     { path: 'exam/create/:id/question', component: ExamQuestionsComponent, canActivate: [AuthGuard]  },

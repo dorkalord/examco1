@@ -28,6 +28,10 @@ import { ExamQuestionsComponent } from './exam/create/questions/exam-questions.c
 import { QestionArgumentComponent } from './exam/create/questions/question-argument.component';
 import { ExamEvaluatorComponent } from './exam/create/evaluators/exam-evaluator.component';
 import { TopicService } from './_services/topic.service';
+import { CritereaComponent } from './criterea/criterea.component';
+import { Grade } from './_models/exam';
+import { GradeService } from './_services/grade.service';
+import { GeneralCritereaService } from './_services/criterea.service';
 
 @NgModule({
     imports: [
@@ -54,6 +58,7 @@ import { TopicService } from './_services/topic.service';
         QestionArgumentComponent,
         ExamEvaluatorComponent,
         TopicComponent,
+        CritereaComponent,
         HeaderComponent
     ],
     providers: [
@@ -65,7 +70,9 @@ import { TopicService } from './_services/topic.service';
         CourseService,
         TopicService,
         ExamService,
-        QuestionService
+        QuestionService,
+        GradeService,
+        GeneralCritereaService
     ],
     bootstrap: [AppComponent]
 })

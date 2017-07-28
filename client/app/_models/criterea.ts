@@ -6,11 +6,16 @@ export class GeneralCriterea {
 
 export class Advice {
     id: number;
-    gradeID: number;
-    advice: string;
+    text: string;
     grade: string;
     min: number;
     max: number;
     top: number;
 }
 
+export enum State{
+    List,
+    Edit, 
+    Create,
+    Loading
+}

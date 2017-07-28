@@ -9,12 +9,12 @@ export class Exam {
     date: string;
     language: string;
 
-    examCriterea: ExamCriterea[];
+    examCritereas: ExamCriterea[];
     questions: Question[];
     censorIDs: number[];
 
     constructor() {
-        this.examCriterea = [];
+        this.examCritereas = [];
         this.questions = [];
         this.censorIDs = [];
     }
@@ -22,6 +22,7 @@ export class Exam {
 
 export class ExamCriterea{
     id:number;
+    name: string;
     generalCritereaID : number
     gnerealCriterea: GeneralCriterea;
 
@@ -30,7 +31,7 @@ export class ExamCriterea{
 
 export class Grade {
     id: number;
-    grade: string;
+    name: string;
     min: number;
     max: number;
     top: number;

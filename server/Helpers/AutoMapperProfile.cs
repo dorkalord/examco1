@@ -16,6 +16,17 @@ namespace WebApi.Helpers
 
             CreateMap<Topic, TopicDto>();
             CreateMap<TopicDto, Topic>();
+
+            CreateMap<Grade, GradeDto>();
+            CreateMap<GradeDto, Grade>();
+
+            CreateMap<GeneralCriterea, GeneralCritereaDto>();
+            CreateMap<GeneralCritereaDto, GeneralCriterea>();
+            CreateMap<GeneralCriterea, GeneralCritereaSimpleDto>();
+            CreateMap<GeneralCritereaSimpleDto, GeneralCriterea>();
+
+            CreateMap<Advice, AdviceDto>();
+            CreateMap<AdviceDto, Advice>();
         }
     }
 }

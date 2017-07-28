@@ -8,428 +8,7 @@ import { Exam } from '../_models/exam';
 export class ExamService {
     constructor(private http: Http, private config: AppConfig) { }
 
-    getAllExamsofUser(userID: number): Exam[] {
-        return [
-           {
-            "id": 1,
-            "date": "2017-07-30T20:44:55",
-            "courseID": 1,
-            "authorID": 1,
-            "language": "English",
-            "questions": [],
-            "censorIDs": [],
-            "generalCritereas": [
-                {
-                    "id": 1,
-                    "name": "Use of wrong method",
-                    "advices": [
-                        {
-                            "id": 1,
-                            "advice": "In publishing and graphic design, lorem ipsum is a filler text or greeking commonly used to demonstrate ",
-                            "grade": {
-                                "id": 1,
-                                "grade": "A",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 2,
-                            "grade": {
-                                "id": 2,
-                                "grade": "B",
-                                "min": 0,
-                                "max": 100
-                            },
-                            "advice": "The lorem ipsum text is typically a scrambled section of De finibus bonorum et malorum, a 1st-century oper Latin."
-                        },
-                        {
-                            "id": 3,
-                            "advice": "A variation of the ordinary lorem ipsum text has been used in typesetting since the 1960s or earlier, when it ",
-                            "grade": {
-                                "id": 3,
-                                "grade": "C",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 4,
-                            "advice": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ",
-                            "grade": {
-                                "id": 4,
-                                "grade": "D",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 5,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as the ",
-                            "grade": {
-                                "id": 5,
-                                "grade": "E",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 6,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as ",
-                            "grade": {
-                                "id": 6,
-                                "grade": "F",
-                                "min": 0,
-                                "max": 100
-                            }
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "name": "Time spent on task",
-                    "advices": [
-                        {
-                            "id": 1,
-                            "advice": "In publishing and graphic design, lorem ipsum is a filler text or greeking commonly used to demonstrate ",
-                            "grade": {
-                                "id": 1,
-                                "grade": "A",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 2,
-                            "grade": {
-                                "id": 2,
-                                "grade": "B",
-                                "min": 0,
-                                "max": 100
-                            },
-                            "advice": "The lorem ipsum text is typically a scrambled section of De finibus bonorum et malorum, a 1st-century oper Latin."
-                        },
-                        {
-                            "id": 3,
-                            "advice": "A variation of the ordinary lorem ipsum text has been used in typesetting since the 1960s or earlier, when it ",
-                            "grade": {
-                                "id": 3,
-                                "grade": "C",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 4,
-                            "advice": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ",
-                            "grade": {
-                                "id": 4,
-                                "grade": "D",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 5,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as the ",
-                            "grade": {
-                                "id": 5,
-                                "grade": "E",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 6,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as ",
-                            "grade": {
-                                "id": 6,
-                                "grade": "F",
-                                "min": 0,
-                                "max": 100
-                            }
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "name": "Ability to express yourself academicaly",
-                    "advices": [
-                        {
-                            "id": 1,
-                            "advice": "In publishing and graphic design, lorem ipsum is a filler text or greeking commonly used to demonstrate ",
-                            "grade": {
-                                "id": 1,
-                                "grade": "A",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 2,
-                            "grade": {
-                                "id": 2,
-                                "grade": "B",
-                                "min": 0,
-                                "max": 100
-                            },
-                            "advice": "The lorem ipsum text is typically a scrambled section of De finibus bonorum et malorum, a 1st-century oper Latin."
-                        },
-                        {
-                            "id": 3,
-                            "advice": "A variation of the ordinary lorem ipsum text has been used in typesetting since the 1960s or earlier, when it ",
-                            "grade": {
-                                "id": 3,
-                                "grade": "C",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 4,
-                            "advice": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ",
-                            "grade": {
-                                "id": 4,
-                                "grade": "D",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 5,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as the ",
-                            "grade": {
-                                "id": 5,
-                                "grade": "E",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 6,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as ",
-                            "grade": {
-                                "id": 6,
-                                "grade": "F",
-                                "min": 0,
-                                "max": 100
-                            }
-                        }
-                    ]
-                }
-            ]
-        },
-		{
-            "id": 2,
-            "date": "2017-07-30T20:44:55",
-            "courseID": 1,
-            "authorID": 1,
-            "language": "English",
-            "questions": [],
-            "censorIDs": [],
-            "generalCritereas": [
-                {
-                    "id": 1,
-                    "name": "Use of wrong method",
-                    "advices": [
-                        {
-                            "id": 1,
-                            "advice": "In publishing and graphic design, lorem ipsum is a filler text or greeking commonly used to demonstrate ",
-                            "grade": {
-                                "id": 1,
-                                "grade": "A",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 2,
-                            "grade": {
-                                "id": 2,
-                                "grade": "B",
-                                "min": 0,
-                                "max": 100
-                            },
-                            "advice": "The lorem ipsum text is typically a scrambled section of De finibus bonorum et malorum, a 1st-century oper Latin."
-                        },
-                        {
-                            "id": 3,
-                            "advice": "A variation of the ordinary lorem ipsum text has been used in typesetting since the 1960s or earlier, when it ",
-                            "grade": {
-                                "id": 3,
-                                "grade": "C",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 4,
-                            "advice": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ",
-                            "grade": {
-                                "id": 4,
-                                "grade": "D",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 5,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as the ",
-                            "grade": {
-                                "id": 5,
-                                "grade": "E",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 6,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as ",
-                            "grade": {
-                                "id": 6,
-                                "grade": "F",
-                                "min": 0,
-                                "max": 100
-                            }
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "name": "Time spent on task",
-                    "advices": [
-                        {
-                            "id": 1,
-                            "advice": "In publishing and graphic design, lorem ipsum is a filler text or greeking commonly used to demonstrate ",
-                            "grade": {
-                                "id": 1,
-                                "grade": "A",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 2,
-                            "grade": {
-                                "id": 2,
-                                "grade": "B",
-                                "min": 0,
-                                "max": 100
-                            },
-                            "advice": "The lorem ipsum text is typically a scrambled section of De finibus bonorum et malorum, a 1st-century oper Latin."
-                        },
-                        {
-                            "id": 3,
-                            "advice": "A variation of the ordinary lorem ipsum text has been used in typesetting since the 1960s or earlier, when it ",
-                            "grade": {
-                                "id": 3,
-                                "grade": "C",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 4,
-                            "advice": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ",
-                            "grade": {
-                                "id": 4,
-                                "grade": "D",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 5,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as the ",
-                            "grade": {
-                                "id": 5,
-                                "grade": "E",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 6,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as ",
-                            "grade": {
-                                "id": 6,
-                                "grade": "F",
-                                "min": 0,
-                                "max": 100
-                            }
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "name": "Ability to express yourself academicaly",
-                    "advices": [
-                        {
-                            "id": 1,
-                            "advice": "In publishing and graphic design, lorem ipsum is a filler text or greeking commonly used to demonstrate ",
-                            "grade": {
-                                "id": 1,
-                                "grade": "A",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 2,
-                            "grade": {
-                                "id": 2,
-                                "grade": "B",
-                                "min": 0,
-                                "max": 100
-                            },
-                            "advice": "The lorem ipsum text is typically a scrambled section of De finibus bonorum et malorum, a 1st-century oper Latin."
-                        },
-                        {
-                            "id": 3,
-                            "advice": "A variation of the ordinary lorem ipsum text has been used in typesetting since the 1960s or earlier, when it ",
-                            "grade": {
-                                "id": 3,
-                                "grade": "C",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 4,
-                            "advice": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ",
-                            "grade": {
-                                "id": 4,
-                                "grade": "D",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 5,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as the ",
-                            "grade": {
-                                "id": 5,
-                                "grade": "E",
-                                "min": 0,
-                                "max": 100
-                            }
-                        },
-                        {
-                            "id": 6,
-                            "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as ",
-                            "grade": {
-                                "id": 6,
-                                "grade": "F",
-                                "min": 0,
-                                "max": 100
-                            }
-                        }
-                    ]
-                }
-            ]
-        }
-        ];
-
+    getAllExamsofUser(userID: number){
         //return this.http.get(this.config.apiUrl + '/users', this.jwt()).map((response: Response) => response.json());
     }
 
@@ -443,202 +22,172 @@ export class ExamService {
             "language": "English",
             "questions": [],
             "censorIDs": [],
-            "generalCritereas": [
+            "examCritereas": [
                 {
                     "id": 1,
                     "name": "Use of wrong method",
+                    "generalCritereaID": null,
+                    "gnerealCriterea": null,
                     "advices": [
                         {
                             "id": 1,
                             "advice": "In publishing and graphic design, lorem ipsum is a filler text or greeking commonly used to demonstrate ",
-                            "grade": {
-                                "id": 1,
-                                "grade": "A",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "A",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 2,
-                            "grade": {
-                                "id": 2,
-                                "grade": "B",
-                                "min": 0,
-                                "max": 100
-                            },
+                            "top":17.5,
+                            "grade": "B",
+                            "min": 0,
+                            "max": 100,
                             "advice": "The lorem ipsum text is typically a scrambled section of De finibus bonorum et malorum, a 1st-century oper Latin."
                         },
                         {
                             "id": 3,
                             "advice": "A variation of the ordinary lorem ipsum text has been used in typesetting since the 1960s or earlier, when it ",
-                            "grade": {
-                                "id": 3,
-                                "grade": "C",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "C",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 4,
                             "advice": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ",
-                            "grade": {
-                                "id": 4,
-                                "grade": "D",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "D",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 5,
                             "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as the ",
-                            "grade": {
-                                "id": 5,
-                                "grade": "E",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "E",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 6,
                             "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as ",
-                            "grade": {
-                                "id": 6,
-                                "grade": "F",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "F",
+                            "min": 0,
+                            "max": 100
                         }
                     ]
                 },
                 {
                     "id": 2,
                     "name": "Time spent on task",
+                    "generalCritereaID": null,
+                    "gnerealCriterea": null,
                     "advices": [
                         {
                             "id": 1,
                             "advice": "In publishing and graphic design, lorem ipsum is a filler text or greeking commonly used to demonstrate ",
-                            "grade": {
-                                "id": 1,
-                                "grade": "A",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "A",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 2,
-                            "grade": {
-                                "id": 2,
-                                "grade": "B",
-                                "min": 0,
-                                "max": 100
-                            },
+                            "top":17.5,
+                            "grade": "B",
+                            "min": 0,
+                            "max": 100,
                             "advice": "The lorem ipsum text is typically a scrambled section of De finibus bonorum et malorum, a 1st-century oper Latin."
                         },
                         {
                             "id": 3,
                             "advice": "A variation of the ordinary lorem ipsum text has been used in typesetting since the 1960s or earlier, when it ",
-                            "grade": {
-                                "id": 3,
-                                "grade": "C",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "C",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 4,
                             "advice": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ",
-                            "grade": {
-                                "id": 4,
-                                "grade": "D",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "D",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 5,
                             "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as the ",
-                            "grade": {
-                                "id": 5,
-                                "grade": "E",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "E",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 6,
                             "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as ",
-                            "grade": {
-                                "id": 6,
-                                "grade": "F",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "F",
+                            "min": 0,
+                            "max": 100
                         }
                     ]
                 },
                 {
                     "id": 3,
                     "name": "Ability to express yourself academicaly",
+                    "generalCritereaID": null,
+                    "gnerealCriterea": null,
                     "advices": [
                         {
                             "id": 1,
                             "advice": "In publishing and graphic design, lorem ipsum is a filler text or greeking commonly used to demonstrate ",
-                            "grade": {
-                                "id": 1,
-                                "grade": "A",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "A",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 2,
-                            "grade": {
-                                "id": 2,
-                                "grade": "B",
-                                "min": 0,
-                                "max": 100
-                            },
+                            "top":17.5,
+                            "grade": "B",
+                            "min": 0,
+                            "max": 100,
                             "advice": "The lorem ipsum text is typically a scrambled section of De finibus bonorum et malorum, a 1st-century oper Latin."
                         },
                         {
                             "id": 3,
                             "advice": "A variation of the ordinary lorem ipsum text has been used in typesetting since the 1960s or earlier, when it ",
-                            "grade": {
-                                "id": 3,
-                                "grade": "C",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "C",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 4,
                             "advice": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut ",
-                            "grade": {
-                                "id": 4,
-                                "grade": "D",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "D",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 5,
                             "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as the ",
-                            "grade": {
-                                "id": 5,
-                                "grade": "E",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "E",
+                            "min": 0,
+                            "max": 100
                         },
                         {
                             "id": 6,
                             "advice": "It is not known exactly when the text obtained its current standard form; it may have been as late as ",
-                            "grade": {
-                                "id": 6,
-                                "grade": "F",
-                                "min": 0,
-                                "max": 100
-                            }
+                            "top":10,
+                            "grade": "F",
+                            "min": 0,
+                            "max": 100
                         }
                     ]
                 }

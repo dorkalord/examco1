@@ -27,6 +27,16 @@ namespace WebApi.Helpers
 
             CreateMap<Advice, AdviceDto>();
             CreateMap<AdviceDto, Advice>();
+
+            CreateMap<Exam, ExamDto>();
+            CreateMap<ExamDto, Exam>();
+            CreateMap<Exam, ExamFullDto>();
+            CreateMap<ExamFullDto, Exam>();
+            CreateMap<Exam, ExamListDto>();
+            CreateMap<ExamListDto, Exam>();
+
+            CreateMap<State, StateDto>();
+            CreateMap<StateDto, State>();
         }
     }
 }

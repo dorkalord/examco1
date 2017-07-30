@@ -39,20 +39,21 @@ export class ExamEvaluatorComponent implements OnInit {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
-            this.currentExam = this.examService.getById(this.id);
-            this.counter = 1;
-            this.evaluators = [];
-            this.userService.getAll().subscribe(data => {
-                this.allusers = (<User[]>data).filter(x => x.roleID === 3 || x.roleID === 2);
-                this.users = this.allusers;
-            })
-
+            this.examService.getById(this.id).subscribe(res => {
+                this.currentExam = res;
+                this.counter = 1;
+                this.evaluators = [];
+                this.userService.getAll().subscribe(data => {
+                    this.allusers = (<User[]>data).filter(x => x.roleID === 3 || x.roleID === 2);
+                    this.users = this.allusers;
+                });
+            });
         });
     }
 
-    update(query: string){
+    update(query: string) {
         this.users = this.allusers;
-        this.users = this.users.filter(x => x.username.toLowerCase().indexOf(query.toLowerCase()) > -1 );
+        this.users = this.users.filter(x => x.username.toLowerCase().indexOf(query.toLowerCase()) > -1);
     }
 
     addEvaluator(index: number) {
@@ -60,7 +61,7 @@ export class ExamEvaluatorComponent implements OnInit {
         this.users.splice(index, 1);
     }
 
-    removeEvaluator(index: number){
+    removeEvaluator(index: number) {
         this.users.push(this.evaluators[index]);
         this.evaluators.splice(index, 1);
     }

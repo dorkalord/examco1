@@ -4,7 +4,7 @@ import { User } from '../_models/index';
 import { UserService } from '../_services/index';
 import { Course } from '../_models/course';
 import { CourseService } from '../_services/course.service';
-import { GeneralCriterea, Advice, State } from '../_models/criterea';
+import { GeneralCriterea, Advice, StateOfForm } from '../_models/criterea';
 import { Grade } from '../_models/exam';
 import { GradeService } from '../_services/grade.service';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
@@ -22,7 +22,7 @@ export class CritereaComponent implements OnInit {
     public critereaList: GeneralCriterea[];
     public gradeList: Grade[];
     public critereaForm: FormGroup;
-    public state: State;
+    public state: StateOfForm;
 
 
     constructor(private userService: UserService,
@@ -35,10 +35,10 @@ export class CritereaComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.state = State.Loading;
+        this.state = StateOfForm.Loading;
         this.critereaService.geAll().subscribe(data => {
             this.critereaList = data;
-            this.state = State.List;
+            this.state = StateOfForm.List;
         });
     }
 
@@ -60,7 +60,7 @@ export class CritereaComponent implements OnInit {
 
 
     add() {
-        this.state = State.Loading;
+        this.state = StateOfForm.Loading;
         this.gradeService.getDefault().subscribe(data => {
             this.gradeList = data;
             this.critereaForm = this.initForm();
@@ -74,22 +74,21 @@ export class CritereaComponent implements OnInit {
                     text: ["", Validators.required]
                 }));
             });
-            this.state = State.Create;
+            this.state = StateOfForm.Create;
         });
     }
 
     save() {
-        console.log("saving");
-        if (this.state == State.Create) {
+        if (this.state == StateOfForm.Create) {
             this.critereaService.create(this.critereaForm.value).subscribe(data => {
-                this.state = State.List;
+                this.state = StateOfForm.List;
                 this.ngOnInit();
             });
         }
 
-        if (this.state == State.Edit) {
+        if (this.state == StateOfForm.Edit) {
             this.critereaService.update(this.critereaForm.value).subscribe(data => {
-                this.state = State.List;
+                this.state = StateOfForm.List;
                  this.ngOnInit();
             });
         }
@@ -98,7 +97,7 @@ export class CritereaComponent implements OnInit {
     }
 
     edit(id: number) {
-        this.state = State.Loading;
+        this.state = StateOfForm.Loading;
         this.critereaService.getById(id).subscribe(data => {
 
             this.critereaForm = this._fb.group({
@@ -111,12 +110,12 @@ export class CritereaComponent implements OnInit {
             (<Advice[]>data.advices).forEach(ad => {
                 control.push(this.initAdvice(ad));
             });
-            this.state = State.Edit;
+            this.state = StateOfForm.Edit;
         });
     }
 
     cancel() {
-        this.state = State.List;
+        this.state = StateOfForm.List;
     }
 
     remove(id: number) {

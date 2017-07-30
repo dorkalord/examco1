@@ -4,8 +4,8 @@
         <!--(ngSubmit)="save(examForm)"-->
 
         <div class="form-group">
-            <label>Date</label>
-            <input type="datetime-local" class="form-control" formControlName="date">
+            <label>State</label>
+            <input type="text" class="form-control" formControlName="status" disabled>
         </div>
 
         <div class="form-group">
@@ -16,35 +16,33 @@
         </div>
 
         <div class="form-group">
+            <label>Date</label>
+            <input type="datetime-local" class="form-control" formControlName="date">
+        </div>
+
+        <div class="form-group">
             <label>Langugage</label>
             <input type="text" class="form-control" formControlName="language">
         </div>
 
-        <div formArrayName="generalCritereas">
-            <div *ngFor="let criterea of examForm.controls.generalCritereas.controls; let i=index" class="container panel" style="background-color: lavender ">
-                <div [formGroupName]="i">
-                    <generalCriterea [group]="criterea"></generalCriterea>
-                </div>
+        <div class="container panel" *ngIf="state==2 || state==1">
+            <div class="panel-heading">
+                <h2>New criterea</h2>
+            </div>
+            <div class="panel body">
+                <criterea-form [form]="critereaForm"></criterea-form>
 
-                <div class="margin-20 pull-right">
-                    <button type="button" class="form-control" class="btn btn-danger " *ngIf="examForm.controls.generalCritereas.controls.length > 1"
-                        (click)="removeCriterea(i)">
-                        Remove 
-                    </button>
+                <div class="btn-group pull-right" role="group">
+                    <button type="button" class="btn btn-success" (click)="save()">
+                Save
+            </button>
+                    <button type="button" class="btn btn-primary" (click)="cancel()">
+                Cancel
+            </button>
                 </div>
-                <div class="clearfix"></div>
             </div>
         </div>
 
-        <div class="clearfix"></div>
-        <div class="btn-group pull-right" role="group">
-            <button type="button" class="btn btn-primary" >
-                    Add existing
-                </button>
-            <button type="button" class="btn btn-success" (click)="addGeneralCriterea()">
-                    Add criterea
-                </button>
-        </div>
 
         <div class="container">
             <table class="table table-hover">
@@ -55,33 +53,50 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let criterea of examForm.value.generalCritereas; let i=index">
+                    <tr *ngFor="let criterea of examForm.value.examCritereas; let i=index">
                         <td>{{criterea.name}} </td>
-                        <td> <button type="button" class="form-control" class="btn btn-danger " *ngIf="examForm.controls.generalCritereas.controls.length > 1"
-                                (click)="removeCriterea(i)">
-                        Remove 
-                    </button></td>
+                        <td>
+                            <div class="btn-group pull-right" role="group">
+                                <button type="button" class="btn btn-primary" (click)="edit(i)">
+                                Edit
+                            </button>
+                                <button type="button" class="btn btn-danger" (click)="removeCriterea(i)">
+                                Remove
+                            </button>
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
 
+        <div class="btn-group pull-right" role="group">
+            <button type="button" class="btn btn">
+                    Add existing
+                </button>
+            <button type="button" class="btn btn-success" (click)="addExamCriterea()">
+                    Add criterea
+                </button>
+        </div>
 
+        <div class="clearfix margin-20"></div>
     </form>
 
-    <div class="form-group pull-right">
-        <button class="btn btn-primary" [routerLink]="['/exam/create/1/question']">Next</button>
-            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
-    />
-        <a [routerLink]="['/exam']" class="btn btn-link">Cancel</a>
-    </div>
 
-    <div class="clearfix"></div>
-    <div class="margin-20">
-        <div>Raw data</div>
-        <pre>Is myForm valid?: <br>{{examForm.valid | json}}</pre>
-        <pre>form value: <br>{{examForm.value | json}}</pre>
-        <pre>User value: <br>{{currentUser | json}}</pre>
-    </div>
+</div>
+
+<div class="form-group pull-right">
+    <button class="btn btn-primary" [routerLink]="['/exam/create/1/question']">Next</button>
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+    />
+    <a [routerLink]="['/exam']" class="btn btn-link">Cancel</a>
+</div>
+
+<div class="clearfix"></div>
+<div class="margin-20">
+    <div>Raw data</div>
+    <pre>Is myForm valid?: <br>{{examForm.valid | json}}</pre>
+    <pre>form value: <br>{{examForm.value | json}}</pre>
+    <pre>User value: <br>{{currentUser | json}}</pre>
 </div>

@@ -13,7 +13,7 @@ export class Advice {
     top: number;
 }
 
-export enum State{
+export enum StateOfForm{
     List,
     Edit, 
     Create,

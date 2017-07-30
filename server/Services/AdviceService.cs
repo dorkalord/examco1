@@ -51,7 +51,7 @@ namespace WebApi.Services
 
         public IEnumerable<Advice> getByCriterea(int id)
         {
-            return _context.Advices.ToList().FindAll(x => x.GeneralCritereaID == id);
+            return _context.Advices.Where(x => x.GeneralCritereaID == id);
         }
 
         public Advice GetById(int id)

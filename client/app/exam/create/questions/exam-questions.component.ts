@@ -38,16 +38,16 @@ export class ExamQuestionsComponent implements OnInit {
     ngOnInit() {
         this.sub = this.route.params.subscribe(params => {
             this.id = +params['id'];
-            this.currentExam = this.examService.getById(this.id);
+            this.examService.getById(this.id).subscribe(res => {
+                this.currentExam = res;
 
-            this.courseService.getById(this.currentExam.courseID).subscribe(data => {
-                this.currentCourse = data;
-                this.counter = 1;
-                this.questions = [];
-                this.questionForm = this.initQestion();
+                this.courseService.getById(this.currentExam.courseID).subscribe(data => {
+                    this.currentCourse = data;
+                    this.counter = 1;
+                    this.questions = [];
+                    this.questionForm = this.initQestion();
+                });
             });
-
-
         });
     }
 

@@ -56,6 +56,8 @@ namespace WebApi
             services.AddScoped<IGradeService, GradeService>();
             services.AddScoped<IGeneralCritereaService, GeneralCritereaService>();
             services.AddScoped<IAdviceService, AdviceService>();
+            services.AddScoped<IExamService, ExamService>();
+            services.AddScoped<IStateService, StateService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

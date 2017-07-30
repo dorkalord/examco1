@@ -5,9 +5,11 @@ export class Exam {
     id: number;
     courseID: number;
     authorID: number;
+    stateID: number;
 
     date: string;
     language: string;
+    status: string;
 
     examCritereas: ExamCriterea[];
     questions: Question[];

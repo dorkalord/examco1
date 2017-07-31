@@ -34,9 +34,14 @@ namespace WebApi.Helpers
             CreateMap<ExamFullDto, Exam>();
             CreateMap<Exam, ExamListDto>();
             CreateMap<ExamListDto, Exam>();
+            CreateMap<Exam, ExamCreateDto>();
+            CreateMap<ExamCreateDto, Exam>();
 
             CreateMap<State, StateDto>();
             CreateMap<StateDto, State>();
+
+            CreateMap<ExamCriterea, ExamCritereaDto>();
+            CreateMap<ExamCritereaDto, ExamCriterea>();
         }
     }
 }

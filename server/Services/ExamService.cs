@@ -64,6 +64,8 @@ namespace WebApi.Services
                 rez.Author = _context.Users.Find(rez.AuthorID);
                 rez.Course = _context.Courses.Find(rez.CourseID);
                 rez.State = _context.States.Find(rez.StateID);
+                rez.ExamCriterea = _context.ExamCritereas.Where(x => x.ExamID == id).ToList();
+                rez.Questions = _context.Questions.Where(x => x.ExamID == id).ToList();
             }
 
             return rez;

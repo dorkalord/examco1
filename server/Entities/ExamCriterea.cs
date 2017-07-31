@@ -27,5 +27,8 @@ namespace WebApi.Entities
         public virtual ICollection<ArgumentCriterea> ArgumentCritereas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamAdvice> ExamAdvices { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Advice> Advices { get; set; }
     }
 }

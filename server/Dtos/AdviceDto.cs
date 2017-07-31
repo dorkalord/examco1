@@ -7,7 +7,7 @@ namespace WebApi.Dtos
 {
     public class AdviceDto
     {
-        public int ID { get; set; }
+        public Nullable<int> ID { get; set; }
         public string Text { get; set; }
 
         public string Grade { get; set; }

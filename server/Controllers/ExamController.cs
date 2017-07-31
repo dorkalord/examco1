@@ -17,19 +17,25 @@ namespace WebApi.Controllers
     public class ExamController : Controller
     {
         private IExamService _examService;
-        private IUserService _userService;
-        private ITopicService _topicService;
+        private IExamCritereaService _examCritereaService;
+        private IGeneralCritereaService _generalCritereaService;
+        private ICourseService _courseService;
+        private IStateService _stateService;
         private IMapper _mapper;
 
         public ExamController(
             IExamService examService,
-            IUserService userService,
-            ITopicService topicService,
+            IExamCritereaService examCritereaService,
+            IGeneralCritereaService generalCritereaService,
+            ICourseService courseService,
+            IStateService stateService,
         IMapper mapper)
         {
-            _topicService = topicService;
-            _userService = userService;
+            _examCritereaService = examCritereaService;
             _examService = examService;
+            _generalCritereaService = generalCritereaService;
+            _courseService = courseService;
+            _stateService = stateService;
             _mapper = mapper;
 
         }
@@ -53,8 +59,14 @@ namespace WebApi.Controllers
         [HttpGet("author/{id}")]
         public IActionResult GetByAuthor(int id)
         {
-            var exam = _examService.GetById(id);
-            var examDto = _mapper.Map<ExamListDto>(exam);
+            List<Exam> exams = _examService.getByAuthor(id).ToList();
+            for (int i = 0; i < exams.Count; i++)
+            {
+                exams[i].Course = _courseService.GetById(exams[i].CourseID);
+                exams[i].State = _stateService.GetById(exams[i].StateID);
+            }
+
+            List<ExamListDto> examDto = _mapper.Map<List<ExamListDto>>(exams);
             return Ok(examDto);
         }
 
@@ -78,12 +90,13 @@ namespace WebApi.Controllers
 
 
         [HttpPost()]
-        public IActionResult Create([FromBody]ExamDto examDto)
+        public IActionResult Create([FromBody]ExamCreateDto examDto)
         {
             // map dto to entity and set id
             Exam c = _mapper.Map<Exam>(examDto);
             try
             {
+                c.ExamCriterea = null;
                 // save 
                 c = _examService.Create(c);
                 return Ok(_mapper.Map<ExamDto>(c));
@@ -93,6 +106,38 @@ namespace WebApi.Controllers
                 // return error message if there was an exception
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost("criterea/{id}")]
+        public IActionResult CreateExamCriterea(int id, [FromBody]List<ExamCritereaDto> examCriterea)
+        {
+            try
+            {
+                foreach (ExamCritereaDto item in examCriterea)
+                {
+                    ExamCriterea temp = _mapper.Map<ExamCriterea>(item);
+                    temp.ExamID = id;
+                    
+                    if (item.GeneralCritereaID == null)
+                    {
+                        GeneralCriterea tempcriterea = new GeneralCriterea();
+                        tempcriterea.Name = temp.Name;
+                        tempcriterea.Advices = temp.Advices;
+
+                        tempcriterea = _generalCritereaService.Create(tempcriterea);
+                        temp.GeneralCritereaID = tempcriterea.ID;
+                    }
+
+                    _examCritereaService.Create(temp);
+                }
+
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         [HttpPut("{id}")]

@@ -2,22 +2,22 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { AppConfig } from '../app.config';
-import { Exam } from '../_models/exam';
+import { Exam, ExamCriterea } from '../_models/exam';
 
 @Injectable()
 export class ExamService {
     constructor(private http: Http, private config: AppConfig) { }
 
     getAllExamsofAuthor(userID: number){
-        return this.http.get(this.config.apiUrl + '/exam/author' + userID, this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.config.apiUrl + '/exam/author/' + userID, this.jwt()).map((response: Response) => response.json());
     }
 
     getAllExamsofCensor(userID: number){
-        return this.http.get(this.config.apiUrl + '/exam/censor' + userID, this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.config.apiUrl + '/exam/censor/' + userID, this.jwt()).map((response: Response) => response.json());
     }
 
     getAllExamsofStudent(userID: number){
-        return this.http.get(this.config.apiUrl + '/exam/student' + userID, this.jwt()).map((response: Response) => response.json());
+        return this.http.get(this.config.apiUrl + '/exam/student/' + userID, this.jwt()).map((response: Response) => response.json());
     }
 
     getById(id: number) {
@@ -26,6 +26,10 @@ export class ExamService {
 
     create(course: Exam) {
         return this.http.post(this.config.apiUrl + '/exam', course, this.jwt());
+    }
+
+    createCriterea(id:number, body: ExamCriterea[]) {
+        return this.http.post(this.config.apiUrl + '/exam/criterea/' + id, body, this.jwt());
     }
 
     update(course: Exam) {

@@ -33,6 +33,9 @@ export class ExamQuestionsComponent implements OnInit {
         private route: ActivatedRoute) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
+        this.counter = 1;
+        this.questions = [];
+        this.questionForm = this._fb.group({});
     }
 
     ngOnInit() {

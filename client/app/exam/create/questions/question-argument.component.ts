@@ -23,8 +23,8 @@ export class QestionArgumentComponent implements OnInit {
     @Input('exam')
     public currentExam: Exam;
 
-    @Input('qestionid')
-    public qestionID: number;
+    @Input('questionid')
+    public questionID: number;
 
     currentUser: User;
     public argumentForm: FormGroup;
@@ -42,11 +42,11 @@ export class QestionArgumentComponent implements OnInit {
             id: this.counter,
             authorID: this.currentUser.id,
             parentArgumentID: null,
-            qestionID: this.qestionID,
+            questionID: this.questionID,
 
             text: ['', Validators.required],
             advice: [''],
-            weight: [''],
+            defaultWeight: [''],
             variable: [false, Validators.required],
             minMistakeText: [''],
             maxMistakeText: [''],
@@ -67,11 +67,11 @@ export class QestionArgumentComponent implements OnInit {
             id: this.counter,
             authorID: this.currentUser.id,
             parentArgumentID: null,
-            qestionID: this.qestionID,
+            questionID: this.questionID,
 
             text: ['', Validators.required],
             advice: [''],
-            weight: [''],
+            defaultWeight: [''],
             variable: [false, Validators.required],
             minMistakeText: [''],
             maxMistakeText: [''],
@@ -89,7 +89,7 @@ export class QestionArgumentComponent implements OnInit {
             ac.push({
                 id: this.counter * this.currentExam.examCriterea.length + c,
                 argumentID: argumentid,
-                generalCritereaID: element.id,
+                examCritereaID: element.id,
                 severity: 0
             });
             c++;
@@ -157,11 +157,11 @@ export class QestionArgumentComponent implements OnInit {
             id: a.id,
             authorID: this.currentUser.id,
             parentArgumentID: a.parentArgumentID,
-            qestionID: a.qestionID,
+            questionID: a.questionID,
 
             text: [a.text, Validators.required],
             advice: [a.advice],
-            weight: [a.weight],
+            defaultWeight: [a.defaultWeight],
             variable: [a.variable, Validators.required],
             minMistakeText: [a.minMistakeText],
             maxMistakeText: [a.maxMistakeText],

@@ -8,27 +8,28 @@ import { Question } from '../_models/index';
 export class QuestionService {
     constructor(private http: Http, private config: AppConfig) { }
 
-    getAllCoursesOfUser(userID: number): Question[] {
-        return [];
-
-        //return this.http.get(this.config.apiUrl + '/users', this.jwt()).map((response: Response) => response.json());
+    getAll() {
+        return this.http.get(this.config.apiUrl + '/question', this.jwt()).map((response: Response) => response.json());
     }
 
-    getById(id: number): Question {
-
-        return null;        //return this.http.get(this.config.apiUrl + '/users/' + id, this.jwt()).map((response: Response) => response.json());
+    getById(id: number) {
+        return this.http.get(this.config.apiUrl + '/question/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
     create(course: Question) {
-        return this.http.post(this.config.apiUrl + '/users', course, this.jwt());
+        return this.http.post(this.config.apiUrl + '/question', course, this.jwt()).map((response: Response) => response.json());;
+    }
+
+    createMany(course: Question[]) {
+        return this.http.post(this.config.apiUrl + '/question/many', course, this.jwt()).map((response: Response) => response.json());;
     }
 
     update(course: Question) {
-        return this.http.put(this.config.apiUrl + '/users/' + course.id, course, this.jwt());
+        return this.http.put(this.config.apiUrl + '/question/' + course.id, course, this.jwt()).map((response: Response) => response.json());;
     }
 
     delete(id: number) {
-        return this.http.delete(this.config.apiUrl + '/users/' + id, this.jwt());
+        return this.http.delete(this.config.apiUrl + '/question/' + id, this.jwt());
     }
 
     // private helper methods

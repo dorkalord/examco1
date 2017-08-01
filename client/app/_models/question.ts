@@ -1,24 +1,26 @@
 export class Question{
     id: number;
     examID: number;
-    parentQestionID: number;
+    parentQuestionID: number;
 
-    seqenceNumber: number;
+    seqencialNumber: number;
     text: string;
+    proposedWeight:number;
+    finalWeight:number;
     
     arguments: Argument[];
-    topicIDs: number[];
+    tags: Tag[];
 }
 
 export class Argument{
     id: number;
     authorID: number;
     parentArgumentID: number;
-    qestionID: number;
+    questionID: number;
 
     text: string;
     advice: string;
-    weight: number;
+    defaultWeight: number;
     variable: boolean;
     minMistakeText: string;
     maxMistakeText: string;
@@ -31,7 +33,13 @@ export class Argument{
 export class ArgumentCriterea{
     id: number;
     argumentID: number;
-    generalCritereaID: number;
+    examCritereaID: number;
 
     severity: number;
+}
+
+export class Tag{
+    id: number;
+    questionID: number;
+    topicID: number;
 }

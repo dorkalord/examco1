@@ -53,6 +53,7 @@ namespace WebApi.Controllers
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
+
         {
             Exam exam = _examService.GetById(id);
             exam.Course.Topics = _topicService.getByCourse(exam.Course.ID).ToList();

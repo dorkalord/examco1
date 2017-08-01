@@ -53,7 +53,18 @@ namespace WebApi.Services
 
         public Question GetById(int id)
         {
-            return _context.Questions.Find(id);
+            Question q = _context.Questions.Find(id);
+            if (q != null)
+            {
+                q.Tags = _context.Tags.Where(x => x.QuestionID == q.ID).ToList();
+                q.Arguments = _context.Arguments.Where(x => x.QuestionID == q.ID).ToList();
+
+                for (int i = 0; i < q.Arguments.Count; i++)
+                {
+                    q.Arguments.ElementAt(i).ArgumentCritereas = _context.ArgumentCritereas.Where(x => x.ArgumentID == q.Arguments.ElementAt(i).ID).ToList();
+                }
+            }
+            return q;
         }
 
         public Question Update(Question updatedObject)

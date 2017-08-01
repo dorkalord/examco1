@@ -7,8 +7,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Course, Topic } from '../../../_models/course';
 import { ExamService } from '../../../_services/exam.service';
 import { Exam } from '../../../_models/exam';
-import { Question } from '../../../_models/question';
+import { Question, Tag } from '../../../_models/question';
 import { ExamDataTransferService } from '../../../_services/exam-datatransfer.service';
+import { QuestionService } from '../../../_services/question.service';
 
 @Component({
     moduleId: module.id,
@@ -24,12 +25,14 @@ export class ExamQuestionsComponent implements OnInit {
     public questions: Question[];
     public questionForm: FormGroup;
     public counter: number;
-    //id: number;
+    selectedTopics: number[];
+    loading: boolean;
     sub: any;
 
     constructor(private userService: UserService,
         private examService: ExamService,
         private courseService: CourseService,
+        private questionService: QuestionService,
         private _fb: FormBuilder,
         private route: ActivatedRoute,
         private dataTransfer: ExamDataTransferService) {
@@ -37,10 +40,11 @@ export class ExamQuestionsComponent implements OnInit {
 
         this.counter = 1;
         this.questions = [];
-        
+        this.selectedTopics = [];
+
         this.currentExam = this.dataTransfer.currentExam;
         this.currentCourse = this.dataTransfer.currentCourse;
-        
+
         this.questionForm = this.initQestion(this.currentExam.id);
     }
 
@@ -53,11 +57,11 @@ export class ExamQuestionsComponent implements OnInit {
             id: this.counter,
             examID: examID,
 
-            seqenceNumber: [this.questions.length + 1, Validators.required],
+            seqencialNumber: [this.questions.length + 1, Validators.required],
             text: ['', Validators.required],
-            parentQestionID: "",
+            parentQuestionID: "",
             arguments: this._fb.array([]),
-            topicIDs: this._fb.array([]),
+            tags: this._fb.array([]),
         });
     }
 
@@ -71,10 +75,10 @@ export class ExamQuestionsComponent implements OnInit {
         let deletingQestion = this.questions[i];
 
         this.questions.forEach(element => {
-            if (element.seqenceNumber > deletingQestion.seqenceNumber)
-                element.seqenceNumber -= 1;
-            if (element.parentQestionID == deletingQestion.id)
-                element.parentQestionID = null;
+            if (element.seqencialNumber > deletingQestion.seqencialNumber)
+                element.seqencialNumber -= 1;
+            if (element.parentQuestionID == deletingQestion.id)
+                element.parentQuestionID = null;
         });
 
         this.questions.splice(i, 1);
@@ -86,22 +90,32 @@ export class ExamQuestionsComponent implements OnInit {
             id: this.counter,
             examID: this.currentExam.id,
 
-            seqenceNumber: [this.questions.length + 1, Validators.required],
+            seqencialNumber: [this.questions.length + 1, Validators.required],
             text: [this.questionForm.value.text, Validators.required],
             parentQestionID: this.questionForm.value.parentQestionID,
             arguments: this.questionForm.controls.arguments,
-            topicIDs: this._fb.array(this.questionForm.value.topicIDs),
+            tags: this._fb.array(this.questionForm.value.tags),
         });
     }
 
     save(i: number) {
         let index = this.questions.findIndex(x => x.id == i)
-        if (index === -1)
-            this.addQuestion()
+        if (index === -1) {
+            this.addQuestion();
+            index = this.questions.length-1;
+        }
         else {
             this.questions[index] = this.questionForm.value;
             this.questionForm = this.initQestion(this.currentExam.id);
         }
+        this.setTags(index);
+    }
+
+    setTags(i: number) {
+        console.log(this.selectedTopics);
+        this.selectedTopics.forEach(element => {
+            this.questions[i].tags.push({ id: null, questionID : this.questions[i].id, topicID: element });
+        });
     }
 
     cancel() {
@@ -115,12 +129,18 @@ export class ExamQuestionsComponent implements OnInit {
             id: q.id,
             examID: q.examID,
 
-            seqenceNumber: [q.seqenceNumber, Validators.required],
+            seqencialNumber: [q.seqencialNumber, Validators.required],
             text: [q.text, Validators.required],
-            parentQestionID: q.parentQestionID,
+            parentQestionID: q.parentQuestionID,
             arguments: this._fb.array(q.arguments),
-            topicIDs: this._fb.array(q.topicIDs),
+            tags: this._fb.array(q.tags),
         });
     }
 
+    next() {
+        this.loading = true;
+        let temp: Exam;
+
+        this.questionService.createMany(this.questions).
+    }
 }

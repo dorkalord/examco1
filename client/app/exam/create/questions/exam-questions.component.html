@@ -4,7 +4,7 @@
         <div class="row">
             <div class="form-group col-xs-4">
                 <label>Seqence number</label>
-                <input type="number" min="1" class="form-control" formControlName="seqenceNumber">
+                <input type="number" min="1" class="form-control" formControlName="seqencialNumber">
             </div>
         </div>
         <div class="form-group">
@@ -14,22 +14,22 @@
 
         <div class="form-group">
             <label>Parent question</label>
-            <select formControlName="parentQestionID" class="form-control">
+            <select formControlName="parentQuestionID" class="form-control">
                 <option *ngFor="let item of questions" [value]="item.id" >{{ item.text }}</option>
             </select>
         </div>
 
         <div formArrayName="arguments" class="container panel" style="background-color: lavender ">
-            <question-argument [group]="questionForm.controls.arguments" [exam]="currentExam" [qestionid]="questionForm.value.id"></question-argument>
+            <question-argument [group]="questionForm.controls.arguments" [exam]="currentExam" [questionid]="questionForm.value.id"></question-argument>
         </div>
 
         <div class="form-group">
             <label>Topics</label>
-            <select multiple name="topics" class="form-control " [(ngModel)]="questionForm.value.topicIDs" [ngModelOptions]="{standalone: true}">
-                <option *ngFor="let qtopic of currentCourse.topics" [value]="qtopic.id">  {{qtopic.name }} </option>
+            <select multiple name="topics" class="form-control " [(ngModel)]="selectedTopics" [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let qtopic of currentCourse.topics" [value]="qtopic.id" >  {{qtopic.name }} </option>
             </select>
         </div>
-        <!--<question-topics [group]="questionForm.controls.topicIDs" [course]="currentCourse"></question-topics>-->
+        <!--<question-topics [group]="questionForm.controls.tags" [course]="currentCourse"></question-topics>-->
 
         <div class="btn-group pull-right margin-20" role="group">
             <button type="button" class="form-control" class="btn btn-success" (click)="save(questionForm.value.id)">
@@ -55,7 +55,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let question of questions; let i=index">
-                <td>{{question.seqenceNumber}} </td>
+                <td>{{question.seqencialNumber}} </td>
                 <td>{{question.text}} </td>
                 <td>
                     <div class="btn-group pull-right" role="group">
@@ -80,8 +80,9 @@
 </div>
 
 <div class="form-group pull-right margin-20">
-    <button class="btn btn-primary" [routerLink]="['/exam/create/1/evaluator']">Next</button>
-
+    <button class="btn btn-primary" (click)="next()">Next</button>
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+    />
     <a [routerLink]="['/exam']" class="btn btn-link">Cancel</a>
 </div>
 
@@ -89,7 +90,7 @@
 
 <div class="container">
     <div>Form</div>
-    <pre>Qestion form value: <br>{{questionForm.value | json}}</pre>
+    <pre>Question form value: <br>{{questionForm.value | json}}</pre>
     <pre>Questions value: <br>{{questions | json}}</pre>
     <pre>Course value: <br>{{currentCourse | json}}</pre>
     <pre>Exam value: <br>{{currentExam | json}}</pre>

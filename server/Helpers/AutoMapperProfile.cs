@@ -42,6 +42,26 @@ namespace WebApi.Helpers
 
             CreateMap<ExamCriterea, ExamCritereaDto>();
             CreateMap<ExamCritereaDto, ExamCriterea>();
+
+            CreateMap<ArgumentCritereaDto, ArgumentCriterea>();
+            CreateMap<ArgumentCriterea, ArgumentCritereaDto>();
+            CreateMap<ArgumentCritereaFullDto, ArgumentCriterea>();
+            CreateMap<ArgumentCriterea, ArgumentCritereaFullDto>();
+
+            CreateMap<TagDto, Tag>();
+            CreateMap<Tag, TagDto>();
+            CreateMap<TagFullDto, Tag>();
+            CreateMap<Tag, TagFullDto>();
+
+            CreateMap<ArgumentDto, Argument>();
+            CreateMap<Argument, ArgumentDto>();
+            CreateMap<ArgumentFullDto, Argument>();
+            CreateMap<Argument, ArgumentFullDto>();
+
+            CreateMap<QuestionDto, Question>();
+            CreateMap<Question, QuestionDto>();
+            CreateMap<QuestionFullDto, Question>();
+            CreateMap<Question, QuestionFullDto>();
         }
     }
 }

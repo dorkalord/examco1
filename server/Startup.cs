@@ -60,6 +60,9 @@ namespace WebApi
             services.AddScoped<IStateService, StateService>();
             services.AddScoped<IExamCritereaService, ExamCritereaService>();
             services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<IArgumentCritereaService, ArgumentCritereaService>();
+            services.AddScoped<IArgumentService, ArgumentService>();
+            services.AddScoped<ITagService, TagService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

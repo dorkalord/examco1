@@ -12,6 +12,7 @@ import { GradeService } from '../../_services/grade.service';
 import { GeneralCritereaService } from '../../_services/criterea.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ExamService } from '../../_services/exam.service';
+import { ExamDataTransferService } from '../../_services/exam-datatransfer.service';
 
 @Component({
     moduleId: module.id,
@@ -35,14 +36,15 @@ export class ExamCreateComponent implements OnInit {
     public selectedCritereas: number[];
 
     constructor(private userService: UserService,
-                private courseService: CourseService,
-                private stateService: StateService,
-                private gradeService: GradeService,
-                private examService: ExamService,
-                private route: ActivatedRoute,
-                private generalCritereaService: GeneralCritereaService,
-                private router: Router,
-                private _fb: FormBuilder 
+        private courseService: CourseService,
+        private stateService: StateService,
+        private gradeService: GradeService,
+        private examService: ExamService,
+        private route: ActivatedRoute,
+        private generalCritereaService: GeneralCritereaService,
+        private router: Router,
+        private _fb: FormBuilder,
+        private dataTransfer: ExamDataTransferService
     ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.examForm = this._fb.group({
@@ -210,15 +212,21 @@ export class ExamCreateComponent implements OnInit {
 
     next() {
         this.loading = true;
-        
+        let temp: Exam;
+
         this.examService.create(this.examForm.value).subscribe(data => {
-            console.log(data);
-            let temp: Exam = data.json();
-            this.examService.createCriterea(temp.id, this.examForm.value.examCriterea).subscribe(res =>{
-                this.router.navigateByUrl('/exam/create/' + temp.id + '/question');
-            })
-        })
+            temp = data.json();
+            this.examService.createCriterea(temp.id, this.examForm.value.examCriterea).subscribe(res => {
 
+                this.examService.getById(temp.id).subscribe(res1 => {
+                    
+                    this.dataTransfer.currentExam = res1;
+                    
+                    this.dataTransfer.currentCourse = res1.course;
+                    this.dataTransfer.currentUser = this.currentUser;
+                    this.router.navigateByUrl('/exam/create/' + temp.id + '/question');
+                });
+            });
+        });
     }
-
 }

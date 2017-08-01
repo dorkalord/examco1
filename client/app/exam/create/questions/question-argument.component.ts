@@ -29,7 +29,7 @@ export class QestionArgumentComponent implements OnInit {
     currentUser: User;
     public argumentForm: FormGroup;
     public counter: number;
-    id: number;
+    //id: number;
     sub: any;
 
     constructor(private userService: UserService,
@@ -37,16 +37,29 @@ export class QestionArgumentComponent implements OnInit {
         private _fb: FormBuilder,
         private route: ActivatedRoute) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        console.log(this.arguments);
+        this.argumentForm = this._fb.group({
+            id: this.counter,
+            authorID: this.currentUser.id,
+            parentArgumentID: null,
+            qestionID: this.qestionID,
 
+            text: ['', Validators.required],
+            advice: [''],
+            weight: [''],
+            variable: [false, Validators.required],
+            minMistakeText: [''],
+            maxMistakeText: [''],
+            minMistakeWeight: [0],
+            maxMistakeWeight: [1000],
+
+            argumentCritereas: this._fb.array([])
+        });
     }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            this.id = +params['id'];
-
-            this.counter = 1;
-            this.argumentForm = this.initArgument();
-        });
+        this.counter = 1;
+        this.argumentForm = this.initArgument();
     }
 
     initArgument() {
@@ -63,7 +76,7 @@ export class QestionArgumentComponent implements OnInit {
             minMistakeText: [''],
             maxMistakeText: [''],
             minMistakeWeight: [0],
-            maxMistakeWeight: [1000],
+            maxMistakeWeight: [100],
 
             argumentCritereas: this._fb.array(this.initArgumentCriterea(this.counter))
         });
@@ -72,9 +85,9 @@ export class QestionArgumentComponent implements OnInit {
     initArgumentCriterea(argumentid: number) {
         let ac: ArgumentCriterea[] = new Array();
         let c = 0;
-        this.currentExam.examCritereas.forEach(element => {
+        this.currentExam.examCriterea.forEach(element => {
             ac.push({
-                id: this.counter * this.currentExam.examCritereas.length + c,
+                id: this.counter * this.currentExam.examCriterea.length + c,
                 argumentID: argumentid,
                 generalCritereaID: element.id,
                 severity: 0

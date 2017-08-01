@@ -21,6 +21,7 @@ namespace WebApi.Controllers
         private IGeneralCritereaService _generalCritereaService;
         private ICourseService _courseService;
         private IStateService _stateService;
+        private ITopicService _topicService;
         private IMapper _mapper;
 
         public ExamController(
@@ -29,6 +30,7 @@ namespace WebApi.Controllers
             IGeneralCritereaService generalCritereaService,
             ICourseService courseService,
             IStateService stateService,
+            ITopicService topicService,
         IMapper mapper)
         {
             _examCritereaService = examCritereaService;
@@ -36,6 +38,7 @@ namespace WebApi.Controllers
             _generalCritereaService = generalCritereaService;
             _courseService = courseService;
             _stateService = stateService;
+            _topicService = topicService;
             _mapper = mapper;
 
         }
@@ -51,7 +54,8 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var exam = _examService.GetById(id);
+            Exam exam = _examService.GetById(id);
+            exam.Course.Topics = _topicService.getByCourse(exam.Course.ID).ToList();
             var examDto = _mapper.Map<ExamFullDto>(exam);
             return Ok(examDto);
         }

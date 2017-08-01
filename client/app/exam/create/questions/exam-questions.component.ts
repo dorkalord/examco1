@@ -8,6 +8,7 @@ import { Course, Topic } from '../../../_models/course';
 import { ExamService } from '../../../_services/exam.service';
 import { Exam } from '../../../_models/exam';
 import { Question } from '../../../_models/question';
+import { ExamDataTransferService } from '../../../_services/exam-datatransfer.service';
 
 @Component({
     moduleId: module.id,
@@ -23,41 +24,34 @@ export class ExamQuestionsComponent implements OnInit {
     public questions: Question[];
     public questionForm: FormGroup;
     public counter: number;
-    id: number;
+    //id: number;
     sub: any;
 
     constructor(private userService: UserService,
         private examService: ExamService,
         private courseService: CourseService,
         private _fb: FormBuilder,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private dataTransfer: ExamDataTransferService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
         this.counter = 1;
         this.questions = [];
-        this.questionForm = this._fb.group({});
+        
+        this.currentExam = this.dataTransfer.currentExam;
+        this.currentCourse = this.dataTransfer.currentCourse;
+        
+        this.questionForm = this.initQestion(this.currentExam.id);
     }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            this.id = +params['id'];
-            this.examService.getById(this.id).subscribe(res => {
-                this.currentExam = res;
 
-                this.courseService.getById(this.currentExam.courseID).subscribe(data => {
-                    this.currentCourse = data;
-                    this.counter = 1;
-                    this.questions = [];
-                    this.questionForm = this.initQestion();
-                });
-            });
-        });
     }
 
-    initQestion() {
+    initQestion(examID: number) {
         return this._fb.group({
             id: this.counter,
-            examID: this.currentExam.id,
+            examID: examID,
 
             seqenceNumber: [this.questions.length + 1, Validators.required],
             text: ['', Validators.required],
@@ -70,7 +64,7 @@ export class ExamQuestionsComponent implements OnInit {
     addQuestion() {
         this.counter = this.counter + 1;
         this.questions.push(this.questionForm.value);
-        this.questionForm = this.initQestion();
+        this.questionForm = this.initQestion(this.currentExam.id);
     }
 
     removeQuestion(i: number) {
@@ -106,12 +100,12 @@ export class ExamQuestionsComponent implements OnInit {
             this.addQuestion()
         else {
             this.questions[index] = this.questionForm.value;
-            this.questionForm = this.initQestion();
+            this.questionForm = this.initQestion(this.currentExam.id);
         }
     }
 
     cancel() {
-        this.questionForm = this.initQestion();
+        this.questionForm = this.initQestion(this.currentExam.id);
     }
 
     edit(i: number) {

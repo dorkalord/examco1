@@ -11,12 +11,12 @@ export class Exam {
     language: string;
     status: string;
 
-    examCritereas: ExamCriterea[];
+    examCriterea: ExamCriterea[];
     questions: Question[];
     censorIDs: number[];
 
     constructor() {
-        this.examCritereas = [];
+        this.examCriterea = [];
         this.questions = [];
         this.censorIDs = [];
     }

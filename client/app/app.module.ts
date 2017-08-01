@@ -34,6 +34,7 @@ import { GradeService } from './_services/grade.service';
 import { GeneralCritereaService } from './_services/criterea.service';
 import { StateService } from './_services/state.service';
 import { CritereaFormComponent } from './criterea/criterea-form.component';
+import { ExamDataTransferService } from './_services/exam-datatransfer.service';
 
 @NgModule({
     imports: [
@@ -76,7 +77,8 @@ import { CritereaFormComponent } from './criterea/criterea-form.component';
         QuestionService,
         GradeService,
         GeneralCritereaService,
-        StateService
+        StateService,
+        ExamDataTransferService
     ],
     bootstrap: [AppComponent]
 })

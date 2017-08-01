@@ -103,7 +103,7 @@ namespace WebApi.Controllers
                 {
                     if (topicsDto[i].ParrentTopicID != null)
                     {
-                        int parentIndex = topicsDto.FindIndex(x => x.ID == topicsDto[i].ID);
+                        int parentIndex = topicsDto.FindIndex(x => x.ID == topicsDto[i].ParrentTopicID);
                         newlist[i].ParrentTopicID = newlist[parentIndex].ID;
                         _topicService.Update(_mapper.Map<Topic>(newlist[i]));
                     }

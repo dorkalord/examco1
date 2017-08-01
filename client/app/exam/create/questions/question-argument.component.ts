@@ -179,7 +179,7 @@ export class QestionArgumentComponent implements OnInit {
 
     updateCriterea(weight: number, critereaid: number) {
         let ac: ArgumentCriterea[] = this.argumentForm.value.argumentCritereas;
-        let index: number = ac.findIndex(a => a.generalCritereaID == critereaid);
+        let index: number = ac.findIndex(a => a.examCritereaID == critereaid);
 
         this.argumentForm.value.argumentCritereas[index].severity = weight;
         console.log("weight: ", weight, " criterea ID: ", critereaid);

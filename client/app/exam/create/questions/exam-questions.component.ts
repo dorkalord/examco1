@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../_models/index';
 import { UserService, CourseService } from '../../../_services/index';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Course, Topic } from '../../../_models/course';
 import { ExamService } from '../../../_services/exam.service';
 import { Exam } from '../../../_models/exam';
@@ -35,6 +35,7 @@ export class ExamQuestionsComponent implements OnInit {
         private questionService: QuestionService,
         private _fb: FormBuilder,
         private route: ActivatedRoute,
+        private router: Router,
         private dataTransfer: ExamDataTransferService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
@@ -141,6 +142,10 @@ export class ExamQuestionsComponent implements OnInit {
         this.loading = true;
         let temp: Exam;
 
-        this.questionService.createMany(this.questions).
+        this.questionService.createMany(this.questions).subscribe(data => {
+            console.log(data);
+            this.dataTransfer.currentExam.questions = data;
+            this.router.navigateByUrl('/exam/create/' + this.currentExam.id + '/evaluator');
+        })
     }
 }

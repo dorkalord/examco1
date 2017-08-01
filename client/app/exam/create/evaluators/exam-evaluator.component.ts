@@ -3,11 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../_models/index';
 import { UserService, CourseService } from '../../../_services/index';
 import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Course, Topic } from '../../../_models/course';
 import { ExamService } from '../../../_services/exam.service';
 import { Exam } from '../../../_models/exam';
 import { Question } from '../../../_models/question';
+import { ExamDataTransferService } from '../../../_services/exam-datatransfer.service';
+import { Censor } from '../../../_models/censor';
+import { CensorService } from '../../../_services/censor.service';
 
 @Component({
     moduleId: module.id,
@@ -24,30 +27,26 @@ export class ExamEvaluatorComponent implements OnInit {
     public evaluators: User[];
     public evaluatorForm: FormGroup;
     public counter: number;
-    id: number;
-    sub: any;
+    loading: boolean;
 
     constructor(private userService: UserService,
         private examService: ExamService,
-        private courseService: CourseService,
+        private censorService : CensorService,
         private _fb: FormBuilder,
-        private route: ActivatedRoute) {
+        private route: ActivatedRoute,
+        private router: Router,
+        private dataTransfer: ExamDataTransferService) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
     }
 
     ngOnInit() {
-        this.sub = this.route.params.subscribe(params => {
-            this.id = +params['id'];
-            this.examService.getById(this.id).subscribe(res => {
-                this.currentExam = res;
-                this.counter = 1;
-                this.evaluators = [];
-                this.userService.getAll().subscribe(data => {
-                    this.allusers = (<User[]>data).filter(x => x.roleID === 3 || x.roleID === 2);
-                    this.users = this.allusers;
-                });
-            });
+        this.currentExam = this.dataTransfer.currentExam;
+        this.counter = 1;
+        this.evaluators = [];
+        this.userService.getAll().subscribe(data => {
+            this.allusers = (<User[]>data).filter(x => x.roleID === 3 || x.roleID === 2);
+            this.users = this.allusers;
         });
     }
 
@@ -64,5 +63,19 @@ export class ExamEvaluatorComponent implements OnInit {
     removeEvaluator(index: number) {
         this.users.push(this.evaluators[index]);
         this.evaluators.splice(index, 1);
+    }
+
+    save() {
+        console.log(this.evaluators);
+        let censors: Censor[];
+        this.evaluators.forEach(item => {
+            censors.push({id:0, examID: this.currentExam.id, userID: item.id});
+        });
+
+        this.loading = true;
+        this.censorService.createMany(censors).subscribe(data => {
+            alert("Successfully created an exam");
+            this.router.navigateByUrl('/exam/');
+        });
     }
 }

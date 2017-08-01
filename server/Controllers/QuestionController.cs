@@ -19,19 +19,21 @@ namespace WebApi.Controllers
         private IQuestionService _questionService;
         private IUserService _userService;
         private ITopicService _topicService;
+        private IArgumentService _argumentService;
         private IMapper _mapper;
 
         public QuestionController(
             IQuestionService questionService,
             IUserService userService,
             ITopicService topicService,
+            IArgumentService argumentService,
         IMapper mapper)
         {
             _topicService = topicService;
             _userService = userService;
             _questionService = questionService;
             _mapper = mapper;
-
+            _argumentService = argumentService;
         }
 
         [HttpGet]
@@ -70,23 +72,56 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("many")]
-        public IActionResult CreateMany([FromBody]List<QuestionDto> questionDtoList)
+        public IActionResult CreateMany([FromBody]List<QuestionFullDto> questionDtoList)
         {
-            List<Question> newlist = new List<Question>();
-            foreach (QuestionDto questionDto in questionDtoList)
+            try
             {
-                Question c = _mapper.Map<Question>(questionDto);
-                try
+                List<Question> newlist = new List<Question>();
+                foreach (QuestionFullDto questionDto in questionDtoList)
                 {
-                    c = _questionService.Create(c);
-                    newlist.Add(c);
+                    Question c = _mapper.Map<Question>(_mapper.Map<QuestionCreateDto>(questionDto));
+                    try
+                    {
+                        c = _questionService.Create(c);
+                        newlist.Add(c);
+                    }
+                    catch (AppException ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
                 }
-                catch (AppException ex)
+                
+
+                //taking care for of the topics
+                for (int i = 0; i < questionDtoList.Count; i++)
                 {
-                    return BadRequest(ex.Message);
+                    if (questionDtoList[i].ParentQuestionID != null)
+                    {
+                        int parentIndex = questionDtoList.FindIndex(x => x.ID == questionDtoList[i].ParentQuestionID);
+                        newlist[i].ParentQuestionID = newlist[parentIndex].ID;
+                        _questionService.Update(_mapper.Map<Question>(newlist[i]));
+                    }
+
+                    List<Argument> temp = _mapper.Map<List<Argument>>( questionDtoList[i].Arguments);
+                    for (int j = 0; j < temp.Count(); j++)
+                    {
+                        if (temp[j].ParentArgumentID != null)
+                        {
+                            int parentIndex = temp.FindIndex(x => x.ID == temp[j].ParentArgumentID);
+                            newlist[i].Arguments.ElementAt(j).ParentArgumentID = newlist[i].Arguments.ElementAt(parentIndex).ID;
+                            _argumentService.Update(_mapper.Map<Argument>(newlist[i].Arguments.ElementAt(j)));
+                        }
+                    }
                 }
+
+                return Ok(_mapper.Map<List<QuestionFullDto>>(newlist));
             }
-            return Ok(_mapper.Map<List<QuestionDto>>(newlist));
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+           
         }
 
         [HttpPut("{id}")]

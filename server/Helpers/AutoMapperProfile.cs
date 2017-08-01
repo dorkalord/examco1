@@ -47,6 +47,8 @@ namespace WebApi.Helpers
             CreateMap<ArgumentCriterea, ArgumentCritereaDto>();
             CreateMap<ArgumentCritereaFullDto, ArgumentCriterea>();
             CreateMap<ArgumentCriterea, ArgumentCritereaFullDto>();
+            CreateMap<ArgumentCritereaFullDto, ArgumentCritereaDto>();
+            CreateMap<ArgumentCritereaDto, ArgumentCritereaFullDto>();
 
             CreateMap<TagDto, Tag>();
             CreateMap<Tag, TagDto>();
@@ -57,11 +59,24 @@ namespace WebApi.Helpers
             CreateMap<Argument, ArgumentDto>();
             CreateMap<ArgumentFullDto, Argument>();
             CreateMap<Argument, ArgumentFullDto>();
+            CreateMap<ArgumentFullDto, ArgumentCreateDto>();
+            CreateMap<ArgumentCreateDto, ArgumentFullDto>();
+            CreateMap<Argument, ArgumentCreateDto>();
+            CreateMap<ArgumentCreateDto, Argument>();
 
             CreateMap<QuestionDto, Question>();
             CreateMap<Question, QuestionDto>();
             CreateMap<QuestionFullDto, Question>();
             CreateMap<Question, QuestionFullDto>();
+            CreateMap<QuestionCreateDto, Question>();
+            CreateMap<Question, QuestionCreateDto>();
+            CreateMap<QuestionCreateDto, QuestionFullDto>();
+            CreateMap<QuestionFullDto, QuestionCreateDto>();
+
+            CreateMap<CensorDto, Censor>();
+            CreateMap<Censor, CensorDto>();
+            CreateMap<CensorFullDto, Censor>();
+            CreateMap<Censor, CensorFullDto>();
         }
     }
 }

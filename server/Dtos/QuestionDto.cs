@@ -45,4 +45,24 @@ namespace WebApi.Dtos
         public IEnumerable<TagDto> Tags { get; set; }
         public IEnumerable<ArgumentFullDto> Arguments { get; set; }
     }
+
+    public class QuestionCreateDto
+    {
+        public QuestionCreateDto()
+        {
+            this.Tags = new HashSet<TagDto>();
+            this.Arguments = new HashSet<ArgumentCreateDto>();
+        }
+
+        
+        public int SeqencialNumber { get; set; }
+        public string Text { get; set; }
+        public Nullable<float> ProposedWeight { get; set; }
+        public Nullable<float> FinalWeight { get; set; }
+        public int ExamID { get; set; }
+
+
+        public IEnumerable<TagDto> Tags { get; set; }
+        public IEnumerable<ArgumentCreateDto> Arguments { get; set; }
+    }
 }

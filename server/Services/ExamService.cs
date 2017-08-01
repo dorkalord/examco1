@@ -52,7 +52,13 @@ namespace WebApi.Services
 
         public IEnumerable<Exam> GetByCensor(int userID)
         {
-            throw new NotImplementedException();
+            List<Censor> cesorExam = _context.Censors.Where(x => x.UserID == userID).ToList();
+            List<Exam> exams = new List<Exam>();
+            foreach (Censor item in cesorExam)
+            {
+                exams.Add(_context.Exams.Find(item.ExamID));
+            }
+            return exams;
         }
 
         public Exam GetById(int id)
@@ -64,8 +70,9 @@ namespace WebApi.Services
                 rez.Author = _context.Users.Find(rez.AuthorID);
                 rez.Course = _context.Courses.Find(rez.CourseID);
                 rez.State = _context.States.Find(rez.StateID);
-                rez.ExamCriterea = _context.ExamCritereas.Where(x => x.ExamID == id).ToList();
-                rez.Questions = _context.Questions.Where(x => x.ExamID == id).ToList();
+                rez.ExamCriterea = _context.ExamCritereas.Where(x => x.ExamID == id).ToArray();
+                rez.Questions = _context.Questions.Where(x => x.ExamID == id).ToArray();
+                rez.Censors = _context.Censors.Where(x => x.ExamID == id).ToArray();
             }
 
             return rez;

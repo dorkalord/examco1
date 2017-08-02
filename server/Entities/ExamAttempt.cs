@@ -15,6 +15,7 @@ namespace WebApi.Entities
     
         public int ID { get; set; }
         public Nullable<float> Total { get; set; }
+        public Nullable<float> FinalTotal { get; set; }
         public System.DateTime CensorshipDate { get; set; }
         public Nullable<System.DateTime> GradingDate { get; set; }
 
@@ -33,6 +34,6 @@ namespace WebApi.Entities
         public virtual Exam Exam { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ExamAdvice> ExamAdvices { get; set; }
-        public virtual User User { get; set; }
+        public virtual User Setudent { get; set; }
     }
 }

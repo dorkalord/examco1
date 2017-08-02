@@ -15,6 +15,7 @@ namespace WebApi.Entities
         public int ID { get; set; }
         public Nullable<System.DateTime> CensorshipDate { get; set; }
         public float Total { get; set; }
+        public Nullable<float> FinalTotal { get; set; }
         public string Note { get; set; }
         public int ExamAttemptID { get; set; }
         public int QuestionID { get; set; }

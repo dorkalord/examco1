@@ -40,7 +40,7 @@
                     <span *ngIf="examy.stateID==3" class="btn-group" role="group">
                         <button type="button" class="btn btn-primary" (click)="grade(examy.id)">Grade</button>
                         <button type="button" class="btn btn-info" (click)="generateReports(examy.id)">Generate reports</button>
-                        <button type="button" class="btn btn-danger" (click)="chanegeState(examy.id,4)">Close exam</button>
+                        <button type="button" class="btn btn-danger" (click)="chanegeState(examy.id,1)">Close exam</button>
                     </span>
                     <span *ngIf="examy.stateID>=3" class="btn-group" role="group">
                         <button type="button" class="btn btn-success" (click)="exportCensorship(examy.id)">Export censorships</button>

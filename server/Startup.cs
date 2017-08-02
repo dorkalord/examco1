@@ -64,6 +64,7 @@ namespace WebApi
             services.AddScoped<IArgumentService, ArgumentService>();
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<ICensorService, CensorService>();
+            services.AddScoped<IExamAttemptService, ExamAttemptService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

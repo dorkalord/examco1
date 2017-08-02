@@ -20,6 +20,10 @@ export class ExamService {
         return this.http.get(this.config.apiUrl + '/exam/student/' + userID, this.jwt()).map((response: Response) => response.json());
     }
 
+    updateExamState(examID: number, newStateID: number) {
+        return this.http.get(this.config.apiUrl + '/exam/upadatestate/' + examID + '/' + newStateID, this.jwt()).map((response: Response) => response.json());
+    }
+
     getById(id: number) {
         return this.http.get(this.config.apiUrl + '/exam/' + id, this.jwt()).map((response: Response) => response.json());
     }

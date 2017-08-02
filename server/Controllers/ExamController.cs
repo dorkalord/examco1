@@ -65,12 +65,6 @@ namespace WebApi.Controllers
         public IActionResult GetByAuthor(int id)
         {
             List<Exam> exams = _examService.getByAuthor(id).ToList();
-            for (int i = 0; i < exams.Count; i++)
-            {
-                exams[i].Course = _courseService.GetById(exams[i].CourseID);
-                exams[i].State = _stateService.GetById(exams[i].StateID);
-            }
-
             List<ExamListDto> examDto = _mapper.Map<List<ExamListDto>>(exams);
             return Ok(examDto);
         }
@@ -78,8 +72,8 @@ namespace WebApi.Controllers
         [HttpGet("censor/{id}")]
         public IActionResult GetByCensor(int id)
         {
-            var exam = _examService.GetById(id);
-            var examDto = _mapper.Map<ExamListDto>(exam);
+            List<Exam> exams = _examService.GetByCensor(id).ToList();
+            List<ExamListDto> examDto = _mapper.Map<List<ExamListDto>>(exams);
             return Ok(examDto);
         }
 
@@ -91,7 +85,20 @@ namespace WebApi.Controllers
             return Ok(examDto);
         }
 
-
+        [HttpGet("upadatestate/{examID}/{stateID}")]
+        public IActionResult UpdateState(int examID, int stateID)
+        {
+            try
+            {
+                var exam = _examService.updateStatus(examID, stateID);
+                var examDto = _mapper.Map<ExamListDto>(exam);
+                return Ok(examDto);
+            }
+            catch (AppException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
 
         [HttpPost()]

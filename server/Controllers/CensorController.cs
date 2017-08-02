@@ -69,7 +69,7 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpPost("/many")]
+        [HttpPost("many")]
         public IActionResult CreateMany([FromBody]List<CensorDto> censorDto)
         {
             // map dto to entity and set id

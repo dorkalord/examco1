@@ -66,8 +66,8 @@ export class ExamEvaluatorComponent implements OnInit {
     }
 
     save() {
-        console.log(this.evaluators);
-        let censors: Censor[];
+        console.log("Evaluators", this.evaluators);
+        let censors: Censor[] = new Array();
         this.evaluators.forEach(item => {
             censors.push({id:0, examID: this.currentExam.id, userID: item.id});
         });

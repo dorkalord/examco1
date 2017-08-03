@@ -24,6 +24,10 @@ export class ExamService {
         return this.http.get(this.config.apiUrl + '/exam/upadatestate/' + examID + '/' + newStateID, this.jwt()).map((response: Response) => response.json());
     }
 
+    getByIdForCensoring(id: number) {
+        return this.http.get(this.config.apiUrl + '/exam/forCensoring/' + id, this.jwt()).map((response: Response) => response.json());
+    }
+
     getById(id: number) {
         return this.http.get(this.config.apiUrl + '/exam/' + id, this.jwt()).map((response: Response) => response.json());
     }

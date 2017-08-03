@@ -13,10 +13,9 @@ export class ExamAttemptService {
     }
 
     getById(id: number) {
-
         return this.http.get(this.config.apiUrl + '/examAttempt/' + id, this.jwt()).map((response: Response) => response.json());
     }
-
+    
     getByCensorExam(censorID: number, examID: number) {
         return this.http.get(this.config.apiUrl + '/examAttempt/censor/' + censorID +'/exam/' + examID, this.jwt()).map((response: Response) => response.json());
     }

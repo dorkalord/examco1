@@ -61,6 +61,14 @@ namespace WebApi.Controllers
             return Ok(examDto);
         }
 
+        [HttpGet("forCensoring/{id}")]
+        public IActionResult GetForCensoring(int id)
+        {
+            Exam exam = _examService.GetByIdForCensoring(id);
+            var examDto = _mapper.Map<ExamFullDto>(exam);
+            return Ok(examDto);
+        }
+
         [HttpGet("author/{id}")]
         public IActionResult GetByAuthor(int id)
         {

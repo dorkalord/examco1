@@ -39,6 +39,7 @@ import { CensorService } from './_services/censor.service';
 import { ExamAttemptListComponent } from './ExamAttempt/examAttempt-list';
 import { ExamAttemptDataTransferService } from './_services/examAttempt-datatransfer.service';
 import { ExamAttemptService } from './_services/examAttempt.service';
+import { ExamAttemptEditComponent } from './ExamAttempt/edit/examAttempt-edit.component';
 
 @NgModule({
     imports: [
@@ -69,6 +70,7 @@ import { ExamAttemptService } from './_services/examAttempt.service';
         CritereaComponent,
         HeaderComponent,
         ExamAttemptListComponent,
+        ExamAttemptEditComponent
     ],
     providers: [
         AppConfig,

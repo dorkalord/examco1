@@ -54,9 +54,6 @@ namespace WebApi.Dtos
 
     public class ExamAttemptCreateDto
     {
-        public int ID { get; set; }
-        public System.DateTime CensorshipDate { get; set; }
-
         public int ExamID { get; set; }
         public int CensorID { get; set; }
         public int StudentID { get; set; }

@@ -8,7 +8,7 @@ using WebApi.Helpers;
 using WebApi.Entities;
 using Microsoft.AspNetCore.Authorization;
 using WebApi.Dtos.Controller_Dtos;
-
+using System;
 
 namespace WebApi.Controllers
 {
@@ -67,6 +67,7 @@ namespace WebApi.Controllers
             try
             {
                 // save 
+                c.CensorshipDate = DateTime.Now;
                 c = _examAttemptService.Create(c);
                 return Ok(_mapper.Map<ExamAttemptDto>(c));
             }

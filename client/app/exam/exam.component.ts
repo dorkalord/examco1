@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { ExamAttemptService } from '../_services/examAttempt.service';
 import { ExamAttemptDataTransferService } from '../_services/examAttempt-datatransfer.service';
 import { Router } from '@angular/router';
+import { CensorService } from '../_services/censor.service';
 
 @Component({
     moduleId: module.id,
@@ -28,6 +29,7 @@ export class ExamComponent implements OnInit {
     constructor(private userService: UserService,
         private examService: ExamService,
         private stateService: StateService,
+        private censorService: CensorService,
         private examAttemptService: ExamAttemptService,
         private router: Router,
         private ExamAttemptDataTransferService: ExamAttemptDataTransferService
@@ -42,7 +44,7 @@ export class ExamComponent implements OnInit {
         this.loadData();
     }
 
-    loadData(){
+    loadData() {
         this.loading = true;
         this.examService.getAllExamsofAuthor(this.currentUser.id).subscribe(data => {
             this.examlist = data;
@@ -66,18 +68,25 @@ export class ExamComponent implements OnInit {
             this.loadData();
         });
     }
-    
+
     censor(examID: number) {
         this.loading = true;
-        this.examAttemptService.getByCensorExam(this.currentUser.id, examID).subscribe(res => {
-            this.ExamAttemptDataTransferService.currentCensor = res;
-            this.examAttemptService.getByCensorExam(this.ExamAttemptDataTransferService.currentCensor.id, examID).subscribe(data => {
-                this.ExamAttemptDataTransferService.examAttempts = data;
 
-                this.router.navigateByUrl('/attempts/' + examID + '/censor/' + this.ExamAttemptDataTransferService.currentCensor.id);
-            });
+        this.examService.getById(examID).subscribe(e => {
+            this.ExamAttemptDataTransferService.currentExam = e;
+
+                this.censorService.getByExamUser(examID, this.currentUser.id).subscribe(r => {
+                    this.ExamAttemptDataTransferService.currentCensor = r;
+
+                    this.examAttemptService.getByCensorExam(this.ExamAttemptDataTransferService.currentCensor.id, examID).subscribe(data => {
+                        this.ExamAttemptDataTransferService.examAttempts = data;
+
+                        this.router.navigateByUrl('/attempts/' + examID + '/censor/' + this.ExamAttemptDataTransferService.currentCensor.id);
+                    });
+                });
         });
     }
+
     grade(id: number) {
         alert("Waiting for implentation")
     }

@@ -1,5 +1,5 @@
 import { Censor } from './censor';
-export class ExamAttemt {
+export class ExamAttempt {
     id: number;
     total: number;
     finalTotal: number;

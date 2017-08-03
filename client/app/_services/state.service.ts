@@ -21,16 +21,8 @@ export class StateService {
         return this.http.post(this.config.apiUrl + '/state', state, this.jwt()).map((response: Response) => response.json());
     }
 
-    createMany(state: State[]) {
-        return this.http.post(this.config.apiUrl + '/state/many', state, this.jwt()).map((response: Response) => response.json());
-    }
-
     update(state: State) {
         return this.http.put(this.config.apiUrl + '/state/' + state.id, state, this.jwt()).map((response: Response) => response.json());
-    }
-
-    updateMany(state: State[]) {
-        return this.http.put(this.config.apiUrl + '/state', state, this.jwt()).map((response: Response) => response.json());
     }
 
     delete(id: number) {

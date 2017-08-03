@@ -7,6 +7,9 @@ import { Exam } from '../_models/exam';
 import { StateService } from '../_services/state.service';
 import { State } from '../_models/state';
 import { DatePipe } from '@angular/common';
+import { ExamAttemptService } from '../_services/examAttempt.service';
+import { ExamAttemptDataTransferService } from '../_services/examAttempt-datatransfer.service';
+import { Router } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -24,7 +27,10 @@ export class ExamComponent implements OnInit {
 
     constructor(private userService: UserService,
         private examService: ExamService,
-        private stateService: StateService
+        private stateService: StateService,
+        private examAttemptService: ExamAttemptService,
+        private router: Router,
+        private ExamAttemptDataTransferService: ExamAttemptDataTransferService
     ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.examlist = new Array();
@@ -61,8 +67,16 @@ export class ExamComponent implements OnInit {
         });
     }
     
-    censor(id: number) {
-        alert("Waiting for implentation")
+    censor(examID: number) {
+        this.loading = true;
+        this.examAttemptService.getByCensorExam(this.currentUser.id, examID).subscribe(res => {
+            this.ExamAttemptDataTransferService.currentCensor = res;
+            this.examAttemptService.getByCensorExam(this.ExamAttemptDataTransferService.currentCensor.id, examID).subscribe(data => {
+                this.ExamAttemptDataTransferService.examAttempts = data;
+
+                this.router.navigateByUrl('/attempts/' + examID + '/censor/' + this.ExamAttemptDataTransferService.currentCensor.id);
+            });
+        });
     }
     grade(id: number) {
         alert("Waiting for implentation")

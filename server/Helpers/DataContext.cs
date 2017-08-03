@@ -13,7 +13,7 @@ namespace WebApi.Helpers
             {
                 this.Roles.Add(new Role() { Name = "Admin", Permission = "" });
                 this.Roles.Add(new Role() { Name = "Lecturer", Permission = "" });
-                this.Roles.Add(new Role() { Name = "User", Permission = "" });
+                this.Roles.Add(new Role() { Name = "Censor", Permission = "" });
                 this.Roles.Add(new Role() { Name = "Student", Permission = "" });
                 
                 this.States.Add(new State() {Name = "Defining", Commads="['edit', 'exportExam']"});
@@ -31,7 +31,10 @@ namespace WebApi.Helpers
                 this.SaveChanges();
 
                 UserService a = new UserService(this);
-                a.Create(new User() { Username = "admin", Name = "Admin", Email = "admin@uio.no", RoleID = 1 }, "admin");
+                a.Create(new User() { Username = "admin",    Name = "Admin",    Email = "admin@uio.no",     RoleID = 1 }, "admin");
+                a.Create(new User() { Username = "lecturer", Name = "Lecturer", Email = "lecturer@uio.no",  RoleID = 2 }, "lecturer");
+                a.Create(new User() { Username = "censor",   Name = "Censor",   Email = "censor@uio.no",    RoleID = 3 }, "censor");
+                a.Create(new User() { Username = "student",  Name = "Student",  Email = "student@uio.no",   RoleID = 4 }, "student");
             }
         }
 

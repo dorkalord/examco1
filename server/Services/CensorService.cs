@@ -12,6 +12,7 @@ namespace WebApi.Services
     public interface ICensorService : IService<Censor>
     {
         List<Censor> CreateMany(List<Censor> many);
+        Censor GetExamCensor(int examID, int userID);
     }
 
     public class CensorService : ICensorService
@@ -60,6 +61,11 @@ namespace WebApi.Services
         public Censor GetById(int id)
         {
             return _context.Censors.Find(id);
+        }
+
+        public Censor GetExamCensor(int examID, int userID)
+        {
+            return _context.Censors.First(x => x.ExamID == examID && x.UserID == userID);
         }
 
         public Censor Update(Censor updatedObject)

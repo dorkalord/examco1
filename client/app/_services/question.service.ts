@@ -16,16 +16,16 @@ export class QuestionService {
         return this.http.get(this.config.apiUrl + '/question/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
-    create(course: Question) {
-        return this.http.post(this.config.apiUrl + '/question', course, this.jwt()).map((response: Response) => response.json());;
+    create(question: Question) {
+        return this.http.post(this.config.apiUrl + '/question', question, this.jwt()).map((response: Response) => response.json());;
     }
 
-    createMany(course: Question[]) {
-        return this.http.post(this.config.apiUrl + '/question/many', course, this.jwt()).map((response: Response) => response.json());;
+    createMany(questions: Question[]) {
+        return this.http.post(this.config.apiUrl + '/question/many', questions, this.jwt()).map((response: Response) => response.json());;
     }
 
-    update(course: Question) {
-        return this.http.put(this.config.apiUrl + '/question/' + course.id, course, this.jwt()).map((response: Response) => response.json());;
+    update(question: Question) {
+        return this.http.put(this.config.apiUrl + '/question/' + question.id, question, this.jwt()).map((response: Response) => response.json());;
     }
 
     delete(id: number) {

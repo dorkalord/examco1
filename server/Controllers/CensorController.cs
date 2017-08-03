@@ -50,6 +50,14 @@ namespace WebApi.Controllers
             return Ok(censorDto);
         }
 
+        [HttpGet("/exam/{examID}/user/{userID}")]
+        public IActionResult GetExamCensor(int examID, int userID)
+        {
+            var censor = _censorService.GetExamCensor(examID, userID);
+            var censorDto = _mapper.Map<CensorDto>(censor);
+            return Ok(censorDto);
+        }
+
 
         [HttpPost()]
         public IActionResult Create([FromBody]CensorDto censorDto)

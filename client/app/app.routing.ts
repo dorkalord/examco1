@@ -10,6 +10,7 @@ import { ExamCreateComponent } from './exam/create/exam-create.component';
 import { ExamQuestionsComponent } from './exam/create/questions/exam-questions.component';
 import { ExamEvaluatorComponent } from './exam/create/evaluators/exam-evaluator.component';
 import { CritereaComponent } from './criterea/criterea.component';
+import { ExamAttemptListComponent } from './ExamAttempt/examAttempt-list';
 
 const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
@@ -26,8 +27,12 @@ const appRoutes: Routes = [
     { path: 'exam/create/:id/question', component: ExamQuestionsComponent, canActivate: [AuthGuard]  },
     { path: 'exam/create/:id/evaluator', component: ExamEvaluatorComponent, canActivate: [AuthGuard]  },
 
+    { path: 'attempts/:examID/censor/:censorID', component: ExamAttemptListComponent, canActivate: [AuthGuard]  },
+
+
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
+

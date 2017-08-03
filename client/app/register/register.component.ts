@@ -19,7 +19,7 @@ export class RegisterComponent {
 
     register() {
         this.loading = true;
-        this.model.roleID = 2;
+        this.model.roleID = 4;
         this.userService.create(this.model)
             .subscribe(
                 data => {

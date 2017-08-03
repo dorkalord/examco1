@@ -34,7 +34,7 @@
                         <button type="button" class="btn btn-default" (click)="chanegeState(examy.id,2)">Begin censorship</button>
                     </span>
                     <span *ngIf="examy.stateID==2" class="btn-group" role="group">
-                        <button type="button" class="btn btn-primary" (click)="censor(examy.id)">Censor</button>
+                        <!--<button type="button" class="btn btn-primary" (click)="censor(examy.id)">Censor</button>-->
                         <button type="button" class="btn btn-default" (click)="chanegeState(examy.id,3)">Begin Grading</button>
                     </span>
                     <span *ngIf="examy.stateID==3" class="btn-group" role="group">

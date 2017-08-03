@@ -36,6 +36,9 @@ import { StateService } from './_services/state.service';
 import { CritereaFormComponent } from './criterea/criterea-form.component';
 import { ExamDataTransferService } from './_services/exam-datatransfer.service';
 import { CensorService } from './_services/censor.service';
+import { ExamAttemptListComponent } from './ExamAttempt/examAttempt-list';
+import { ExamAttemptDataTransferService } from './_services/examAttempt-datatransfer.service';
+import { ExamAttemptService } from './_services/examAttempt.service';
 
 @NgModule({
     imports: [
@@ -64,7 +67,8 @@ import { CensorService } from './_services/censor.service';
         ExamEvaluatorComponent,
         TopicComponent,
         CritereaComponent,
-        HeaderComponent
+        HeaderComponent,
+        ExamAttemptListComponent,
     ],
     providers: [
         AppConfig,
@@ -80,7 +84,9 @@ import { CensorService } from './_services/censor.service';
         GeneralCritereaService,
         StateService,
         ExamDataTransferService,
-        CensorService
+        CensorService,
+        ExamAttemptDataTransferService,
+        ExamAttemptService
     ],
     bootstrap: [AppComponent]
 })

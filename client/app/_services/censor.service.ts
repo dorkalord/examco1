@@ -16,6 +16,10 @@ export class CensorService {
         return this.http.get(this.config.apiUrl + '/censor/' + id, this.jwt()).map((response: Response) => response.json());
     }
 
+    getByExamUser(examID: number, userID: number) {
+        return this.http.get(this.config.apiUrl + '/censor/exam/'+ examID + '/user/' + userID, this.jwt()).map((response: Response) => response.json());
+    }
+
     create(censor: Censor) {
         return this.http.post(this.config.apiUrl + '/censor', censor, this.jwt()).map((response: Response) => response.json());;
     }

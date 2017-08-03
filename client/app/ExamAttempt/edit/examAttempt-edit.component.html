@@ -1,6 +1,70 @@
+<div>
+    <form>
+        <h2>Q1: Qestion text</h2>
+        <div class="row">
+            <div class="col-xs-2">
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                    Correct
+                </label>
+                </div>
+            </div>
+
+            <div class="col-xs-2">
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                    Blank
+                </label>
+                </div>
+            </div>
+
+            <div class="col-xs-2">
+                <div class="form-check">
+                    <label class="form-check-label">
+                    <input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">
+                    Attempted
+                </label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label> Points #numberOfPoints </label>
+            <progress value="22" max="100"></progress>
+        </div>
+
+        <div class="form-group">
+            <label> Adjustment #adjustment </label>
+            <input type="range" min="-100" max="100" value="0">
+        </div>
+
+        <h3>Justification</h3>
+
+        <div class="form-group">
+            <label> Comnment </label>
+            <input type="text">
+        </div>
+    </form>
+
+    <div class="btn-group pull-right" role="group">
+        <button type="button" class="form-control" class="btn btn-primary " (click)="edit(i)">
+            previous
+        </button>
+        <button type="button" class="form-control" class="btn btn-info " (click)="edit(i)">
+            jump to
+        </button>
+        <button type="button" class="form-control" class="btn btn-succes " *ngIf="questions.length > 1" (click)="removeQuestion(i)">
+            next 
+        </button>
+
+    </div>
+</div>
+
+
 <div class="margin-20">
-    <div>Raw data</div>
-    <pre>Attempt value: <br>{{currentAttempt | json}}</pre>
-    <pre>Exam questions value: <br>{{currentExam.questions | json}}</pre>
-    
+
+
 </div>

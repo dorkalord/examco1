@@ -31,11 +31,11 @@ export class ExamAttemptEditComponent implements OnInit {
         private examAttemptDataTransferService: ExamAttemptDataTransferService
     ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        this.loading = false;
+        /*this.loading = false;
 
         this.currentExam = this.examAttemptDataTransferService.currentExam;
         this.currentAttempt = this.examAttemptDataTransferService.currentExamAttempt;
-        console.log("big exam", this.currentExam.questions);
+        console.log("big exam", this.currentExam.questions);*/
 
     }
 

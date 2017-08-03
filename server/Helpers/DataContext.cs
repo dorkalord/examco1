@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using WebApi.Entities;
+using WebApi.Services;
 
 namespace WebApi.Helpers
 {
@@ -26,7 +27,11 @@ namespace WebApi.Helpers
                 this.Grades.Add(new Grade() { Name = "D", Top = 70F });
                 this.Grades.Add(new Grade() { Name = "E", Top = 80F });
                 this.Grades.Add(new Grade() { Name = "F", Top = 100F });
+
                 this.SaveChanges();
+
+                UserService a = new UserService(this);
+                a.Create(new User() { Username = "admin", Name = "Admin", Email = "admin@uio.no", RoleID = 1 }, "admin");
             }
         }
 

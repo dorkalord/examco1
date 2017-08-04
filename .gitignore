@@ -45,6 +45,3 @@ client/app/**/*.js.map
 server/bin
 server/obj
 server/.vs/WebApi/v15/.suo
-server/Properties/PublishProfiles/examco1 - Web Deploy.pubxml
-server/Properties/PublishProfiles/examco1 - Web Deploy.pubxml.user
-server/Startup.cs

@@ -37,9 +37,12 @@ namespace WebApi
             services.AddCors();
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<DataContext>(x => x.UseSqlServer(
-                @"Data Source=DESKTOP-BP7LGIN;Initial Catalog=examco9;
-                Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" /**/ 
-                
+                @"Server=tcp:examcodb.database.windows.net,1433;Initial Catalog=ExamcoDB;Persist Security Info=False;
+                    User ID=examcoadmin;Password=goodWhal323;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+
+                /*Data Source=DESKTOP-BP7LGIN;Initial Catalog=examco9;
+                Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" /**/
+
                 ));
                 
             services.AddMvc();

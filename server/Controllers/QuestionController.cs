@@ -77,11 +77,13 @@ namespace WebApi.Controllers
             try
             {
                 List<Question> newlist = new List<Question>();
+                float proposedWeight = 100 / questionDtoList.Count;
                 foreach (QuestionFullDto questionDto in questionDtoList)
                 {
                     Question c = _mapper.Map<Question>(_mapper.Map<QuestionCreateDto>(questionDto));
                     try
                     {
+                        c.ProposedWeight = proposedWeight;
                         c = _questionService.Create(c);
                         newlist.Add(c);
                     }

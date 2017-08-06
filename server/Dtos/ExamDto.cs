@@ -19,7 +19,7 @@ namespace WebApi.Dtos
         public UserDto Author { get; set; }
         public StateDto State { get; set; }
 
-        public IEnumerable<CensorDto> Censors { get; set; }
+        public IEnumerable<CensorFullDto> Censors { get; set; }
         public IEnumerable<ExamCritereaDto> ExamCriterea { get; set; }
 
         public IEnumerable<QuestionFullDto> Questions { get; set; }

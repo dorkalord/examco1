@@ -60,7 +60,7 @@ namespace WebApi.Services
             x.Name = updatedObject.Name;
             x.NextID = updatedObject.NextID;
             x.PreviousID = updatedObject.PreviousID;
-            x.Commads = updatedObject.Commads;
+            x.Commands = updatedObject.Commands;
 
             _context.States.Update(x);
             _context.SaveChanges();

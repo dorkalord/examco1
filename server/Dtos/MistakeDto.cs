@@ -14,4 +14,21 @@ namespace WebApi.Dtos
 
         public virtual ArgumentDto Argument { get; set; }
     }
+
+    public class MistakeUpdateDto
+    {
+        public int ID { get; set; }
+        public float AdjustedWeight { get; set; }
+        public int ArgumentID { get; set; }
+        public int AnwserID { get; set; }
+
+    }
+
+    public class MistakeCreateDto
+    {
+        public float AdjustedWeight { get; set; }
+        public int ArgumentID { get; set; }
+        public int AnwserID { get; set; }
+
+    }
 }

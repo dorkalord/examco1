@@ -9,7 +9,7 @@ namespace WebApi.Dtos
     {
         public AnwserDto()
         {
-            this.Mistakes = new HashSet<MistakeDto>();
+            this.Mistakes = new HashSet<MistakeUpdateDto>();
         }
 
         public int ID { get; set; }
@@ -19,8 +19,9 @@ namespace WebApi.Dtos
         public string Note { get; set; }
         public int ExamAttemptID { get; set; }
         public int QuestionID { get; set; }
+        public Nullable<float> Adjustment { get; set; }
 
         public virtual QuestionDto Question { get; set; }
-        public virtual ICollection<MistakeDto> Mistakes { get; set; }
+        public virtual ICollection<MistakeUpdateDto> Mistakes { get; set; }
     }
 }

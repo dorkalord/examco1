@@ -37,10 +37,10 @@ namespace WebApi
             services.AddCors();
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<DataContext>(x => x.UseSqlServer(
-                @"Server=tcp:examcodb.database.windows.net,1433;Initial Catalog=ExamcoDB;Persist Security Info=False;
-                    User ID=examcoadmin;Password=goodWhal323;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+                /*@"Server=tcp:examcodb.database.windows.net,1433;Initial Catalog=ExamcoDB;Persist Security Info=False;
+                    User ID=examcoadmin;Password=goodWhal323;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"/**/
 
-                /*Data Source=DESKTOP-BP7LGIN;Initial Catalog=examco9;
+                @"Data Source=DESKTOP-BP7LGIN;Initial Catalog=examco9;
                 Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" /**/
 
                 ));
@@ -66,6 +66,9 @@ namespace WebApi
             services.AddScoped<ITagService, TagService>();
             services.AddScoped<ICensorService, CensorService>();
             services.AddScoped<IExamAttemptService, ExamAttemptService>();
+            services.AddScoped<IMistakeService, MistakeService>();
+            services.AddScoped<IAnwserService, AnwserService>();
+            services.AddScoped<IGeneralCritereaImpactService, GeneralCritereaImpactService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

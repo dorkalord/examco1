@@ -34,6 +34,28 @@ namespace WebApi.Dtos
         public virtual UserDto Setudent { get; set; }
     }
 
+     public class ExamAttemptUpdateDto
+    {
+        public ExamAttemptUpdateDto()
+        {
+            this.Anwsers = new HashSet<AnwserDto>();
+            this.GeneralCritereaImpacts = new HashSet<GeneralCritereaImpactDto>();
+            this.ExamAdvices = new HashSet<ExamAdviceDto>();
+        }
+
+        public int ID { get; set; }
+        public Nullable<float> Total { get; set; }
+        public Nullable<float> FinalTotal { get; set; }
+        public Nullable<int> GradeID { get; set; }
+        public int ExamID { get; set; }
+        public int CensorID { get; set; }
+        public int StudentID { get; set; }
+
+        public virtual ICollection<AnwserDto> Anwsers { get; set; }
+        public virtual ICollection<GeneralCritereaImpactDto> GeneralCritereaImpacts { get; set; }
+        public virtual ICollection<ExamAdviceDto> ExamAdvices { get; set; }
+    }
+
     public class ExamAttemptDto
     {
         public int ID { get; set; }

@@ -40,7 +40,7 @@ namespace WebApi.Dtos
 
     public class ArgumentFullDto
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Advice { get; set; }
         public string Text { get; set; }
         public bool Variable { get; set; }

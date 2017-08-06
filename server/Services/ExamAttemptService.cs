@@ -25,9 +25,24 @@ namespace WebApi.Services
 
         public ExamAttempt Create(ExamAttempt newObject)
         {
+            if (_context.Censors.Find(newObject.CensorID) == null)
+                throw new AppException("Censor not found");
+            if (_context.Users.Find(newObject.StudentID) == null)
+                throw new AppException("Student not found");
+            if (_context.Exams.Find(newObject.ExamID) == null)
+                throw new AppException("Exam not found");
+
             _context.ExamAttempts.Add(newObject);
             _context.SaveChanges();
 
+            newObject = _context.ExamAttempts.Last(x => x.CensorID == newObject.CensorID);
+            foreach (Question item in _context.Questions.Where(x => x.ExamID == newObject.ExamID))
+            {
+                newObject.Anwsers.Add(new Anwser() { Total = 0, QuestionID = item.ID });
+            }
+
+            _context.ExamAttempts.Update(newObject);
+            _context.SaveChanges();
             return _context.ExamAttempts.Last(x => x.CensorID == newObject.CensorID);
         }
 
@@ -53,7 +68,17 @@ namespace WebApi.Services
 
         public ExamAttempt GetById(int id)
         {
-            return _context.ExamAttempts.Find(id);
+            ExamAttempt ea = _context.ExamAttempts.Find(id);
+            if (ea != null)
+            {
+                ea.Anwsers = _context.Anwsers.Where(x => x.ExamAttemptID == ea.ID).ToArray();
+                for (int i = 0; i < ea.Anwsers.Count; i++)
+                {
+                    ea.Anwsers.ElementAt(i).Mistakes = _context.Mistakes.Where(x => x.AnwserID == ea.Anwsers.ElementAt(i).ID).ToArray();
+                }
+                ea.GeneralCritereaImpacts = _context.GeneralCritereaImpacts.Where(x => x.ExamAttemptID == ea.ID).ToArray();
+            }
+            return ea;
         }
 
         public ExamAttempt Update(ExamAttempt updatedObject)
@@ -64,12 +89,15 @@ namespace WebApi.Services
 
             /*copy properties here*/
             x.Total = updatedObject.Total;
-            x.CensorshipDate = updatedObject.CensorshipDate;
+            x.CensorshipDate = DateTime.Now;
             x.GradingDate = updatedObject.GradingDate;
             x.GradeID = updatedObject.GradeID;
 
+
             _context.ExamAttempts.Update(x);
             _context.SaveChanges();
+
+
 
             return x;
         }

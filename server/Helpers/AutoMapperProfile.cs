@@ -78,8 +78,8 @@ namespace WebApi.Helpers
             CreateMap<CensorFullDto, Censor>();
             CreateMap<Censor, CensorFullDto>();
 
-            CreateMap<State, AnwserDto>();
-            CreateMap<AnwserDto, State>();
+            CreateMap<Anwser, AnwserDto>();
+            CreateMap<AnwserDto, Anwser>();
 
             CreateMap<ExamAdvice, ExamAdviceDto>();
             CreateMap<ExamAdviceDto, ExamAdvice>();
@@ -88,14 +88,22 @@ namespace WebApi.Helpers
             CreateMap<ExamAttempt, ExamAttemptDto>();
             CreateMap<ExamAttemptFullDto, ExamAttempt>();
             CreateMap<ExamAttempt, ExamAttemptFullDto>();
+            CreateMap<ExamAttemptUpdateDto, ExamAttempt>();
+            CreateMap<ExamAttempt, ExamAttemptUpdateDto>();
             CreateMap<ExamAttemptCreateDto, ExamAttempt>();
             CreateMap<ExamAttempt, ExamAttemptCreateDto>();
 
             CreateMap<GeneralCritereaImpact, GeneralCritereaImpactDto>();
             CreateMap<GeneralCritereaImpactDto, GeneralCritereaImpact>();
+            CreateMap<GeneralCritereaImpact, GeneralCritereaImpactCreateDto>();
+            CreateMap<GeneralCritereaImpactCreateDto, GeneralCritereaImpact>();
 
             CreateMap<Mistake, MistakeDto>();
             CreateMap<MistakeDto, Mistake>();
+            CreateMap<Mistake, MistakeUpdateDto>();
+            CreateMap<MistakeUpdateDto, Mistake>();
+            CreateMap<Mistake, MistakeCreateDto>();
+            CreateMap<MistakeCreateDto, Mistake>();
         }
     }
 }

@@ -14,4 +14,13 @@ namespace WebApi.Dtos
         public int ExamCritereaID { get; set; }
         public float Weight { get; set; }
     }
+
+    public class GeneralCritereaImpactCreateDto
+    {
+        public int ExamAttemptID { get; set; }
+        public Nullable<int> AnwserID { get; set; }
+        public Nullable<int> MistakeID { get; set; }
+        public int ExamCritereaID { get; set; }
+        public float Weight { get; set; }
+    }
 }

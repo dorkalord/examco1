@@ -19,7 +19,8 @@ namespace WebApi.Entities
         public string Note { get; set; }
         public int ExamAttemptID { get; set; }
         public int QuestionID { get; set; }
-    
+        public Nullable<float> Adjustment { get; set; }
+
         public virtual ExamAttempt ExamAttempt { get; set; }
         public virtual Question Question { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -18,16 +18,16 @@ namespace WebApi.Controllers
     {
         private IExamAttemptService _examAttemptService;
         private IUserService _userService;
-        private ITopicService _topicService;
+        private IAnwserService _anwserService;
         private IMapper _mapper;
 
         public ExamAttemptController(
             IExamAttemptService examAttemptService,
             IUserService userService,
-            ITopicService topicService,
+            IAnwserService anwserService,
         IMapper mapper)
         {
-            _topicService = topicService;
+            _anwserService = anwserService;
             _userService = userService;
             _examAttemptService = examAttemptService;
             _mapper = mapper;
@@ -79,7 +79,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody]ExamAttemptDto examAttemptDto)
+        public IActionResult Update(int id, [FromBody]ExamAttemptFullDto examAttemptDto)
         {
             // map dto to entity and set id
             var c = _mapper.Map<ExamAttempt>(examAttemptDto);
@@ -89,7 +89,12 @@ namespace WebApi.Controllers
             {
                 // save 
                 c = _examAttemptService.Update(c);
-                return Ok(_mapper.Map<ExamAttemptDto>(c));
+                foreach (Anwser item in c.Anwsers)
+                {
+                    _anwserService.Update(item);
+                }
+
+                return Ok(_mapper.Map<ExamAttemptFullDto>(_examAttemptService.GetById(id)));
             }
             catch (AppException ex)
             {

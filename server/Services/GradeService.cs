@@ -65,6 +65,10 @@ namespace WebApi.Services
                 throw new AppException("Grade not found");
 
             /*copy properties here*/
+            x.Max = updatedObject.Max;
+            x.Min = updatedObject.Min;
+            x.Name = updatedObject.Name;
+            x.Top = updatedObject.Top;
 
             _context.Grades.Update(x);
             _context.SaveChanges();

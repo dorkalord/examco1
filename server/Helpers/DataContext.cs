@@ -16,10 +16,10 @@ namespace WebApi.Helpers
                 this.Roles.Add(new Role() { Name = "Censor", Permission = "" });
                 this.Roles.Add(new Role() { Name = "Student", Permission = "" });
                 
-                this.States.Add(new State() {Name = "Defining", Commads="['edit', 'exportExam']"});
-                this.States.Add(new State() {Name = "Peer censoring", Commads="['censor']"});
-                this.States.Add(new State() {Name = "Grading", Commads="['evaluate', 'exportExam', 'exportCensoring']"});
-                this.States.Add(new State() {Name = "Closed", Commads="['exportExam', 'exportCensoring', 'exportEvaluations', 'generateStudentReports' ]"});
+                this.States.Add(new State() {Name = "Defining", Commands="['edit', 'exportExam']"});
+                this.States.Add(new State() {Name = "Peer censoring", Commands="['censor']"});
+                this.States.Add(new State() {Name = "Grading", Commands="['evaluate', 'exportExam', 'exportCensoring']"});
+                this.States.Add(new State() {Name = "Closed", Commands="['exportExam', 'exportCensoring', 'exportEvaluations', 'generateStudentReports' ]"});
 
                 this.Grades.Add(new Grade() { Name = "A", Top = 10F });
                 this.Grades.Add(new Grade() { Name = "B", Top = 27.5F });

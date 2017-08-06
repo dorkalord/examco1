@@ -9,9 +9,7 @@ namespace WebApi.Dtos
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string Commads { get; set; }
+        public string Commands { get; set; }
 
-        public Nullable<int> PreviousID { get; set; }
-        public Nullable<int> NextID { get; set; }
     }
 }

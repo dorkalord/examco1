@@ -66,7 +66,8 @@ namespace WebApi.Services
             t.Total = updatedObject.Total;
             t.FinalTotal = updatedObject.FinalTotal;
             t.CensorshipDate = DateTime.Now;
-            t.Note = t.Note;
+            t.Note = updatedObject.Note;
+            t.Adjustment = updatedObject.Adjustment;
 
             _context.Anwsers.Update(t);
             _context.SaveChanges();

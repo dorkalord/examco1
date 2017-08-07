@@ -19,17 +19,20 @@ namespace WebApi.Controllers
         private IExamAttemptService _examAttemptService;
         private IUserService _userService;
         private IAnwserService _anwserService;
+        private IMistakeService _mistakeService;
         private IMapper _mapper;
 
         public ExamAttemptController(
             IExamAttemptService examAttemptService,
             IUserService userService,
             IAnwserService anwserService,
+            IMistakeService mistakeService,
         IMapper mapper)
         {
             _anwserService = anwserService;
             _userService = userService;
             _examAttemptService = examAttemptService;
+            _mistakeService = mistakeService;
             _mapper = mapper;
 
         }
@@ -89,9 +92,14 @@ namespace WebApi.Controllers
             {
                 // save 
                 c = _examAttemptService.Update(c);
+                c = _mapper.Map<ExamAttempt>(examAttemptDto);
                 foreach (Anwser item in c.Anwsers)
                 {
                     _anwserService.Update(item);
+                    foreach (Mistake m in item.Mistakes)
+                    {
+                        _mistakeService.Update(m);
+                    }
                 }
 
                 return Ok(_mapper.Map<ExamAttemptFullDto>(_examAttemptService.GetById(id)));

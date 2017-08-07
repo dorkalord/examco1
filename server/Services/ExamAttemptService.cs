@@ -38,11 +38,18 @@ namespace WebApi.Services
             newObject = _context.ExamAttempts.Last(x => x.CensorID == newObject.CensorID);
             foreach (Question item in _context.Questions.Where(x => x.ExamID == newObject.ExamID))
             {
-                newObject.Anwsers.Add(new Anwser() { Total = 0, QuestionID = item.ID });
+                newObject.Anwsers.Add(new Anwser() { Total = 0, QuestionID = item.ID, Adjustment = 0 });
             }
 
             _context.ExamAttempts.Update(newObject);
             _context.SaveChanges();
+
+            foreach (ExamCriterea item in _context.ExamCritereas.Where(x => x.ExamID == newObject.ExamID))
+            {
+                _context.GeneralCritereaImpacts.Add(new GeneralCritereaImpact() { Weight = 0, ExamAttemptID = newObject.ID, ExamCritereaID = item.ID });
+            }
+            _context.SaveChanges();
+
             return _context.ExamAttempts.Last(x => x.CensorID == newObject.CensorID);
         }
 
@@ -96,8 +103,6 @@ namespace WebApi.Services
 
             _context.ExamAttempts.Update(x);
             _context.SaveChanges();
-
-
 
             return x;
         }

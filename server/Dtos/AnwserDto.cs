@@ -20,6 +20,7 @@ namespace WebApi.Dtos
         public int ExamAttemptID { get; set; }
         public int QuestionID { get; set; }
         public Nullable<float> Adjustment { get; set; }
+        public string Completion { get; set; }
 
         public virtual QuestionDto Question { get; set; }
         public virtual ICollection<MistakeUpdateDto> Mistakes { get; set; }

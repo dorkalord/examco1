@@ -89,6 +89,25 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpPut("{id}/{completion}")]
+        public IActionResult UpdateCompletion(int id, string completion, [FromBody]AnwserDto anwserDto)
+        {
+            // map dto to entity and set id
+            var c = _mapper.Map<Anwser>(anwserDto);
+            c.ID = id;
+
+            try
+            {
+                c = _anwserService.UpdateCompletion(c, completion);
+                return Ok(_mapper.Map<AnwserDto>(c));
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

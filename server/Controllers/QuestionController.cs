@@ -92,15 +92,20 @@ namespace WebApi.Controllers
                         return BadRequest(ex.Message);
                     }
                 }
-                
 
-                //taking care for of the topics
+                List<Question> listing = new List<Question>();
+                //taking care for of the nested questions
                 for (int i = 0; i < questionDtoList.Count; i++)
                 {
+                    listing.Add(_mapper.Map<Question>(questionDtoList[i]));
+
+                    //taking care of parend id
                     if (questionDtoList[i].ParentQuestionID != null)
                     {
                         int parentIndex = questionDtoList.FindIndex(x => x.ID == questionDtoList[i].ParentQuestionID);
                         newlist[i].ParentQuestionID = newlist[parentIndex].ID;
+                        newlist[parentIndex].ChildQuestions.Add(newlist[i]);
+                        listing[parentIndex].ChildQuestions.Add(_mapper.Map<Question>(questionDtoList[i]));
                         _questionService.Update(_mapper.Map<Question>(newlist[i]));
                     }
 
@@ -113,6 +118,30 @@ namespace WebApi.Controllers
                             newlist[i].Arguments.ElementAt(j).ParentArgumentID = newlist[i].Arguments.ElementAt(parentIndex).ID;
                             _argumentService.Update(_mapper.Map<Argument>(newlist[i].Arguments.ElementAt(j)));
                         }
+                    }
+                }
+                //handeling the question weight distibution
+                int numberOfParentQuestions = 0;
+                foreach (Question item in listing)
+                {
+                    foreach (Question child in item.ChildQuestions)
+                    {
+                        child.Max = 100 / item.ChildQuestions.Count;
+                        child.ProposedWeight = 100 / item.ChildQuestions.Count;
+                        _questionService.Update(child);
+                    }
+                    if (item.ParentQuestionID == null)
+                    {
+                        numberOfParentQuestions++;
+                    }
+                }
+
+                foreach (Question item in listing)
+                {
+                    if (item.ParentQuestionID == null)
+                    {
+                        item.ProposedWeight = 100 / numberOfParentQuestions;
+                        _questionService.Update(item);
                     }
                 }
 

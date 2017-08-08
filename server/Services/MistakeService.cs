@@ -36,10 +36,7 @@ namespace WebApi.Services
             Mistake t = _context.Mistakes.Find(id);
             if (t != null)
             {
-                foreach (GeneralCritereaImpact item in _context.GeneralCritereaImpacts.Where(x => x.MistakeID == id))
-                {
-                    _context.GeneralCritereaImpacts.Remove(item);
-                } 
+                _context.GeneralCritereaImpacts.RemoveRange(_context.GeneralCritereaImpacts.Where(x => x.MistakeID == id));
                 _context.Mistakes.Remove(t);
                 _context.SaveChanges();
             }

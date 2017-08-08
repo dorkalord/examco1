@@ -20,6 +20,7 @@ namespace WebApi.Entities
         public int ExamAttemptID { get; set; }
         public int QuestionID { get; set; }
         public Nullable<float> Adjustment { get; set; }
+        public string Completion { get; set; }
 
         public virtual ExamAttempt ExamAttempt { get; set; }
         public virtual Question Question { get; set; }

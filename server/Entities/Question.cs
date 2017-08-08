@@ -19,6 +19,7 @@ namespace WebApi.Entities
         public string Text { get; set; }
         public Nullable<float> ProposedWeight { get; set; }
         public Nullable<float> FinalWeight { get; set; }
+        public Nullable<float> Max { get; set; }
         public int ExamID { get; set; }
         public Nullable<int> ParentQuestionID { get; set; }
     

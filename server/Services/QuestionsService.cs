@@ -79,6 +79,7 @@ namespace WebApi.Services
             x.ProposedWeight = updatedObject.ProposedWeight;
             x.FinalWeight = updatedObject.FinalWeight;
             x.ExamID = updatedObject.ExamID;
+            x.Max = updatedObject.Max;
             x.ParentQuestionID = updatedObject.ParentQuestionID;
 
             _context.Questions.Update(x);

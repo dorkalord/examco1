@@ -12,6 +12,8 @@ namespace WebApi.Services
     public interface IExamAttemptService : IService<ExamAttempt>
     {
         IEnumerable<ExamAttempt> getAllForCensorExam(int censorID, int examID);
+        ExamAttempt recalculate(ExamAttempt obj);
+        ExamAttempt recalculate(int id);
     }
 
     public class ExamAttemptService : IExamAttemptService
@@ -21,6 +23,34 @@ namespace WebApi.Services
         public ExamAttemptService(DataContext context)
         {
             _context = context;
+        }
+        public ExamAttempt recalculate(int id)
+        {
+            return this.recalculate(_context.ExamAttempts.Find(id));
+        }
+        public ExamAttempt recalculate(ExamAttempt obj)
+        {
+            //TODO
+            float sumAttempt = 0;
+            obj.Anwsers = _context.Anwsers.Where(x => x.ExamAttemptID == obj.ID).ToArray();
+            for (int i = 0; i < obj.Anwsers.Count; i++)
+            {
+                Anwser item = obj.Anwsers.ElementAt(i);
+                Question q = _context.Questions.Find(item.QuestionID);
+                float max = (float) q.Max;
+                List<Mistake> list = _context.Mistakes.Where(x => x.AnwserID == item.ID).ToList();
+                if (list.Count() != 0)
+                {
+                    item.Total = max - list.Sum(x => x.AdjustedWeight) + (float)item.Adjustment;
+                }                
+                sumAttempt += item.Total;
+                _context.Anwsers.Update(item);
+            }
+
+            obj.Total = sumAttempt;
+            _context.ExamAttempts.Update(obj);
+            _context.SaveChanges();
+            return obj;
         }
 
         public ExamAttempt Create(ExamAttempt newObject)
@@ -32,13 +62,14 @@ namespace WebApi.Services
             if (_context.Exams.Find(newObject.ExamID) == null)
                 throw new AppException("Exam not found");
 
+            newObject.Total = 0;
             _context.ExamAttempts.Add(newObject);
             _context.SaveChanges();
 
             newObject = _context.ExamAttempts.Last(x => x.CensorID == newObject.CensorID);
             foreach (Question item in _context.Questions.Where(x => x.ExamID == newObject.ExamID))
             {
-                newObject.Anwsers.Add(new Anwser() { Total = 0, QuestionID = item.ID, Adjustment = 0 });
+                newObject.Anwsers.Add(new Anwser() { Total = 0, QuestionID = item.ID, Adjustment = 0, Completion ="Blank" });
             }
 
             _context.ExamAttempts.Update(newObject);
@@ -95,7 +126,6 @@ namespace WebApi.Services
                 throw new AppException("ExamAttempt not found");
 
             /*copy properties here*/
-            x.Total = updatedObject.Total;
             x.CensorshipDate = DateTime.Now;
             x.GradingDate = updatedObject.GradingDate;
             x.GradeID = updatedObject.GradeID;
@@ -104,7 +134,9 @@ namespace WebApi.Services
             _context.ExamAttempts.Update(x);
             _context.SaveChanges();
 
+            x = this.recalculate(x);
             return x;
         }
+
     }
 }

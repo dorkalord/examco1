@@ -91,17 +91,9 @@ namespace WebApi.Controllers
             try
             {
                 // save 
+                
                 c = _examAttemptService.Update(c);
-                c = _mapper.Map<ExamAttempt>(examAttemptDto);
-                foreach (Anwser item in c.Anwsers)
-                {
-                    _anwserService.Update(item);
-                    foreach (Mistake m in item.Mistakes)
-                    {
-                        _mistakeService.Update(m);
-                    }
-                }
-
+                
                 return Ok(_mapper.Map<ExamAttemptFullDto>(_examAttemptService.GetById(id)));
             }
             catch (AppException ex)

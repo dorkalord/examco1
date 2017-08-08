@@ -98,7 +98,7 @@ namespace WebApi.Services
             {
                 if (_context.Mistakes.Where(x => x.AnwserID == obj.ID).Count() != 0)
                 {
-                    t.Total = max - _context.Mistakes.Where(x => x.AnwserID == obj.ID).Sum(x => x.AdjustedWeight);
+                    t.Total = (float) (max - (float) (_context.Mistakes.Where(x => x.AnwserID == obj.ID).Sum(x => x.AdjustedWeight)));
                 }
                 else
                 {

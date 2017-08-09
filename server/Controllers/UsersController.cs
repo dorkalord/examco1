@@ -87,6 +87,28 @@ namespace WebApi.Controllers
             }
         }
 
+        [HttpPost("many")]
+        public IActionResult RegisterMany([FromBody]List<UserDto> userDtos)
+        {
+            foreach (UserDto userDto in userDtos)
+            {
+                // map dto to entity
+                var user = _mapper.Map<User>(userDto);
+
+                try
+                {
+                    // save 
+                    _userService.Create(user, userDto.Password);
+                }
+                catch (AppException ex)
+                {
+                    // return error message if there was an exception
+                    return BadRequest(ex.Message + " at user " + userDto.Username);
+                }
+            }
+            return Ok();
+        }   
+
         [HttpGet]
         public IActionResult GetAll()
         {

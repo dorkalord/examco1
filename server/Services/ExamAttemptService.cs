@@ -14,6 +14,8 @@ namespace WebApi.Services
         IEnumerable<ExamAttempt> getAllForCensorExam(int censorID, int examID);
         ExamAttempt recalculate(ExamAttempt obj);
         ExamAttempt recalculate(int id);
+
+        IEnumerable<ExamAttempt> getAllForExport(int examID);
     }
 
     public class ExamAttemptService : IExamAttemptService
@@ -138,5 +140,22 @@ namespace WebApi.Services
             return x;
         }
 
+        public IEnumerable<ExamAttempt> getAllForExport(int examID)
+        {
+            List<ExamAttempt> list = _context.ExamAttempts.Where(x=> x.ExamID == examID).ToList();
+
+            for (int i = 0; i < list.Count; i++)
+            { 
+                list[i].Anwsers = _context.Anwsers.Where(x => x.ExamAttemptID == list[i].ID).ToArray();
+                for (int n = 0; n < list[i].Anwsers.Count; n++)
+                {
+                    list[i].Anwsers.ElementAt(n).Mistakes = _context.Mistakes.
+                        Where(x => x.AnwserID == list[i].Anwsers.ElementAt(n).ID).ToArray();
+                }
+                list[i].GeneralCritereaImpacts = _context.GeneralCritereaImpacts.
+                    Where(x => x.ExamAttemptID == list[i].ID).ToArray();
+            }
+            return list;
+        }
     }
 }

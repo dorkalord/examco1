@@ -33,5 +33,21 @@ namespace WebApi.Entities
         public virtual Question ParentQuestion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tag> Tags { get; set; }
+
+        public String toCSV()
+        {
+            //QuestionID; Question txt; ProposedWeight; FinalWeight; MaxPoints;
+            return ID + ';' + Text + ';' + ProposedWeight + ';' + FinalWeight + ';' + Max + ';' + ParentQuestionID;
+        }
+
+        public string toFullCSV(string examInfo)
+        {
+
+            /*foreach (Question item in Questions)
+            {
+                data += item.toFullCSV(info);
+            }*/
+            return "";
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace WebApi.Services
         IEnumerable<Exam> GetByStudent(int userID);
 
         Exam GetByIdForCensoring(int id);
+        Exam GetByIdForExport(int id);
         Exam updateStatus(int examID, int stautsID);
     }
     public class ExamService: IExamService
@@ -164,6 +165,39 @@ namespace WebApi.Services
             _context.SaveChanges();
 
             return x;
+        }
+
+        public Exam GetByIdForExport(int id)
+        {
+            Exam rez = _context.Exams.Find(id);
+
+            if (rez == null)
+                throw new AppException("Exam not found");
+
+            rez.Author = _context.Users.Find(rez.AuthorID);
+            rez.Course = _context.Courses.Find(rez.CourseID);
+            rez.ExamCriterea = _context.ExamCritereas.Where(x => x.ExamID == id).ToArray();
+            rez.Questions = _context.Questions.Where(x => x.ExamID == id).ToArray();
+
+            for (int i = 0; i < rez.Questions.Count; i++)
+            {
+                int temp = rez.Questions.ElementAt(i).ID;
+                rez.Questions.ElementAt(i).Arguments = _context.Arguments.Where(x => x.QuestionID == temp).ToArray();
+
+                for (int n = 0; n < rez.Questions.ElementAt(i).Arguments.Count; n++)
+                {
+                    int tempid = rez.Questions.ElementAt(i).Arguments.ElementAt(n).ID;
+                    rez.Questions.ElementAt(i).Arguments.ElementAt(n).ArgumentCritereas = _context.ArgumentCritereas.Where(z => z.ArgumentID == tempid).ToArray();
+                }
+
+            }
+
+            for (int n = 0; n < rez.ExamCriterea.Count; n++)
+            {
+                int tempid = rez.ExamCriterea.ElementAt(n).ID;
+                rez.ExamCriterea.ElementAt(n).Advices = _context.Advices.Where(z => z.ExamCritereaID == tempid).ToArray();
+            }
+            return rez;
         }
     }
 }

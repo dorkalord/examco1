@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using WebApi.Dtos;
 
 namespace WebApi.Entities
 {
@@ -42,5 +44,43 @@ namespace WebApi.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Grade> Grades { get; set; }
+
+        public String toCSV()
+        {
+            string info = ID + ';' + this.Date.ToString("dd.MM.yyyy hh:mm") + ';' + Language + ';' + CourseID + ';' + Course.Name + ';' + Course.Code;
+            return info;
+        }
+
+        public ExamExport export()
+        {
+            ExamExport data = new ExamExport();
+            
+            foreach (Question q in Questions)
+            {
+                foreach (Argument a in q.Arguments)
+                {
+                    data.QuestionArguments.Add(new QuestionArgumentExport(ID, this.Date.ToString("dd.MM.yyyy hh:mm"), Language, CourseID, Course.Name, Course.Code,
+                                                q.ID, q.Text, (float)q.ProposedWeight, q.FinalWeight, (float)q.Max,
+                                                    a.ID, a.Text, (float)a.DefaultWeight, a.Variable, a.MinMistakeText, a.MinMistakeWeight, a.MaxMistakeText, a.MaxMistakeWeight));
+                    foreach (ArgumentCriterea ac in a.ArgumentCritereas)
+                    {
+                        data.ArgumentCritereas.Add(new ArgumentCritereaExport(q.ID, a.ID, ac.ExamCritereaID,
+                            this.ExamCriterea.ToList().Find(x => x.ID == ac.ExamCritereaID).GeneralCritereaID, ac.Severity));
+                    }
+                }
+            }
+
+            foreach (ExamCriterea ec in ExamCriterea)
+            {
+                foreach (Advice a in ec.Advices)
+                {
+                    data.ExamCritereas.Add(new ExamCritereaExport(ec.ID, ec.GeneralCritereaID, ec.Name,
+                        a.Grade, a.Text, a.Min, a.Max, a.Top));
+                }
+            }
+
+            return data;
+        }
+
     }
 }

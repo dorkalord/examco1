@@ -185,39 +185,6 @@ namespace WebApi.Controllers
             _examService.Delete(id);
             return Ok();
         }
-
-
-        [HttpGet("download/{id}")]
-        public FileStreamResult GetExam(int id)
-        {
-            /*Exam exam = new Exam() ;
-            try
-            {
-                 exam = _examService.GetByIdForCensoring(id);
-            }
-            catch (AppException ex)
-            {
-                // return error message if there was an exception
-            }*/
-
-
-            MemoryStream stream = new MemoryStream();
-            
-            using (var package = new OfficeOpenXml.ExcelPackage())
-            {
-                // add a new worksheet to the empty workbook
-                OfficeOpenXml.ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("Employee");
-                //First add the headers
-                worksheet.Cells[1, 1].Value = "ID";
-
-                //package.Save(); //Save the workbook.
-                stream = new MemoryStream(package.GetAsByteArray());
-            }
-
-            return new FileStreamResult(stream, new MediaTypeHeaderValue("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
-            {
-                FileDownloadName = "test.xlsx"
-            };
-        }
+        
     }
 }

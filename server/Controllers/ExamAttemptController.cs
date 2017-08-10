@@ -56,7 +56,7 @@ namespace WebApi.Controllers
         [HttpGet("censor/{censorID}/exam/{examID}")]
         public IActionResult GetByCensorExam(int censorID, int examID)
         {
-            var examAttempt = _examAttemptService.getAllForCensorExam(examID, censorID);
+            var examAttempt = _examAttemptService.getAllForCensorExam(censorID, examID);
             var examAttemptDto = _mapper.Map<List<ExamAttemptFullDto>>(examAttempt.ToList());
             return Ok(examAttemptDto);
         }

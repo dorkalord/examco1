@@ -117,6 +117,14 @@ namespace WebApi.Controllers
             return Ok(userDtos);
         }
 
+        [HttpGet("students/{examID}" )]
+        public IActionResult GetStudentsExam(int examID)
+        {
+            var users = _userService.GetStudents(examID);
+            var userDtos = _mapper.Map<IList<UserDto>>(users);
+            return Ok(userDtos);
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {

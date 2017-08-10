@@ -132,7 +132,6 @@ namespace WebApi.Services
             x.GradingDate = updatedObject.GradingDate;
             x.GradeID = updatedObject.GradeID;
 
-
             _context.ExamAttempts.Update(x);
             _context.SaveChanges();
 

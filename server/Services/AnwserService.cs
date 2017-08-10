@@ -68,15 +68,29 @@ namespace WebApi.Services
             Question q = _context.Questions.Find(t.QuestionID);
             float max = (float)q.Max;
             List<Mistake> list = _context.Mistakes.Where(x => x.AnwserID == t.ID).ToList();
-            t.Total = max + (float)t.Adjustment;
+            t.Adjustment = updatedObject.Adjustment;
+
+           
+
             if (list.Count() != 0)
             {
-                t.Total = max + (float)t.Adjustment - list.Sum(x => x.AdjustedWeight);
+                t.Total = max + list.Sum(x => x.AdjustedWeight);
             }
+
+            if (t.Total + t.Adjustment > max)
+            {
+                t.Adjustment = max - t.Total;
+                t.Total = max;
+            }
+            else
+            {
+                t.Total += (float)t.Adjustment;
+            }
+
             t.FinalTotal = updatedObject.FinalTotal;
             t.CensorshipDate = DateTime.Now;
             t.Note = updatedObject.Note;
-            t.Adjustment = updatedObject.Adjustment;
+            
             t.Completion = updatedObject.Completion;
             
             _context.Anwsers.Update(t);
@@ -98,7 +112,7 @@ namespace WebApi.Services
             {
                 if (_context.Mistakes.Where(x => x.AnwserID == obj.ID).Count() != 0)
                 {
-                    t.Total = (float) (max - (float) (_context.Mistakes.Where(x => x.AnwserID == obj.ID).Sum(x => x.AdjustedWeight)));
+                    t.Total = (float) (max - (float) (_context.Mistakes.Where(x => x.AnwserID == obj.ID).Sum(x => x.AdjustedWeight))) + (float)t.Adjustment;
                 }
                 else
                 {
@@ -119,6 +133,7 @@ namespace WebApi.Services
                 {
                     t.Total = max;
                 }
+                t.Adjustment = 0;
             }
             t.CensorshipDate = DateTime.Now;
             _context.Anwsers.Update(t);

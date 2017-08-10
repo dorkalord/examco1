@@ -10,6 +10,7 @@ namespace WebApi.Services
     {
         User Authenticate(string username, string password);
         IEnumerable<User> GetAll();
+        IEnumerable<User> GetStudents(int examID);
         User GetById(int id);
         User Create(User user, string password);
         void Update(User user, string password = null);
@@ -151,6 +152,20 @@ namespace WebApi.Services
             }
 
             return true;
+        }
+
+        public IEnumerable<User> GetStudents(int examID)
+        {
+            List<User> list = _context.Users.Where(x=> x.RoleID == 4).ToList();
+            List<ExamAttempt> listattempt = _context.ExamAttempts.Where(x => x.ExamID == examID).ToList();
+
+            foreach (ExamAttempt item in listattempt)
+            {
+                list.RemoveAt(list.FindIndex(x => x.ID == item.StudentID));
+            }
+
+
+            return list;
         }
     }
 }

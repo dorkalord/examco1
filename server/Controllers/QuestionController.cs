@@ -83,6 +83,7 @@ namespace WebApi.Controllers
                     Question c = _mapper.Map<Question>(_mapper.Map<QuestionCreateDto>(questionDto));
                     try
                     {
+                        c.Max = 100;
                         c.ProposedWeight = proposedWeight;
                         c = _questionService.Create(c);
                         newlist.Add(c);
@@ -93,7 +94,7 @@ namespace WebApi.Controllers
                     }
                 }
 
-                List<Question> listing = new List<Question>();
+                /*List<Question> listing = new List<Question>();
                 //taking care for of the nested questions
                 for (int i = 0; i < questionDtoList.Count; i++)
                 {
@@ -141,9 +142,10 @@ namespace WebApi.Controllers
                     if (item.ParentQuestionID == null)
                     {
                         item.ProposedWeight = 100 / numberOfParentQuestions;
+                        item.Max = 100;
                         _questionService.Update(item);
                     }
-                }
+                }/**/
 
                 return Ok(_mapper.Map<List<QuestionFullDto>>(newlist));
             }

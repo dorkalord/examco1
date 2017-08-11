@@ -83,7 +83,6 @@ namespace WebApi.Controllers
                     Question c = _mapper.Map<Question>(_mapper.Map<QuestionCreateDto>(questionDto));
                     try
                     {
-                        c.Max = 100;
                         c.ProposedWeight = proposedWeight;
                         c = _questionService.Create(c);
                         newlist.Add(c);

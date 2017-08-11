@@ -43,7 +43,7 @@ namespace WebApi.Services
                 List<Mistake> list = _context.Mistakes.Where(x => x.AnwserID == item.ID).ToList();
                 if (list.Count() != 0)
                 {
-                    item.Total = max - list.Sum(x => x.AdjustedWeight) + (float)item.Adjustment;
+                    item.Total = max + list.Sum(x => x.AdjustedWeight) + (float)item.Adjustment;
                 }                
                 sumAttempt += item.Total;
                 _context.Anwsers.Update(item);

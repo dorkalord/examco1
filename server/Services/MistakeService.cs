@@ -28,7 +28,7 @@ namespace WebApi.Services
             _context.Mistakes.Add(newObject);
             _context.SaveChanges();
 
-            return _context.Mistakes.Last(x => x.AnwserID == x.AnwserID);
+            return _context.Mistakes.Last(x => x.AnwserID == newObject.AnwserID);
         }
 
         public void Delete(int id)

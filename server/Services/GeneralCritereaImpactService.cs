@@ -26,6 +26,17 @@ namespace WebApi.Services
 
         public GeneralCritereaImpact Create(GeneralCritereaImpact newObject)
         {
+            if (newObject.MistakeID < 0)
+            {
+                Mistake m = _context.Mistakes.First(x => x.AnwserID == newObject.AnwserID && x.ArgumentID == (newObject.MistakeID * -1));
+                if (m == null)
+                {
+                    throw new AppException("When inserting general criteria the realted mistake was not found");
+                }
+                newObject.MistakeID = m.ID;
+            }
+
+
             _context.GeneralCritereaImpacts.Add(newObject);
             _context.SaveChanges();
 

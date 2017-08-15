@@ -19,19 +19,21 @@ namespace WebApi.Controllers
         private IAnwserService _anwserService;
         private IUserService _userService;
         private ITopicService _topicService;
+        private IExamAttemptService _examAttemptService;
         private IMapper _mapper;
 
         public AnwserController(
             IAnwserService anwserService,
             IUserService userService,
             ITopicService topicService,
+            IExamAttemptService examAttemptService,
         IMapper mapper)
         {
             _topicService = topicService;
             _userService = userService;
             _anwserService = anwserService;
             _mapper = mapper;
-
+            _examAttemptService = examAttemptService;
         }
 
         [HttpGet]
@@ -80,6 +82,7 @@ namespace WebApi.Controllers
             {
                 // save 
                 c = _anwserService.Update(c);
+                _examAttemptService.recalculateSimple(c.ExamAttemptID);
                 return Ok(_mapper.Map<AnwserDto>(c));
             }
             catch (AppException ex)

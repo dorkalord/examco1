@@ -90,6 +90,7 @@ namespace WebApi.Controllers
                     {
                         // save 
                         c = _mistakeService.Update(c);
+                        
 
                         updatedlist.Add(_mapper.Map<MistakeDto>(c));
                     }

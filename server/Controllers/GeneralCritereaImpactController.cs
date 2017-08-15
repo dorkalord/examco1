@@ -99,6 +99,34 @@ namespace WebApi.Controllers
 
         }
 
+        [HttpPut("many")]
+        public IActionResult UpdateMany([FromBody]List<GeneralCritereaImpactDto> generalCritereaImpactDtoList)
+        {
+            try
+            {
+                List<GeneralCritereaImpact> newlist = new List<GeneralCritereaImpact>();
+                foreach (GeneralCritereaImpactDto generalCritereaImpactDto in generalCritereaImpactDtoList)
+                {
+                    GeneralCritereaImpact c = _mapper.Map<GeneralCritereaImpact>(generalCritereaImpactDto);
+                    try
+                    {
+                        c = _generalCritereaImpactService.Update(c);
+                        newlist.Add(c);
+                    }
+                    catch (AppException ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
+                }
+                return Ok(_mapper.Map<List<GeneralCritereaImpactDto>>(newlist));
+            }
+            catch (AppException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]GeneralCritereaImpactDto generalCritereaImpactDto)
         {

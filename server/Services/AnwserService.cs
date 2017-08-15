@@ -1,7 +1,9 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApi.Dtos;
 using WebApi.Entities;
 using WebApi.Helpers;
 
@@ -64,17 +66,33 @@ namespace WebApi.Services
             if (t == null)
                 throw new AppException("Anwser " + updatedObject.ID + " not found");
 
+            _context.Mistakes.RemoveRange(_context.Mistakes.Where(x => x.AnwserID == updatedObject.ID));
+            _context.GeneralCritereaImpacts.RemoveRange(_context.GeneralCritereaImpacts.Where(x => x.AnwserID == updatedObject.ID && x.MistakeID != null));
+            _context.SaveChanges();
+
             /*copy properties here*/
             Question q = _context.Questions.Find(t.QuestionID);
             float max = (float)q.Max;
-            List<Mistake> list = _context.Mistakes.Where(x => x.AnwserID == t.ID).ToList();
+            //List<Mistake> list = _context.Mistakes.Where(x => x.AnwserID == t.ID).ToList();
             t.Adjustment = updatedObject.Adjustment;
+            t.Total = max;
+            
 
-           
-
-            if (list.Count() != 0)
+            foreach (Mistake item in updatedObject.Mistakes)
             {
-                t.Total = max + list.Sum(x => x.AdjustedWeight);
+                Mistake temp = new Mistake() { AnwserID = t.ID, ArgumentID = item.ArgumentID, AdjustedWeight = item.AdjustedWeight };
+                _context.Mistakes.Add(temp);
+                _context.SaveChanges();
+                temp = _context.Mistakes.Last(x => x.AnwserID == t.ID);
+
+                foreach (ArgumentCriterea ac in _context.ArgumentCritereas.Where(x=> x.ArgumentID == item.ArgumentID))
+                {
+                    GeneralCritereaImpact tempgc = new GeneralCritereaImpact() { ExamAttemptID = t.ExamAttemptID, AnwserID = t.ID, MistakeID = temp.ID, ExamCritereaID = ac.ExamCritereaID, Weight = ac.Severity };
+                    _context.GeneralCritereaImpacts.Add(tempgc);
+                }
+
+                t.Total += item.AdjustedWeight;
+                _context.SaveChanges();
             }
 
             if (t.Total + t.Adjustment > max)

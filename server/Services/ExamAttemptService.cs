@@ -14,6 +14,7 @@ namespace WebApi.Services
         IEnumerable<ExamAttempt> getAllForCensorExam(int censorID, int examID);
         ExamAttempt recalculate(ExamAttempt obj);
         ExamAttempt recalculate(int id);
+        ExamAttempt recalculateSimple(int id);
 
         IEnumerable<ExamAttempt> getAllForExport(int examID);
     }
@@ -29,6 +30,25 @@ namespace WebApi.Services
         public ExamAttempt recalculate(int id)
         {
             return this.recalculate(_context.ExamAttempts.Find(id));
+        }
+        public ExamAttempt recalculateSimple(int id)
+        {
+            ExamAttempt obj = _context.ExamAttempts.Find(id);
+            if (obj == null)
+                throw new AppException("ExamAttempt not found");
+
+            float sumAttempt = 0, partial = 0;
+            obj.Anwsers = _context.Anwsers.Where(x => x.ExamAttemptID == obj.ID).ToArray();
+            for (int i = 0; i < obj.Anwsers.Count; i++)
+            {
+                Anwser item = obj.Anwsers.ElementAt(i);
+                sumAttempt += item.Total;
+            }
+
+            obj.Total = sumAttempt;
+            _context.ExamAttempts.Update(obj);
+            _context.SaveChanges();
+            return obj;
         }
         public ExamAttempt recalculate(ExamAttempt obj)
         {
@@ -77,10 +97,15 @@ namespace WebApi.Services
             _context.ExamAttempts.Update(newObject);
             _context.SaveChanges();
 
-            foreach (ExamCriterea item in _context.ExamCritereas.Where(x => x.ExamID == newObject.ExamID))
+            //general impacts of anwsers
+            foreach (Anwser a in newObject.Anwsers)
             {
-                _context.GeneralCritereaImpacts.Add(new GeneralCritereaImpact() { Weight = 0, ExamAttemptID = newObject.ID, ExamCritereaID = item.ID });
+                foreach (ExamCriterea item in _context.ExamCritereas.Where(x => x.ExamID == newObject.ExamID))
+                {
+                    _context.GeneralCritereaImpacts.Add(new GeneralCritereaImpact() { Weight = 0, ExamAttemptID = newObject.ID, ExamCritereaID = item.ID, AnwserID = a.ID });
+                }
             }
+
             _context.SaveChanges();
 
             return _context.ExamAttempts.Last(x => x.CensorID == newObject.CensorID);
